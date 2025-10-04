@@ -1,17 +1,17 @@
 version: '3.8'
 
-# for use values of .env file
-env_file:
-  - .env
-
 services:
   back-end:
+    env_file:
+      - Back-End/.env
     build:
       context: ./Back-End
       dockerfile: Dockerfile
     depends_on:
       - db
   front-end:
+    env_file:
+      - front-end/.env
     build:
       context: ./front-end
       dockerfile: Dockerfile
@@ -19,6 +19,8 @@ services:
       - back-end
   db:
     image: mysql:5.7
+    env_file:
+      - Back-End/.env
     volumes:
        - austitic_eye_mysql_data:/var/lib/mysql
     # configures environment variables to initialize the database
