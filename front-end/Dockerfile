@@ -5,7 +5,7 @@ COPY package*.json ./
 RUN npm install 
 # Copy the contents of the front-end folder located at the root of the project into the docker folder
 COPY . . 
-# Makes the server accessible from outside the container on port 3000
-EXPOSE 3000 
+# Makes the server accessible from outside the container on port 5173
+EXPOSE 5173
 # allows you to run the npm start command automatically
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
