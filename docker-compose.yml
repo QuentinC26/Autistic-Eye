@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   back-end:
     env_file:
@@ -22,14 +20,9 @@ services:
     env_file:
       - Back-End/.env
     volumes:
-       - austitic_eye_mysql_data:/var/lib/mysql
+       - autistic_eye_mysql_data:/var/lib/mysql
     # configures environment variables to initialize the database
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
 # Stores MySQL database files
 volumes:
-  austitic_eye_mysql_data:
+  autistic_eye_mysql_data:
