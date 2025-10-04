@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
+    # Allows you to run a command to allow MySql to wait.
+    command: ["./wait-for-db.sh", "db", "3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
   front-end:
     env_file:
       - front-end/.env
@@ -15,13 +17,17 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - back-end
+    # The container's port 5173 is linked to your machine's port 5173, allowing you to access the application from your browser.
+    ports: 
+      - "5173:5173"
+    # Force Vite respond on all network interfaces
+    command: ["npm", "run", "dev", "--", "--host"]
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     env_file:
       - Back-End/.env
     volumes:
        - autistic_eye_mysql_data:/var/lib/mysql
-    # configures environment variables to initialize the database
 
 # Stores MySQL database files
 volumes:
