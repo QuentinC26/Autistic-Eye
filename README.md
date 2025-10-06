@@ -34,9 +34,9 @@ Autistic Eye is a community-based social network dedicated to autistic individua
 
 ## Table of Contents
 
-- [Installation.](#installation.)
+- [Installation](#installation-1)
 
-## Installation.
+## Installation
 
 To install Autistic Eye on your computer, you first need to clone the current repository. To do this, click the green Code button and copy the HTTPS or SSH link by clicking on the clipboard icon. Once done, run the following command in your terminal:
 
