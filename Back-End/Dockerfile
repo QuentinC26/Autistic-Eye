@@ -1,6 +1,6 @@
 FROM python:3.10
 WORKDIR /app
-COPY wait-for-db.sh wait-for-db.sh
+COPY wait-for-db.sh .
 COPY requirements.txt .
 # nc is used in wait-for-db.sh to wait until the database is ready
 RUN apt-get update && apt-get install -y netcat-openbsd
