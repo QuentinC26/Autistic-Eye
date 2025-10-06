@@ -34,7 +34,7 @@ Autistic Eye is a community-based social network dedicated to autistic individua
 
 ## Table of Contents
 
-- [Installation](#installation.)
+- [Installation.](#installation.)
 
 ## Installation.
 
