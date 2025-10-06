@@ -7,9 +7,6 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
-    # The container's port 8000 is linked to your machine's port 8000, allowing you to access the application from your browser.
-    ports:
-      - "8000:8000"
     # Allows you to run a command to allow MySql to wait.
     command: ["./wait-for-db.sh", "db", "3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
   front-end:
