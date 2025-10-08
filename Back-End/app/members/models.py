@@ -1,17 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractUser
 
 
-class User(AbstractBaseUser):
-# class to manage application registrations
+class User(AbstractUser):
+# If variables are not in the User class, those from the AbstractUser class are taken
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     age = models.IntegerField(default=0)
     location = models.CharField(max_length=50)
     email = models.EmailField(max_length=60, unique=True)
-    # password is already included in AbstractBaseUser
-
-# Convert the password to an encrypted version before saving it to the database.
-User.password = make_password()
-User.save()
+    # for connect in the application, you can write the email
+    USERNAME_FIELD = 'email'
+    # Information requested when creating a superuser
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+    # Displays the user's email in the admin, console or logs
+    def __str__(self):
+      return self.email
