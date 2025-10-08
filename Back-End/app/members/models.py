@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.hashers import make_password
 
 
-class Register(models.Model, AbstractBaseUser):
+class Register(AbstractBaseUser):
 # class to manage application registrations
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
