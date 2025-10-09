@@ -9,10 +9,10 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     # for modify the user information by an admin
     fieldsets = (
-        (_('Basics Informations'), {'fields': ('first_name', 'last_name', 'age', 'location')}),
-        (_('Connexion'), {'fields': ('email', 'password')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (('Basics Informations'), {'fields': ('first_name', 'last_name', 'age', 'location')}),
+        (('Connexion'), {'fields': ('email', 'password')}),
+        (('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        (('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     # Defines the columns that appear in the user list in the admin interface
     list_display = ['first_name', 'last_name', 'age', 'location', 'email', 'is_staff']
