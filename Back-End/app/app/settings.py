@@ -46,8 +46,13 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration', 
     'allauth', 
     'allauth.account',
+    'allauth.socialaccount',    
     "members"
 ]
+
+# django-allauth is a Django library for handling user authentication and registration in a comprehensive and simple way.
+# Obligation linked to allauth, it is used to say that I use site n°1 which will be the only site
+SITE_ID = 1
 
 AUTH_USER_MODEL = 'members.User'
 REST_FRAMEWORK = {
@@ -55,7 +60,7 @@ REST_FRAMEWORK = {
       'rest_framework.permissions.IsAuthenticated',
   ),
   'DEFAULT_AUTHENTICATION_CLASSES': (
-      'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+      'rest_framework_simplejwt.authentication.JWTAuthentication',
       'rest_framework.authentication.SessionAuthentication',
       'rest_framework.authentication.BasicAuthentication',
   ),
@@ -68,6 +73,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
