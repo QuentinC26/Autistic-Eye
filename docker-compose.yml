@@ -7,8 +7,10 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
+    ports:
+      - "8000:8000"
     # Allows you to run a command to allow MySql to wait.
-    command: ["./wait-for-db.sh", "db", "3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["./wait-for-db.sh", "db", "3306", "python", "manage.py", "runserver", "0.0.0.0:8000"]
   front-end:
     env_file:
       - front-end/.env
