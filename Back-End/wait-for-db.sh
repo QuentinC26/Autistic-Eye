@@ -4,8 +4,8 @@
 host="$1"
 port="$2"
 
-# remove the first 3 arguments
-shift 3
+# remove the first 2 arguments
+shift 2
 
 # Step 2: As long as the database is not accessible, we wait
 until nc -z "$host" "$port"; do
