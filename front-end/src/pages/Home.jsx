@@ -1,4 +1,3 @@
-import Autistic_Eye from '../assets/Autistic_Eye.png'
 import './Home.css'
 
 function Home() {
