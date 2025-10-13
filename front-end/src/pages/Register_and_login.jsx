@@ -12,7 +12,7 @@ function Register_and_login() {
       </div>
         <p>
         <a href="index.html" target="_blank">
-          <h3>Inscription/Connexion</h3>
+          A VENIR
         </a>
         </p>
     </>
