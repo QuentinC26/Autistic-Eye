@@ -34,7 +34,8 @@ function Home() {
   </nav>
       <div>
         <a href="index.html" target="_blank">
-          <img src={Autistic_Eye} className="logo Autistic Eye" alt="Autistic Eye logo" />
+          {/* rel = nooperner noneferrer is a security for external links */}
+          <img src={Autistic_Eye} className="logo Autistic Eye" alt="Autistic Eye logo" rel="noopener noreferrer" />
         </a>
       </div>
         <p>
