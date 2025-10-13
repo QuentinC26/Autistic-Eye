@@ -1,19 +1,10 @@
-import AutisticEye from '../assets/Autistic_Eye.png'
 import './Home.css'
 
 function Register_and_login() {
   return (
     <>
-      <div>
-        <h1>Autistic Eye</h1>
-        <a href="index.html" target="_blank">
-          <img src={AutisticEye} className="logo Autistic Eye" alt="Autistic Eye logo" />
-        </a>
-      </div>
         <p>
-        <a href="index.html" target="_blank">
-          A VENIR
-        </a>
+        REGISTER AND LOGIN
         </p>
     </>
   )
