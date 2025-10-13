@@ -24,6 +24,12 @@ services:
       - "5173:5173"
     # Force Vite respond on all network interfaces
     command: ["npm", "run", "dev", "--", "--host"]
+    # Allows you to share your code between the computer and the container, this allows you to automatically update files in the container when they are modified.
+    volumes:
+      - ./front-end:/app
+    # This allows Vite to properly detect file changes, even when you're using Docker
+    environment:
+      - CHOKIDAR_USEPOLLING=true
   db:
     image: mysql:8.0
     env_file:
