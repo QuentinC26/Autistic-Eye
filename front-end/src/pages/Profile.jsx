@@ -1,4 +1,4 @@
-import './Home.css'
+import './App.css'
 
 function Profile() {
   return (
