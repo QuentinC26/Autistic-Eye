@@ -58,6 +58,11 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 AUTH_USER_MODEL = 'members.User'
+
+DJANGO_REST_AUTH = {
+    'REGISTER_SERIALIZER': 'members.serializers.CompleteUserSerializer',  # Chemin vers ton sérialiseur
+}
+
 REST_FRAMEWORK = {
   'DEFAULT_PERMISSION_CLASSES': (
       'rest_framework.permissions.AllowAny',
@@ -70,6 +75,8 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    # Placed first to avoid cors errors
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -77,7 +84,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "app.urls"
@@ -120,9 +126,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
-REST_AUTH_REGISTER_SERIALIZERS = {
-    'register': 'members.serializers.CompleteUserSerializer',
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -150,9 +153,17 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-# Authorize your front-end
+# Lists the origins that are allowed to make requests to the backend API
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://127.0.0.1:5173",
+]
+
+# Specify which HTTP headers are allowed to be sent in a CORS request
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+    'x-requested-with',
 ]
 
 # Internationalization
