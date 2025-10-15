@@ -35,24 +35,13 @@ class CompleteUserSerializer(RegisterSerializer):
     age = serializers.IntegerField(required=False)
     location = serializers.CharField(required=False)
 
-    # Method that transforms raw form/API data into reliable, save-ready data
-    def get_cleaned_data(self):
-        # The super() retrieves the default fields
-        data = super().get_cleaned_data()
-        data['first_name'] = self.validated_data.get('first_name', '')
-        data['last_name'] = self.validated_data.get('last_name', '')
-        data['age'] = self.validated_data.get('age', None)
-        data['location'] = self.validated_data.get('location', '')
-        return data
-    
     # Save the user with the new fields
     def save(self, request):
       # create User with email and password
       user = super().save(request)
-      data = self.get_cleaned_data()
-      user.first_name = data.get('first_name', '')
-      user.last_name = data.get('last_name', '')
-      user.age = data.get('age', None)
-      user.location = data.get('location', '')
+      user.first_name = self.validated_data.get('first_name', '')
+      user.last_name = self.validated_data.get('last_name', '')
+      user.age = self.validated_data.get('age', None)
+      user.location = self.validated_data.get('location', '')
       user.save()
       return user
