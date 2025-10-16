@@ -8,6 +8,8 @@ function Home() {
   const { user } = useContext(AuthContext);
   return (
     <>
+    {/* ? = the condition is True */}
+    {/* : = the condition is False */}
      {user ? (
         <div>
         <h3>Bienvenue sur Autistic Eye</h3>
