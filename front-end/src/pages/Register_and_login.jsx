@@ -1,7 +1,7 @@
 import './App.css'
 import React, { useState } from 'react';
 
-function Register() {
+export function Register() {
   // Creating non-fixed values ​from a user
   const [first_name, setFirst_name] = useState('');
   const [last_name, setLast_name] = useState('');
@@ -18,7 +18,7 @@ function Register() {
     register.preventDefault();
 
     try {
-      setMessage('En cours...');
+      setMessage('In progress...');
       const response = await fetch('http://localhost:8000/members/auth/registration/', {
       method: 'POST',
       headers: {
@@ -35,19 +35,18 @@ function Register() {
       })
       });
       if (response.ok) {
-      setMessage('Vous êtes inscrit !');
+      setMessage('You are registered !!');
     } else {
       const errorData = await response.json();
-      setMessage(`Erreur: ${JSON.stringify(errorData)}`);
+      setMessage(`Error: ${JSON.stringify(errorData)}`);
     }
   } catch (error) {
-    setMessage(`Erreur réseau : ${error.message}`);
+    setMessage(`Network Error : ${error.message}`);
   };
   }; 
 
   return (
     <>
-        <p>
         {/* <form> is an HTML element used to create a form, i.e. a space where the user can fill in information (such as their name, age, etc.). */}
         <form onSubmit={handleSubmit}>
           {/* The <input> tag creates a field where the user can enter information. */}
@@ -99,9 +98,80 @@ function Register() {
           {/* This button is for valid the registration */}
           <button type="submit">Register</button>
         </form>
-        </p>
     </>
   )
 }
 
-export default Register;
+export function Login() {
+  // Creating non-fixed values ​from a user
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  // Function that takes care of sending the registration form data to your backend (Django) and handling the response.
+  const handleSubmit = async (login) => {
+    // This prevents the page from reloading when you submit the form, which is important in React to handle this in JavaScript.
+    login.preventDefault();
+
+    try {
+      setMessage('In Progress...');
+      const response = await fetch('http://localhost:8000/members/auth/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        password: password,
+      })
+      });
+      if (response.ok) {
+      setMessage('You are Loggged in !');
+    } else {
+      const errorData = await response.json();
+      setMessage(`Error : ${JSON.stringify(errorData)}`);
+    }
+  } catch (error) {
+    setMessage(`Network Error : ${error.message}`);
+  };
+  }; 
+
+  return (
+    <>
+        {/* <form> is an HTML element used to create a form, i.e. a space where the user can fill in information (such as their name, age, etc.). */}
+        <form onSubmit={handleSubmit}>
+          {/* The <input> tag creates a field where the user can enter information. */}
+          <input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(login) => setEmail(login.target.value)}
+          />
+          <br></br>
+          <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(login) => setPassword(login.target.value)}
+          />
+          <br></br>
+          <br></br>
+          {/* read the message if there is one */}
+          {message && <p>{message}</p>}
+          {/* This button is for valid the registration */}
+          <button type="submit">Login</button>
+        </form>
+    </>
+  )
+}
+
+export default function Register_and_login() {
+  return (
+    <div>
+      <Register /> 
+      <br></br>
+      <br></br>
+      <Login />
+    </div>
+ );
+}
