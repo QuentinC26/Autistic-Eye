@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export function Register() {
   // Creating non-fixed values ​from a user
@@ -50,7 +51,7 @@ export function Register() {
   }; 
   // Get the user from the context
   const { user } = useContext(AuthContext);
-  
+
   return (
     <>
         {/* ? = the condition is True */}
@@ -121,6 +122,9 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
+  // Provides access to a function that allows you to redirect the user with JavaScript.
+  const navigate = useNavigate();
+
   // Function that takes care of sending the registration form data to your backend (Django) and handling the response.
   const handleSubmit = async (login) => {
     // This prevents the page from reloading when you submit the form, which is important in React to handle this in JavaScript.
@@ -139,7 +143,8 @@ export function Login() {
       })
       });
       if (response.ok) {
-      setMessage('You are Loggged in !');
+      setMessage(`You are Logined in !!`);
+      navigate('/');   
     } else {
       const errorData = await response.json();
       setMessage(`Error : ${JSON.stringify(errorData)}`);
