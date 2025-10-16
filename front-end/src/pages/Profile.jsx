@@ -1,9 +1,17 @@
 import './App.css'
+// Access the data of the context you created
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function Profile() {
+  // Get the user from the context
+  const { user } = useContext(AuthContext);
   return (
     <>
-        <p>
+    {/* ? = the condition is True */}
+    {/* : = the condition is False */}
+     {user ? (
+        <div>
         <a href="index.html" target="_blank">
           <h3>Mon Profil :</h3>
          <br></br>
@@ -14,7 +22,11 @@ function Profile() {
           <h5>email :</h5>
           <h5>password :</h5>
         </a>
-        </p>
+        </div>
+        ) : (
+          // Redirects the user to the Register/Login page
+          <Navigate to="/Register_and_login" />
+      )}
     </>
   )
 }
