@@ -5,6 +5,6 @@ from .views import CustomRegisterView
 urlpatterns = [
     # road login/logout/user
     path('auth/', include('dj_rest_auth.urls')),
-    # for use the custom register view
+    # for use the custom register 
     path('auth/registration/', CustomRegisterView.as_view(), name='custom_register')
 ]
