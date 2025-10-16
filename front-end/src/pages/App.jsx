@@ -7,7 +7,7 @@ import Home from './Home.jsx'
 // manages Profile link
 import Profile from './Profile.jsx'; 
 // manages Register_and_login link
-import Register_and_login from './Register_and_login.jsx';
+import Register_and_login, { Register, Login } from './Register_and_login';
 // manages Article link
 import Article from './Article';
 // manages Community link
