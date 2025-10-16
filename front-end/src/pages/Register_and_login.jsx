@@ -1,5 +1,8 @@
 import './App.css'
 import React, { useState } from 'react';
+// Access the data of the context you created
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export function Register() {
   // Creating non-fixed values ​from a user
@@ -47,7 +50,13 @@ export function Register() {
 
   return (
     <>
-        {/* <form> is an HTML element used to create a form, i.e. a space where the user can fill in information (such as their name, age, etc.). */}
+        {/* ? = the condition is True */}
+        {/* : = the condition is False */}
+        {user ? (
+          // Redirects the user to the Register/Login page
+          <Navigate to="/Home" />
+        ) : (
+        // <form> is an HTML element used to create a form, i.e. a space where the user can fill in information (such as their name, age, etc.).
         <form onSubmit={handleSubmit}>
           {/* The <input> tag creates a field where the user can enter information. */}
           <input
@@ -98,6 +107,7 @@ export function Register() {
           {/* This button is for valid the registration */}
           <button type="submit">Register</button>
         </form>
+        )}
     </>
   )
 }
