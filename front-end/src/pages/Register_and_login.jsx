@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // Access the data of the context you created
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 export function Register() {
   // Creating non-fixed values ​from a user
@@ -47,7 +48,9 @@ export function Register() {
     setMessage(`Network Error : ${error.message}`);
   };
   }; 
-
+  // Get the user from the context
+  const { user } = useContext(AuthContext);
+  
   return (
     <>
         {/* ? = the condition is True */}
