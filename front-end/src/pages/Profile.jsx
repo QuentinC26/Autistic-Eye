@@ -2,6 +2,7 @@ import './App.css'
 // Access the data of the context you created
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Profile() {
   // Get the user from the context
