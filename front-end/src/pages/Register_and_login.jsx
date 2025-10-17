@@ -16,7 +16,6 @@ export function Register() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-
   // Function that takes care of sending the registration form data to your backend (Django) and handling the response.
   const handleSubmit = async (register) => {
     // This prevents the page from reloading when you submit the form, which is important in React to handle this in JavaScript.
@@ -125,6 +124,9 @@ export function Login() {
   // Provides access to a function that allows you to redirect the user with JavaScript.
   const navigate = useNavigate();
 
+  // To use loginUser in code
+  const { loginUser } = useContext(AuthContext);
+
   // Function that takes care of sending the registration form data to your backend (Django) and handling the response.
   const handleSubmit = async (login) => {
     // This prevents the page from reloading when you submit the form, which is important in React to handle this in JavaScript.
@@ -143,12 +145,14 @@ export function Login() {
       })
       });
       if (response.ok) {
-      setMessage(`You are Logined in !!`);
-      navigate('/');   
-    } else {
+        const userData = await response.json();
+        loginUser(userData);
+        setMessage(`You are Logined in !!`);
+        navigate('/');   
+      } else {
       const errorData = await response.json();
       setMessage(`Error : ${JSON.stringify(errorData)}`);
-    }
+      }
   } catch (error) {
     setMessage(`Network Error : ${error.message}`);
   };
