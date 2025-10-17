@@ -13,7 +13,6 @@ export function AuthProvider({ children }) {
   useEffect(() => {
   // Checks if there is a user already stored in localStorage
   const storedUser = localStorage.getItem('user');
-  console.log("User from localStorage:", storedUser);
   // Checks if a user was found in localStorage
   if (storedUser) {
     // The user in localStorage is in text, we transform it into an object
