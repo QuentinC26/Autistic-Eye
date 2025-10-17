@@ -187,13 +187,32 @@ export function Login() {
   )
 }
 
-export default function Register_and_login() {
+export default function Register_and_login() { 
+  // Remember which form to display
+  const [showLogin, setShowLogin] = useState(true);
+
+  // Retrieve logged in user
+  const { user } = useContext(AuthContext);
+
+  // If the user is logged in
+  if (user) {
+    return <Navigate to="/Home" />;
+  }
+
   return (
     <div>
-      <Register /> 
-      <br></br>
-      <br></br>
-      <Login />
+       <div>
+      {/* Buttons to switch between Login and Register */}
+      <div>
+        <button onClick={() => setShowLogin(false)}>Je n'ai pas de compte</button>
+        <button onClick={() => setShowLogin(true)}>J'ai déjà un compte</button>
+      </div>
+
+      <br />
+
+      {/* It displays either the Login or the Register */}
+      {showLogin ? <Login /> : <Register />}
+    </div>
     </div>
  );
 }
