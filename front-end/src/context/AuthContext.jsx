@@ -13,6 +13,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
   // Checks if there is a user already stored in localStorage
   const storedUser = localStorage.getItem('user');
+  console.log("User from localStorage:", storedUser);
   // Checks if a user was found in localStorage
   if (storedUser) {
     // The user in localStorage is in text, we transform it into an object
@@ -27,9 +28,16 @@ export function AuthProvider({ children }) {
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
+  const logoutUser = () => {
+    // setUser(null) tells React: "There are no more logged in users."
+    setUser(null);
+    // We delete the user from localStorage
+    localStorage.removeItem('user');
+};
+
   return (
-    // This "Provider" component shares the 'user' state and the 'setUser' function with all the components inside it (children).
-    <AuthContext.Provider value={{ user, setUser }}>
+    // This "Provider" component shares the 'user' state, the 'loginUser' and 'logoutUser' functions with all the components inside it (children).
+    <AuthContext.Provider value={{ user, loginUser, logoutUser }}>
     {/* Show the components you put inside <AuthProvider> */}
       {children}
     </AuthContext.Provider>
