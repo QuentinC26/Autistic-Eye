@@ -12,28 +12,15 @@ import Register_and_login, { Register, Login } from './Register_and_login';
 import Article from './Article';
 // manages Community link
 import Community from './Community';
+// manages the content of Navigation.jsx
+import Navigation from './Navigation'; 
 
 function App() {
   return (
     <>
     {/* manages navigation between application pages*/}
     <Leader_Road>
-      <nav> 
-      <ul className="ul_list">
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/Profile">My Profile</Link></li>
-      <li><Link to="/Register_and_login">Register/Login</Link></li>
-    </ul>
-    <br></br>
-    <a href="index.html" target="_blank" rel="noopener noreferrer">
-        {/* rel = nooperner noneferrer is a security for external links */}
-        <img src={Autistic_Eye} className="logo Autistic Eye" alt="Autistic Eye logo" />
-    </a>
-    <br></br>
-    <ul className="ul_list_2">
-    <li><Link to="/Article">Article</Link></li>
-    <li><Link to="/Community">Community</Link></li>
-    </ul>
+    <Navigation />
     <br></br>
     <br></br>
     <br></br>
@@ -50,7 +37,6 @@ function App() {
     {/* manages the community road */}
     <Single_Road path="/Community" element={<Community />} />
     </Road_Office>
-  </nav>
     </Leader_Road> 
     </>
   )
