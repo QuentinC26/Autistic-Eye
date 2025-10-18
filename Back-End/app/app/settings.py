@@ -187,3 +187,20 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Email SMTP settings (with gmail)
+
+# Tells Django which backend to use to send emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+# Standard port for SMTP with TLS encryption
+EMAIL_PORT = 587
+# Indicates that the SMTP connection should use Transport Layer Security (TLS), an encryption protocol
+EMAIL_USE_TLS = True
+
+# Variables used for authentication to the SMTP server
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+# Variable that defines the default email address that will appear as the sender in emails sent by Django
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
