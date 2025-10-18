@@ -1,4 +1,3 @@
-import Autistic_Eye from '../assets/Autistic_Eye.png'
 import './App.css'
 // manages navigation between application pages
 import { BrowserRouter as Leader_Road, Routes as Road_Office, Route as Single_Road, Link } from 'react-router-dom';
