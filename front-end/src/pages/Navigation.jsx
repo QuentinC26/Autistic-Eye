@@ -18,15 +18,15 @@ function Navigation() {
   return (
     <nav> 
       <ul className="ul_list">
-      <li><Link to="/">Home</Link></li>
+      <li><Link to="/">Accueil</Link></li>
       {/* Only a logged in user can view the My Profile page */}
       {user && (
-        <li><Link to="/Profile">My Profile</Link></li>
+        <li><Link to="/Profile">Mon profil</Link></li>
       )}
       {!user ? (
-        <li><Link to="/Register_and_login">Register/Login</Link></li>
+        <li><Link to="/Register_and_login">Inscription/Connexion</Link></li>
       ) : (
-        <li><button onClick={handleLogout}>Logout</button></li>
+        <li><button onClick={handleLogout}>Déconnexion</button></li>
       )}
     </ul>
     <br></br>
@@ -38,7 +38,7 @@ function Navigation() {
     <br></br>
     <ul className="ul_list_2">
     <li><Link to="/Article">Article</Link></li>
-    <li><Link to="/Community">Community</Link></li>
+    <li><Link to="/Community">Communauté</Link></li>
     </ul>
     </nav>
   );
