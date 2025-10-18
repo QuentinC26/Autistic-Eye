@@ -1,4 +1,5 @@
 from dj_rest_auth.registration.views import RegisterView
+from dj_rest_auth.views import LoginView
 from .serializers import CompleteUserSerializer
 from django.core.mail import send_mail
 from django.conf import settings
@@ -8,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 from .utils import verify_email_token
+
 
 class CustomRegisterView(RegisterView):
     # Determines CompleteUserSerializer as the view used to register.
@@ -39,9 +41,13 @@ class CustomRegisterView(RegisterView):
         # Know if there is a sending error
         fail_silently=False,
         )
-    
+
+
+# Create a view named VerifyEmailView that inherits from APIView that will respond to http requests
 class VerifyEmailView(APIView):
+    # Method executed when a GET request is sent to this view
     def get(self, request):
+        # Retrieves the token parameter from the URL
         token = request.GET.get('token')
         if not token:
             return Response({"detail": "Token manquant."}, status=status.HTTP_400_BAD_REQUEST)
@@ -51,13 +57,31 @@ class VerifyEmailView(APIView):
             return Response({"detail": "Token invalide ou expiré."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
+            # Search for a user in the database with this email
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             return Response({"detail": "Utilisateur non trouvé."}, status=status.HTTP_404_NOT_FOUND)
 
         if user.is_verified:
             return Response({"detail": "Compte déjà vérifié."})
-
+        
+        # Informs that the account is verified
         user.is_verified = True
+        # Saves the information in the database
         user.save()
         return Response({"detail": "Email vérifié avec succès."})
+
+
+# Allows you to reuse all the default login behavior, while customizing it
+class CustomLoginView(LoginView): 
+    # Override the post method, because login (/auth/login/) is done via a POST request
+    def post(self, request, *args, **kwargs):
+        # Calls the standard dj-rest-auth login method (LoginView)
+        # Handles email/password authentication and returns a response (JWT tokens, etc.)
+        response = super().post(request, *args, **kwargs)
+        if response.status_code == 200:
+            # represents the successfully logged in user.
+            user = self.user
+        if not user.is_verified: 
+            return Response( {'detail': 'Merci de vérifier votre email avant de vous connecter.'}, status=status.HTTP_403_FORBIDDEN ) 
+        return response
