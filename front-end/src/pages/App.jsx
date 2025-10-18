@@ -13,6 +13,8 @@ import Article from './Article';
 import Community from './Community';
 // manages the content of Navigation.jsx
 import Navigation from './Navigation'; 
+// manages the content of VerifyEmail.jsx
+import VerifyEmail from './VerifyEmail';
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
     <Single_Road path="/Article" element={<Article />} />
     {/* manages the community road */}
     <Single_Road path="/Community" element={<Community />} />
+    {/* manages the verify-email road */}
+    <Single_Road path="/verify-email" element={<VerifyEmail />} />
     </Road_Office>
     </Leader_Road> 
     </>
