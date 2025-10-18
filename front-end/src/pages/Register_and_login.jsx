@@ -64,14 +64,14 @@ export function Register() {
           {/* The <input> tag creates a field where the user can enter information. */}
           <input
           type="text"
-          placeholder="first_name"
+          placeholder="Prénom"
           value={first_name}
           onChange={(register) => setFirst_name(register.target.value)}
           />
           <br></br>
           <input
           type="text"
-          placeholder="last_name"
+          placeholder="Nom"
           value={last_name}
           onChange={(register) => setLast_name(register.target.value)}
           />
@@ -85,21 +85,21 @@ export function Register() {
           <br></br>
           <input
           type="text"
-          placeholder="location"
+          placeholder="Ville"
           value={location}
           onChange={(register) => setLocation(register.target.value)}
           />
           <br></br>
           <input
           type="email"
-          placeholder="email"
+          placeholder="Email"
           value={email}
           onChange={(register) => setEmail(register.target.value)}
           />
           <br></br>
           <input
           type="password"
-          placeholder="password"
+          placeholder="Mot de passe"
           value={password}
           onChange={(register) => setPassword(register.target.value)}
           />
@@ -108,7 +108,7 @@ export function Register() {
           {/* read the message if there is one */}
           {message && <p>{message}</p>}
           {/* This button is for valid the registration */}
-          <button type="submit">Register</button>
+          <button type="submit">Inscription</button>
         </form>
         )}
     </>
@@ -165,14 +165,14 @@ export function Login() {
           {/* The <input> tag creates a field where the user can enter information. */}
           <input
           type="email"
-          placeholder="email"
+          placeholder="Email"
           value={email}
           onChange={(login) => setEmail(login.target.value)}
           />
           <br></br>
           <input
           type="password"
-          placeholder="password"
+          placeholder="Mot de passe"
           value={password}
           onChange={(login) => setPassword(login.target.value)}
           />
@@ -181,7 +181,7 @@ export function Login() {
           {/* read the message if there is one */}
           {message && <p>{message}</p>}
           {/* This button is for valid the registration */}
-          <button type="submit">Login</button>
+          <button type="submit">Connexion</button>
         </form>
     </>
   )
