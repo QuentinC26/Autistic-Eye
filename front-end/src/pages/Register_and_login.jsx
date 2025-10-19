@@ -177,6 +177,11 @@ export function Login() {
           onChange={(login) => setPassword(login.target.value)}
           />
           <br></br>
+          <p>
+          <a href="/forgot-password">
+           Mot de passe oublié ?
+          </a>
+          </p>
           <br></br>
           {/* read the message if there is one */}
           {message && <p>{message}</p>}
