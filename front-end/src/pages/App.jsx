@@ -15,6 +15,8 @@ import Community from './Community';
 import Navigation from './Navigation'; 
 // manages the content of VerifyEmail.jsx
 import VerifyEmail from './VerifyEmail';
+// manages the content of ForgotPassword.jsx
+import ForgotPassword from './ForgotPassword';
 // manages the content of ResetPassword.jsx
 import ResetPassword from './ResetPassword';
 
@@ -41,6 +43,8 @@ function App() {
     <Single_Road path="/Community" element={<Community />} />
     {/* manages the verify-email road */}
     <Single_Road path="/verify-email" element={<VerifyEmail />} />
+    {/* manages the forgot password road */}
+    <Single_Road path="/forgot-password" element={<ForgotPassword />} />
     {/* manages the reset password road */}
     <Single_Road path="/reset-password/:uid/:token" element={<ResetPassword />} />
     </Road_Office>
