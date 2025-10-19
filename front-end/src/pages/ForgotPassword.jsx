@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function ForgotPassword() {
-  // Creating non-fixed values for missing password forms
+  // Creating non-fixed values
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
