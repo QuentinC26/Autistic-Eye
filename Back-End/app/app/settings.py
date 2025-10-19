@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'corsheaders',
+    "anymail",
     "members"
 ]
 
@@ -124,7 +125,7 @@ DATABASES = {
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 
 # Password validation
@@ -157,6 +158,7 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:5173",
+    "http://localhost:5173",
 ]
 
 # Specify which HTTP headers are allowed to be sent in a CORS request
@@ -188,19 +190,17 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Email SMTP settings (with gmail)
+# Email settings (with Mailgun)
 
-# Tells Django which backend to use to send emails
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-# Standard port for SMTP with TLS encryption
-EMAIL_PORT = 587
-# Indicates that the SMTP connection should use Transport Layer Security (TLS), an encryption protocol
-EMAIL_USE_TLS = True
+# Tells Django to use Mailgun via the HTTP API, using the backend provided by django-anymail.
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+# Sets the default sender email address for all sent emails.
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
-# Variables used for authentication to the SMTP server
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
-# Variable that defines the default email address that will appear as the sender in emails sent by Django
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# Specific configuration for the Mailgun backend
+ANYMAIL = {
+    # This is the Mailgun secret API key to send emails via the API
+    "MAILGUN_API_KEY": os.getenv("MAILGUN_API_KEY"),
+    # Mailgun domain authorized to send emails on your behalf.
+    "MAILGUN_SENDER_DOMAIN": os.getenv("MAILGUN_DOMAIN"),
+}
