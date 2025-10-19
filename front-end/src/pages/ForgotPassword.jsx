@@ -12,7 +12,7 @@ function ForgotPassword() {
     MissingPassword.preventDefault();
     try {
       // Sends a POST request to the Django API to trigger a password reset email.
-      await axios.post('http://localhost:8000/auth/password/reset/', {
+      await axios.post('http://localhost:8000/members/auth/password/reset/', {
         email: email,
       });
       setMessage("Un email de réinitialisation a été envoyé !");
@@ -24,6 +24,7 @@ function ForgotPassword() {
   return (
     <div>
       <h2>Mot de passe oublié</h2>
+      <br />
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -33,6 +34,8 @@ function ForgotPassword() {
           onChange={(email) => setEmail(email.target.value)}
           required
         />
+        <br />
+        <br />
         <button type="submit">Envoyer l'email</button>
       </form>
       <p>{message}</p>
