@@ -61,8 +61,14 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'members.User'
 
 DJANGO_REST_AUTH = {
-    'REGISTER_SERIALIZER': 'members.serializers.CompleteUserSerializer',  # Chemin vers ton sérialiseur
+    # Path to serializers
+    'REGISTER_SERIALIZER': 'members.serializers.CompleteUserSerializer',
 }
+
+# Allows you to replace Allauth's default behavior with your own class
+ACCOUNT_ADAPTER = 'members.adapters.FrontendResetAdapter'
+# Define a FRONTEND URL variable that will be used in your FrontEndResetAdapter to build custom URLs
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 REST_FRAMEWORK = {
   'DEFAULT_PERMISSION_CLASSES': (
