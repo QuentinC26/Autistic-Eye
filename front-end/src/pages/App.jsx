@@ -42,7 +42,7 @@ function App() {
     {/* manages the verify-email road */}
     <Single_Road path="/verify-email" element={<VerifyEmail />} />
     {/* manages the forgot password road */}
-    <Single_Road path="/forgot-password/:uid/:token" element={<ResetPassword />} />
+    <Single_Road path="/reset-password/:uid/:token" element={<ResetPassword />} />
     </Road_Office>
     </Leader_Road> 
     </>
