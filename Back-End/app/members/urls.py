@@ -3,6 +3,7 @@ from django.conf.urls import include
 from .views import CustomRegisterView
 from .views import VerifyEmailView
 from .views import CustomLoginView
+from dj_rest_auth.views import PasswordResetConfirmView
 
 urlpatterns = [
     # Redefines login route to use custom view which blocks non-email verified users
@@ -11,6 +12,8 @@ urlpatterns = [
     path('auth/registration/', CustomRegisterView.as_view(), name='custom_register'),
     # To have user verification by email
     path('auth/verify-email/', VerifyEmailView.as_view(), name='verify-email'),
+    # Route to confirm password reset (used in email link)
+    path('auth/password/reset/confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     # road login/logout/missing password
     path('auth/', include('dj_rest_auth.urls')),
 ]
