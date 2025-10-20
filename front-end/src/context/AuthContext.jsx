@@ -19,7 +19,6 @@ export function AuthProvider({ children }) {
   const storedUser = localStorage.getItem('user');
   // Checks if there is already a token saved in localStorage
   const storedToken = localStorage.getItem('accessToken');
-  // A VENIR
    if (storedUser && storedToken && storedToken !== "undefined") {
     setUser(JSON.parse(storedUser));
     setAccessToken(storedToken);
