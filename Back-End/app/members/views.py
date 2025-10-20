@@ -11,6 +11,7 @@ from .models import User
 from .utils import verify_email_token
 from rest_framework import generics, permissions
 from .serializers import UserSerializer 
+from rest_framework.authentication import TokenAuthentication
 
 
 class CustomRegisterView(RegisterView):
@@ -95,6 +96,8 @@ class UserProfileView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     # Restrict access to logged in users
     permission_classes = [permissions.IsAuthenticated]
+    # Force TokenSimple authentication
+    authentication_classes = [TokenAuthentication] 
 
     # Return the logged in user
     def get_object(self):
