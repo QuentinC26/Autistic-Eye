@@ -76,11 +76,11 @@ function Profile() {
         <a href="index.html" target="_blank">
           <h3>Mon Profil :</h3>
          <br></br>
-          <h5>first_name : {profile.first_name}</h5>
-          <h5>last_name : {profile.last_name}</h5>
-          <h5>age : {profile.age}</h5>
-          <h5>location : {profile.location}</h5>
-          <h5>email : {profile.email}</h5>
+          <h5>Prénom : {profile.first_name}</h5>
+          <h5>Nom : {profile.last_name}</h5>
+          <h5>Âge : {profile.age}</h5>
+          <h5>Ville : {profile.location}</h5>
+          <h5>Email : {profile.email}</h5>
         </a>
         </div>
         ) : (
