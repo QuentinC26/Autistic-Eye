@@ -6,6 +6,7 @@ from .views import VerifyEmailView
 from .views import CustomLoginView
 from .views import UserProfileView 
 from .views import UpdateProfileView
+from .views import DeleteAccountView
 
 urlpatterns = [
     # Redefines login route to use custom view which blocks non-email verified users
@@ -22,4 +23,6 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view(), name='user-profile'),
     # road to modify a data in profile
     path('profile/update/', UpdateProfileView.as_view(), name='user-profile-update'),
+    # road to delete profil
+    path('profile/delete/', DeleteAccountView.as_view(), name='delete-account'),
 ]
