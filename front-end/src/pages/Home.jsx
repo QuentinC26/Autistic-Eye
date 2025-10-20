@@ -20,6 +20,18 @@ function Home() {
      {user ? (
         <div>
         <h3>Bienvenue {user} sur Autistic Eye !!</h3>
+        <br />
+        <p>Voici les cinq post les plus récents :</p>
+        <br />
+        <br />
+        <p>POST LES PLUS RECENTS</p>
+        <br />
+        <br />
+        <p>Voici les cinq articles les plus récents :</p>
+        <br />
+        <br />
+        <p>ARTICLE LES PLUS RECENTS</p>
+        <br />
         </div>
         ) : (
         <div>
