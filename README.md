@@ -4,7 +4,19 @@ Autistic Eye est un réseau social communautaire dédié aux personnes autistes 
 
 ## Table des matières
 
+- [Technologies utilisées](#technologiesutilisés)
 - [Installation](#installation)
+- [Fonctionnalités de l'application](#fonctionnalitéapplication)
+
+## Technologies utilisées
+
+Le projet Autistic Eye repose sur les technologies suivantes :
+
+- **Back-end** : [Django](https://www.djangoproject.com/) avec [Django REST Framework](https://www.django-rest-framework.org/) pour la création d'API RESTful.
+- **Front-end** : [React](https://reactjs.org/) (JavaScript) pour une interface utilisateur réactive et moderne.
+- **Base de données** : [MySQL](https://www.mysql.com/) pour le stockage structuré des données.
+- **Authentification** : `dj-rest-auth`, `django-allauth`, `Simple JWT` pour la gestion sécurisée des utilisateurs et des tokens.
+- **Docker** : pour l’orchestration et l’exécution du projet dans des conteneurs.
 
 ## Installation
 
@@ -28,15 +40,37 @@ Cela est nécessaire pour pouvoir lancer le projet. Il n'y a rien à installer p
 
 **docker compose up**
 
+## Fonctionnalités de l'application
+
+Sur Autistic Eye, vous pouvez faire différentes choses :
+
+- **Inscription/Connexion** : Autistic Eye dispose d’un système d’inscription et de connexion permettant aux utilisateurs de créer un compte et de se connecter.
+- **Mon Profil** : Les membres ont accès à la section "Mon profil", qui leur permet de consulter leurs informations personnelles, de mettre à jour leurs données (à l’exception de l’e-mail et du mot de passe), ou de supprimer leur compte.
+- **Communauté** : À VENIR
+- **Article** : À VENIR
+
 # Autistic Eye (English/Anglais)
 
 Autistic Eye is a community-based social network dedicated to autistic individuals and their loved ones. It was created to combat isolation by providing a space for discussion, mutual support, and experience sharing. The platform offers easy access to useful information on a wide range of autism-related topics, with the goal of improving users’ daily lives.
 
 ## Table of Contents
 
-- [Installation](#installation-1)
+- [Technologies Used](#technologiesused.)
+- [Installation](#installation.)
+- [Application Features](#applicationfeatures.)
 
-## Installation
+## Technologies Used
+
+The Autistic Eye project is built with the following technologies :
+Django
+
+- **Back-end** : [Django](https://www.djangoproject.com/) with [Django REST Framework](https://www.django-rest-framework.org/) to build a RESTful API.
+- **Front-end** : [React](https://reactjs.org/) (JavaScript) for a responsive and modern user interface.
+- **Base de données** : [MySQL](https://www.mysql.com/) for structured data storage.
+- **Authentification** : `dj-rest-auth`, `django-allauth`, `Simple JWT` for secure user management and token-based authentication.
+- **Docker** : for containerized orchestration and project deployment.
+
+## Installation.
 
 To install Autistic Eye on your computer, you first need to clone the current repository. To do this, click the green Code button and copy the HTTPS or SSH link by clicking on the clipboard icon. Once done, run the following command in your terminal:
 
@@ -57,3 +91,12 @@ To go back to the root of the project, run:
 This step is necessary to launch the full project. There's nothing to install for the back-end, so you can directly start the project using the following command:
 
 **docker compose up**
+
+## Application Features
+
+On Autistic Eye, you can do several things:
+
+- **Sing Up/Login** : Autistic Eye includes a registration and login system that allows users to create an account and sign in.
+- **My Profile** : Members can access the "My Profile" section to view their personal information, update their data (except email and password), or delete their account.
+- **Community** : COMING SOON
+- **Articles** : COMING SOON
