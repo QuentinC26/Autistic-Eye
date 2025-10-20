@@ -102,3 +102,17 @@ class UserProfileView(generics.RetrieveAPIView):
     # Return the logged in user
     def get_object(self):
         return self.request.user
+
+
+# Create an API view to update a profile
+class UpdateProfileView(generics.RetrieveUpdateAPIView):
+    # Define the fields to return to the customer
+    serializer_class = UserSerializer
+    # Restrict access to logged in users
+    permission_classes = [permissions.IsAuthenticated]
+    # Force TokenSimple authentication
+    authentication_classes = [TokenAuthentication] 
+    
+    # Return the logged in user
+    def get_object(self): 
+        return self.request.user
