@@ -12,7 +12,7 @@ from .utils import verify_email_token
 from rest_framework import generics, permissions
 from .serializers import UserSerializer 
 from rest_framework.authentication import TokenAuthentication
-
+from rest_framework.permissions import AllowAny
 
 class CustomRegisterView(RegisterView):
     # Determines CompleteUserSerializer as the view used to register.
@@ -116,3 +116,19 @@ class UpdateProfileView(generics.RetrieveUpdateAPIView):
     # Return the logged in user
     def get_object(self): 
         return self.request.user
+
+# Create an API view to delete profile
+class DeleteAccountView(APIView):
+    # Restrict access to logged in users
+    permission_classes = [permissions.IsAuthenticated]
+    # Force TokenSimple authentication
+    authentication_classes = [TokenAuthentication]
+
+    # request = the request object containing information about the logged in user, headers, token, etc.
+    def delete(self, request):
+        # Retrieves the currently logged in user (authenticated via token).
+        user = request.user
+        # Completely removes the user from the database.
+        user.delete()
+        # Returns an HTTP response to the frontend
+        return Response({"detail": "Compte supprimé avec succès."}, status=status.HTTP_204_NO_CONTENT)
