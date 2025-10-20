@@ -9,6 +9,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 from .utils import verify_email_token
+from rest_framework import generics, permissions
+from .serializers import UserSerializer 
 
 
 class CustomRegisterView(RegisterView):
@@ -85,3 +87,15 @@ class CustomLoginView(LoginView):
         if not user.is_verified: 
             return Response( {'detail': 'Merci de vérifier votre email avant de vous connecter.'}, status=status.HTTP_403_FORBIDDEN ) 
         return response
+
+
+# Create an API view to see a profile
+class UserProfileView(generics.RetrieveAPIView):
+    # Define the fields to return to the customer
+    serializer_class = UserSerializer
+    # Restrict access to logged in users
+    permission_classes = [permissions.IsAuthenticated]
+
+    # Return the logged in user
+    def get_object(self):
+        return self.request.user
