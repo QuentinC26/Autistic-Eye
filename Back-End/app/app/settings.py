@@ -98,7 +98,7 @@ ROOT_URLCONF = "app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -210,3 +210,5 @@ ANYMAIL = {
     # Mailgun domain authorized to send emails on your behalf.
     "MAILGUN_SENDER_DOMAIN": os.getenv("MAILGUN_DOMAIN"),
 }
+
+ACCOUNT_EMAIL_TEMPLATE_PATH = 'account/email'
