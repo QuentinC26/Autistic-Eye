@@ -19,7 +19,7 @@ function Home() {
     {/* : = the condition is False */}
      {user ? (
         <div>
-        <h3>Bienvenue {user} sur Autistic Eye !!</h3>
+        <h3>Bienvenue sur Autistic Eye !!</h3>
         <br />
         <p>Voici les cinq post les plus récents :</p>
         <br />
