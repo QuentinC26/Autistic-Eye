@@ -5,6 +5,7 @@ from .views import CustomRegisterView
 from .views import VerifyEmailView
 from .views import CustomLoginView
 from .views import UserProfileView 
+from .views import UpdateProfileView
 
 urlpatterns = [
     # Redefines login route to use custom view which blocks non-email verified users
@@ -19,4 +20,6 @@ urlpatterns = [
     path('auth/', include('dj_rest_auth.urls')),
     # road to profile
     path('profile/', UserProfileView.as_view(), name='user-profile'),
+    # road to modify a data in profile
+    path('profile/update/', UpdateProfileView.as_view(), name='user-profile-update'),
 ]
