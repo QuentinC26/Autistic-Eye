@@ -71,14 +71,13 @@ ACCOUNT_ADAPTER = 'members.adapters.FrontendResetAdapter'
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 REST_FRAMEWORK = {
-  'DEFAULT_PERMISSION_CLASSES': (
-      'rest_framework.permissions.AllowAny',
-  ),
-  'DEFAULT_AUTHENTICATION_CLASSES': (
-      'rest_framework_simplejwt.authentication.JWTAuthentication',
-      'rest_framework.authentication.SessionAuthentication',
-      'rest_framework.authentication.BasicAuthentication',
-  ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
 
 MIDDLEWARE = [
@@ -152,11 +151,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 SIMPLE_JWT = { 
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
-    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_TYPES': ('Token',),
 }
 
 # Lists the origins that are allowed to make requests to the backend API
