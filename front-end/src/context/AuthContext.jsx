@@ -8,35 +8,49 @@ export const AuthContext = createContext();
 export function AuthProvider({ children }) {
   // Stores the logged in user (null = no one is logged in)
   const [user, setUser] = useState(null);
+  // Store the authentication token (JWT) of the logged in user. (null = not logged in)
+  const [accessToken, setAccessToken] = useState(null);
+  // Indicates that data is loading
+  const [loading, setLoading] = useState(true);
 
   // Run this code once when the component starts
   useEffect(() => {
   // Checks if there is a user already stored in localStorage
   const storedUser = localStorage.getItem('user');
-  // Checks if a user was found in localStorage
-  if (storedUser) {
-    // The user in localStorage is in text, we transform it into an object
+  // Checks if there is already a token saved in localStorage
+  const storedToken = localStorage.getItem('accessToken');
+  // A VENIR
+   if (storedUser && storedToken && storedToken !== "undefined") {
     setUser(JSON.parse(storedUser));
+    setAccessToken(storedToken);
   }
+  // Called when loading is complete
+  setLoading(false);
   // The code inside only executes once, at the beginning
   }, []);
 
-  // Creates a function that receives the logged in user's information (userData)
-  const loginUser = (userData) => {
+  // Create a function that receives the logged in user and token information (userData)
+  const loginUser = (userData, token) => {
     setUser(userData);
+    setAccessToken(token);
     localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('accessToken', token);
   };
 
   const logoutUser = () => {
     // setUser(null) tells React: "There are no more logged in users."
     setUser(null);
-    // We delete the user from localStorage
+    // setToken(null) tells React: "There are no more tokens."
+    setAccessToken(null);
+    // Delete the user from localStorage
     localStorage.removeItem('user');
+    // Delete the token from localStorage
+    localStorage.removeItem('accessToken');
 };
 
   return (
-    // This "Provider" component shares the 'user' state, the 'loginUser' and 'logoutUser' functions with all the components inside it (children).
-    <AuthContext.Provider value={{ user, loginUser, logoutUser }}>
+    // This "Provider" component shares the 'user' and 'accesToken' state, the 'loginUser' and 'logoutUser' functions and loading variable with all the components inside it (children).
+    <AuthContext.Provider value={{ user, accessToken, loginUser, logoutUser, loading}}>
     {/* Show the components you put inside <AuthProvider> */}
       {children}
     </AuthContext.Provider>
