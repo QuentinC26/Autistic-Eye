@@ -45,3 +45,18 @@ class CompleteUserSerializer(RegisterSerializer):
       user.location = self.validated_data.get('location', '')
       user.save()
       return user
+    
+    # Method to update a user's data
+    # Instance is the already existing object of your User model that you want to update
+    def update(self, instance, validated_data):
+      # Prohibition on changing email and password
+      validated_data.pop('email', None)
+      validated_data.pop('password', None)
+
+      # Data that the user can modify
+      instance.first_name = validated_data.get('first_name', instance.first_name)
+      instance.last_name = validated_data.get('last_name', instance.last_name)
+      instance.age = validated_data.get('age', instance.age)
+      instance.location = validated_data.get('location', instance.location)
+      instance.save()
+      return instance
