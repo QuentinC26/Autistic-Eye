@@ -160,6 +160,13 @@ export function Login() {
 
   return (
     <>
+     <div>
+        <h4>Attention !!</h4> 
+        <p>
+        Les e-mails de validation de compte ou de réinitialisation du mot de passe peuvent se retrouver dans vos spams. Pensez à vérifier votre dossier courrier indésirable !
+        </p>
+        </div>
+        <br></br>
         {/* <form> is an HTML element used to create a form, i.e. a space where the user can fill in information (such as their name, age, etc.). */}
         <form onSubmit={handleSubmit}>
           {/* The <input> tag creates a field where the user can enter information. */}
