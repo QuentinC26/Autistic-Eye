@@ -145,8 +145,17 @@ export function Login() {
       })
       });
       if (response.ok) {
-        const userData = await response.json();
-        loginUser(userData);
+        // Retrieves the JSON response (it contains the token)
+        const data = await response.json();
+        console.log("Données reçues du backend :", data);
+
+        // Extract the token
+        const accessToken = data.key;
+        // Manually create a "user" with just the email
+        const userInfo = { email };   
+
+        // Function defined in your AuthContext.jsx
+        loginUser(userInfo, accessToken);
         setMessage(`You are Logined in !!`);
         navigate('/');   
       } else {
@@ -201,7 +210,7 @@ export default function Register_and_login() {
 
   // If the user is logged in
   if (user) {
-    return <Navigate to="/Home" />;
+    return <Navigate to="/" />;
   }
 
   return (
