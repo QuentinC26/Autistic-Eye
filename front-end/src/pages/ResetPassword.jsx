@@ -16,7 +16,9 @@ function ResetPassword() {
     resetPassword.preventDefault();
     try {
       // Sends a POST request to the Django REST Auth endpoint (/auth/password/reset/confirm/) with the required data
-      await axios.post(`http://localhost:8000/members/auth/password/reset/confirm/${uid}/${token}/`, {
+      await axios.post("http://localhost:8000/members/auth/password/reset/confirm/", {
+        uid: uid,
+        token: token,
         new_password1: newPassword1,
         new_password2: newPassword2,
       });
