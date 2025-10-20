@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 function Profile() {
   // Get the user, accesToken and loading from the context
-  const { user, accessToken, loading } = useContext(AuthContext);
+  const { user, accessToken, loading, logoutUser } = useContext(AuthContext);
   // Will store profile data received from the API
   const [profile, setProfile] = useState(null);
   // Will be used to display a message in case of a problem
@@ -112,6 +112,33 @@ function Profile() {
       setError("Échec de la mise à jour du profil.");
     }
   };
+
+   const DeleteAccount = async () => {
+    // window.confirm() is a native JavaScript function that displays a dialog box with two buttons: ok and cancel
+    if (!window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) {
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8000/members/profile/delete/", {
+        method: "DELETE",
+        headers: {
+          Authorization: `Token ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la suppression du compte.");
+      }
+
+      alert("Compte supprimé avec succès.");
+      logoutUser();
+      window.location.href = "/";
+    } catch (err) {
+      console.error(err);
+      alert("Erreur lors de la suppression du compte.");
+    }
+  };
  
   return (
   <>
@@ -181,7 +208,7 @@ function Profile() {
         <br />
         <br />
         {/* Button for delete the account */}
-        <button type="submit">Supprimer le profil</button>
+        <button type="button" onClick={DeleteAccount}>Supprimer le profil</button>
       </div>
     ) : (
       // If the user is not logged in, we redirect in Register_and_login page
