@@ -13,15 +13,29 @@ function PostDetail() {
 
   // This code runs at the start, and every time you change posts
   useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+
     // This is the API call to get the post details.
-    fetch(`http://localhost:8000/api/community/posts/${id}/`)
+    fetch(`http://localhost:8000/api/community/posts/${id}/`, {
+      headers: {
+        'Authorization': 'Token ' + token,
+        'Content-Type': 'application/json',
+      },
+    })
       // This line transforms the raw response into usable data.
       .then(res => res.json())
       // This line stores the post information in the state so that it can be displayed.
-      .then(data => setPost(data));
-    
+      .then(data => {
+        setPost(data);
+      });
+
     // Request all comments
-    fetch('http://localhost:8000/api/community/commentaries/')
+    fetch('http://localhost:8000/api/community/commentaries/', {
+      headers: {
+        'Authorization': 'Token ' + token,
+        'Content-Type': 'application/json',
+      },
+    })
       // This line transforms the raw response into usable data.
       .then(res => res.json())
       // Process the list of comments
@@ -31,7 +45,7 @@ function PostDetail() {
         // Saves filtered comments for display
         setComments(filtered);
       });
-      // Restart this code every time the ID changes (e.g. new article displayed)
+    // Restart this code every time the ID changes (e.g. new article displayed)
   }, [id]);
 
   // Function called when the user clicks “Comment”
@@ -49,9 +63,14 @@ function PostDetail() {
 
     // Reset the input field so the user can write a new comment without having to delete the old one.
     setNewComment('');
-    
+
     // Refresh the comments list after adding the new one.
-    fetch('http://localhost:8000/api/community/commentaries/')
+    fetch('http://localhost:8000/api/community/commentaries/', {
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+        'Content-Type': 'application/json',
+      },
+    })
       // This line transforms the raw response into usable data.
       .then(res => res.json())
       // Show only comments on the current post, including the new one just added.
@@ -59,12 +78,12 @@ function PostDetail() {
         const filtered = data.filter(comment => comment.post === Number(id));
         setComments(filtered);
       });
-    };
-    
-    // Displays a loading message until the post data is available.
-    if (!post) {
-      return <p>Chargement...</p>;
-    }
+  };
+
+  // Displays a loading message until the post data is available.
+  if (!post) {
+    return <p>Chargement...</p>;
+  }
 
   return (
     <div>
@@ -80,13 +99,13 @@ function PostDetail() {
           <p>{comment.content} — {comment.author}</p>
         </div>
       ))}
-      <br></br>
+      <br />
       <textarea
         placeholder="Ajouter un commentaire..."
         value={newComment}
-        onChange={e => setNewComment(e.target.value)}
+        onChange={event => setNewComment(event.target.value)}
       />
-      <br></br>
+      <br />
       <button onClick={AddComment}>Commenter</button>
     </div>
   );
