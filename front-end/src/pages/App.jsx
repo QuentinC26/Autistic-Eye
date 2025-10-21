@@ -19,6 +19,8 @@ import VerifyEmail from './VerifyEmail';
 import ForgotPassword from './ForgotPassword';
 // manages the content of ResetPassword.jsx
 import ResetPassword from './ResetPassword';
+import PostDetail from './PostDetail';
+import CreatePost from './CreatePost';
 
 function App() {
   return (
@@ -47,6 +49,10 @@ function App() {
     <Single_Road path="/forgot-password" element={<ForgotPassword />} />
     {/* manages the reset password road */}
     <Single_Road path="/reset-password/:uid/:token" element={<ResetPassword />} />
+    {/* manages the detail of a post road */}
+    <Single_Road path="/Community/posts/:id" element={<PostDetail />} />
+    {/* manages the new post of community road */}
+    <Single_Road path="/Community/new" element={<CreatePost />} />
     </Road_Office>
     </Leader_Road> 
     </>
