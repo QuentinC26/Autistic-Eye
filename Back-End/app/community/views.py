@@ -3,6 +3,7 @@ from .models import Post
 from .models import CommentaryPost
 from .serializers import PostSerializer
 from .serializers import CommentaryPostSerializer
+from .permission import IsOwnerOrReadOnly
 
 # Viewsets uses ModelViewSet, which automatically manages CRUD views
 class PostViewSet(viewsets.ModelViewSet):
@@ -10,8 +11,9 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     # Uses PostSerializer to convert objects to JSON and validate the received data
     serializer_class = PostSerializer
-    # Requires user to be authenticated to access this view
-    permission_classes = [permissions.IsAuthenticated]
+    # Only logged in users can access.
+    # A user can only modify or delete their own objects.
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
 
     # Everyone can see all posts
     def get_queryset(self):
@@ -27,8 +29,9 @@ class CommentaryPostViewSet(viewsets.ModelViewSet):
     queryset = CommentaryPost.objects.all() 
     # Uses CommentaryPostSerializer to convert objects to JSON and validate the received data
     serializer_class = CommentaryPostSerializer
-    # Requires user to be authenticated to access this view
-    permission_classes = [permissions.IsAuthenticated]
+    # Only logged in users can access.
+    # A user can only modify or delete their own objects.
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
 
     # Everyone can see all posts
     def get_queryset(self):
