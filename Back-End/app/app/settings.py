@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'corsheaders',
     "anymail",
-    "members"
+    "members",
+    "community",
 ]
 
 # django-allauth is a Django library for handling user authentication and registration in a comprehensive and simple way.
