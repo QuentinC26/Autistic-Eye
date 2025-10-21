@@ -19,7 +19,7 @@ function CreatePost() {
                 headers: { 
                     'Content-Type': 'application/json', 
                     // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
-                    'Authorization': 'Token ' + localStorage.getItem('accesstoken') 
+                    'Authorization': 'Token ' + localStorage.getItem('accessToken') 
                 }, 
                 // Sends a JSON object containing the title and content of the post to be created
                 body: JSON.stringify({ title, content }) 
@@ -33,18 +33,24 @@ function CreatePost() {
       <input
       placeholder="Titre" 
       value={title} 
-      onChange={CreatePost => setTitle(CreatePost.target.value)} /> 
+      onChange={CreatePost => setTitle(CreatePost.target.value)} />
+      <br></br>
+      <br></br>
       <select value={subject} onChange={e => setSubject(e.target.value)}>
       <option value="experience">Partage d’expérience</option>
       <option value="question">Demande d’aide</option>
       <option value="poll">Sondage</option>
       <option value="proposal">Proposition</option>
       <option value="other">Autre</option>
-     </select>
+      </select>
+      <br></br>
+      <br></br>
       <textarea 
       placeholder="Contenu" 
       value={content} 
       onChange={CreatePost => setContent(CreatePost.target.value)} />
+      <br></br>
+      <br></br>
       <button type="submit">Publier</button> </form> ); 
     } 
 
