@@ -1,13 +1,38 @@
 import './App.css'
 // Access the data of the context you created
-import { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 
 function Community() {
    // Get the user from the context
     const { user } = useContext(AuthContext);
+    // posts is a state variable (for example, React "listens" to its value and updates the rendering if it changes).
+    // setPosts is the function for modifying posts.
+    // useState([]) means: "I'm starting with an empty list."
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+      // Used to retrieve the authentication token of the logged in user.
+      const token = localStorage.getItem('accessToken');
+      console.log("Token:", token);
+
+      fetch('http://localhost:8000/api/community/posts/', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => setPosts(data));
+    }, []);
+
+    if (!Array.isArray(posts)) {
+      return <p>Chargement ou erreur, aucun post disponible.</p>;
+    }
+
     return (
       <>
       {/* ? = the condition is True */}
@@ -15,6 +40,20 @@ function Community() {
        {user ? (
           <div>
             <h3>Page Community</h3>
+            <Link to="/community/new">
+            <button>Créer un post</button>
+            </Link>
+
+            <ul>
+            {/* Loop through all post objects in the array */}
+            {posts.map(post => (
+            <li key={post.id}>
+            <Link to={`/community/posts/${post.id}`}>
+            {post.title} — par {post.author}
+            </Link>
+          </li>
+        ))}
+            </ul>
           </div>
           ) : (
             // Redirects the user to the Register/Login page
@@ -24,4 +63,4 @@ function Community() {
   )
 }
 
-export default Community
+export default Community;
