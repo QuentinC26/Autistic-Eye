@@ -6,6 +6,8 @@ from .serializers import CommentaryPostSerializer
 
 # Viewsets uses ModelViewSet, which automatically manages CRUD views
 class PostViewSet(viewsets.ModelViewSet):
+    # Post.objects.all() means: Give me all Post objects in the database.
+    queryset = Post.objects.all()
     # Uses PostSerializer to convert objects to JSON and validate the received data
     serializer_class = PostSerializer
     # Requires user to be authenticated to access this view
@@ -21,6 +23,8 @@ class PostViewSet(viewsets.ModelViewSet):
 
 # Viewsets uses ModelViewSet, which automatically manages CRUD views
 class CommentaryPostViewSet(viewsets.ModelViewSet):
+    # CommentaryPost.objects.all() means: Give me all CommentaryPost objects in the database.
+    queryset = CommentaryPost.objects.all() 
     # Uses CommentaryPostSerializer to convert objects to JSON and validate the received data
     serializer_class = CommentaryPostSerializer
     # Requires user to be authenticated to access this view
