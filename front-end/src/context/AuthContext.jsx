@@ -49,7 +49,7 @@ export function AuthProvider({ children }) {
 
   return (
     // This "Provider" component shares the 'user' and 'accesToken' state, the 'loginUser' and 'logoutUser' functions and loading variable with all the components inside it (children).
-    <AuthContext.Provider value={{ user, accessToken, loginUser, logoutUser, loading}}>
+    <AuthContext.Provider value={{ user, accessToken, loginUser, logoutUser, loading, setUser}}>
     {/* Show the components you put inside <AuthProvider> */}
       {children}
     </AuthContext.Provider>
