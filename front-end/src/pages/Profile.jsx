@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 function Profile() {
   // Get the user, accesToken and loading from the context
-  const { user, accessToken, loading, logoutUser } = useContext(AuthContext);
+  const { user, accessToken, loading, logoutUser, setUser } = useContext(AuthContext);
   // Will store profile data received from the API
   const [profile, setProfile] = useState(null);
   // Will be used to display a message in case of a problem
@@ -37,6 +37,15 @@ function Profile() {
           }
           const data = await response.json();
           setProfile(data);
+
+          // Allow values ​​in the User set to be usable everywhere in the application
+          setUser({
+            id: data.id,
+            email: data.email,
+            first_name: data.first_name,
+            last_name: data.last_name
+          });
+
           // Prepare the data that will be editable, then send it.
           setFormData({
             first_name: data.first_name || '',
@@ -53,7 +62,7 @@ function Profile() {
       // Call the fetchProfile function
       fetchProfile();
       // Restart fetchProfile every time 'user' or 'accessToken' changes
-    }, [user, accessToken]);
+    }, [user, accessToken, setUser]);
 
     // Prevents components from running too early
     if (loading) {
