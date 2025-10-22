@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/AuthContext";
 
 function PostDetail() {
   // Retrieves the id parameter from the URL
@@ -10,6 +12,10 @@ function PostDetail() {
   const [comments, setComments] = useState([]);
   // State to manage the content of the new comment entered by the user
   const [newComment, setNewComment] = useState('');
+  // Get the user from the context
+  const { user } = useContext(AuthContext);
+  // Get a navigate function that will be used to change pages in the application
+  const navigate = useNavigate();
 
   // This code runs at the start, and every time you change posts
   useEffect(() => {
@@ -18,6 +24,7 @@ function PostDetail() {
     // This is the API call to get the post details.
     fetch(`http://localhost:8000/api/community/posts/${id}/`, {
       headers: {
+        // Allows you to identify the connected user with their token
         'Authorization': 'Token ' + token,
         'Content-Type': 'application/json',
       },
@@ -32,6 +39,7 @@ function PostDetail() {
     // Request all comments
     fetch('http://localhost:8000/api/community/commentaries/', {
       headers: {
+        // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
         'Authorization': 'Token ' + token,
         'Content-Type': 'application/json',
       },
@@ -67,6 +75,7 @@ function PostDetail() {
     // Refresh the comments list after adding the new one.
     fetch('http://localhost:8000/api/community/commentaries/', {
       headers: {
+        // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
         'Authorization': 'Token ' + localStorage.getItem('accessToken'),
         'Content-Type': 'application/json',
       },
@@ -79,6 +88,119 @@ function PostDetail() {
         setComments(filtered);
       });
   };
+   
+   // Asynchronous function called when the "Edit" button is clicked
+   const handleEdit = async () => {
+      // Asks the user to modify items via windows prompt()
+      const newTitle = prompt("Nouveau titre :", post.title);
+      const newContent = prompt("Nouveau contenu :", post.content);
+
+      // Checks that the user has not clicked “Cancel” and left the fields blank.
+      if (newTitle && newContent) {
+        await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
+          method: 'PUT',
+          headers: {
+            // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
+            'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+            'Content-Type': 'application/json'
+          },
+          // Returns the data (even unchanged) to update the post in the database
+          body: JSON.stringify({
+            title: newTitle,
+            content: newContent,
+            subject: post.subject
+          })
+        });
+
+      // Allows you to retrieve updated data
+      const res = await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
+        headers: {
+          // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
+          'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+          'Content-Type': 'application/json'
+        }
+      });
+      // Updates the displayed post without reloading the page
+      const updatedPost = await res.json();
+      setPost(updatedPost);
+      }
+    };
+
+    // Function called when the "Delete" button is clicked
+    const handleDelete = async () => {
+        // Confirmation window to verify that the user really wants to delete the post
+        const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer ce post ?")
+        // If the user clicks "Cancel", the deletion is interrupted
+        if (!confirmDelete) {
+          return;
+        } 
+
+      // Sends a DELETE request to the API to delete the post in question.
+      await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
+        method: 'DELETE',
+        headers: {
+          // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
+          'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+          'Content-Type': 'application/json'
+       }
+    });
+    }
+
+    navigate('/community');
+
+    // Asynchronous function called when the "Edit" button is clicked
+   const CommentEdit = async () => {
+      // Asks the user to modify items via windows prompt()
+      const newContent = prompt("Nouveau contenu :", post.content);
+
+      // Checks that the user has not clicked “Cancel” and left the fields blank.
+      if (newContent) {
+        await fetch(`http://localhost:8000/api/community/commentaries/${id}/`, {
+          method: 'PUT',
+          headers: {
+            // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
+            'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+            'Content-Type': 'application/json'
+          },
+          // Returns the data (even unchanged) to update the comments of the post in the database
+          body: JSON.stringify({
+            content: newContent,
+          })
+        });
+
+      // Allows you to retrieve updated data
+      const res = await fetch(`http://localhost:8000/api/community/commentaries/${id}/`, {
+        headers: {
+          // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
+          'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+          'Content-Type': 'application/json'
+        }
+      });
+      // Updates the displayed post without reloading the page
+      const updatedCommentPost = await res.json();
+      setPost(updatedCommentPost);
+      }
+    };
+
+    // Function called when the "Delete" button is clicked
+    const DeleteComment = async () => {
+        // Confirmation window to verify that the user really wants to delete the comment
+        const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer ce commentaire ?")
+        // If the user clicks "Cancel", the deletion is interrupted
+        if (!confirmDelete) {
+          return;
+        } 
+
+      // Sends a DELETE request to the API to delete the post in question.
+      await fetch(`http://localhost:8000/api/community/commentaries/${id}/`, {
+        method: 'DELETE',
+        headers: {
+          // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
+          'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+          'Content-Type': 'application/json'
+       }
+    });
+
 
   // Displays a loading message until the post data is available.
   if (!post) {
@@ -91,6 +213,17 @@ function PostDetail() {
       <h4>{post.subject}</h4>
       <p>{post.content}</p>
       <hr />
+      
+    {/* Show buttons only if the user is the author of the post */}
+    {/* user?.username = "Give me user.username only if user exists" */}
+    {user?.username === post.author && (
+      <>
+        <button onClick={handleEdit}>Modifier</button>
+        <button onClick={handleDelete}>Supprimer</button>
+      </>
+    )}
+
+    <hr />
 
       <h3>Commentaires</h3>
       {/* Go through each comment and display it with its author. */}
@@ -107,8 +240,17 @@ function PostDetail() {
       />
       <br />
       <button onClick={AddComment}>Commenter</button>
+
+    {/* Show buttons only if the user is the author of the comment*/}
+    {/* user?.username = "Give me user.username only if user exists" */}
+    {user?.username === post.author && (
+      <>
+        <button onClick={CommentEdit}>Modifier</button>
+        <button onClick={DeleteComment}>Supprimer</button>
+      </>
+    )}
     </div>
   );
-}
+}}
 
 export default PostDetail;
