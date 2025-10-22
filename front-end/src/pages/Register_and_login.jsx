@@ -154,7 +154,7 @@ export function Login() {
         // Manually create a "user" with just the email
         const userInfo = { email };   
 
-        // Function defined in your AuthContext.jsx
+        // Connects the user: remembers their token + email (for now)
         loginUser(userInfo, accessToken);
         setMessage(`You are Logined in !!`);
         navigate('/');   
