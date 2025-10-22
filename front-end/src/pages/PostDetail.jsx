@@ -178,7 +178,10 @@ function PostDetail() {
       });
       // Updates the displayed post without reloading the page
       const updatedCommentPost = await res.json();
-      setPost(updatedCommentPost);
+      // Keep only comments that belong to the current post
+      const filteredComments = updatedCommentPost.filter(comment => comment.post === Number(id));
+      // Updates the list of displayed comments with those filtered from the current post
+      setComments(filteredComments);
       }
     };
 
@@ -200,6 +203,8 @@ function PostDetail() {
           'Content-Type': 'application/json'
        }
     });
+    // Used to remove a specific comment from the displayed list, without making another call to the server
+    setComments(comments.filter(comment => comment.id !== commentId));
    }
 
   // Displays a loading message until the post data is available.
@@ -215,8 +220,8 @@ function PostDetail() {
       <hr />
 
       {/* Show buttons only if the user is the author of the post */}
-      {/* user?.id = "Give me user.username only if user exists" */}
-      {user?.id === post.author && (
+      {/* setUser?.id = "Give me user.username only if user exists" */}
+      {user?.email === post.author.email && (
         <>
           <button onClick={handleEdit}>Modifier</button>
           <button onClick={handleDelete}>Supprimer</button>
@@ -229,10 +234,10 @@ function PostDetail() {
       {/* Go through each comment and display it with its author. */}
       {comments.map(comment => (
         <div key={comment.id}>
-          <p>{comment.content} — {comment.author}</p>
+          <p>{comment.content} —  {comment.author.first_name} {comment.author.last_name}</p>
           {/* Show buttons only if the user is the author of the post */}
-          {/* user?.username = "Give me user.username only if user exists" */}
-          {user?.id === comment.author && (
+          {/* setUser?.username = "Give me user.username only if user exists" */}
+          {user?.email === post.author.email && (
             <>
               <button onClick={() => EditComment(comment.id, comment.content)}>Modifier</button>
               <button onClick={() => DeleteComment(comment.id)}>Supprimer</button>
