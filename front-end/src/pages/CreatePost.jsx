@@ -22,7 +22,7 @@ function CreatePost() {
                     'Authorization': 'Token ' + localStorage.getItem('accessToken') 
                 }, 
                 // Sends a JSON object containing the title and content of the post to be created
-                body: JSON.stringify({ title, content }) 
+                body: JSON.stringify({ title, content, subject }) 
             }); 
         navigate('/community');
      }; 
