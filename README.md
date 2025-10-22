@@ -1,3 +1,4 @@
+
 # Autistic Eye (French/Français)
 
 Autistic Eye est un réseau social communautaire dédié aux personnes autistes et à leurs proches. Il a été créé pour lutter contre l’isolement en offrant un espace d’échange, d’entraide et de partage d’expériences. La plateforme permet d’accéder facilement à des informations utiles sur de nombreux sujets liés à l’autisme, afin d’améliorer le quotidien des utilisateurs.
@@ -46,7 +47,7 @@ Sur Autistic Eye, vous pouvez faire différentes choses :
 
 - **Inscription/Connexion** : Autistic Eye dispose d’un système d’inscription et de connexion permettant aux utilisateurs de créer un compte et de se connecter.
 - **Mon Profil** : Les membres ont accès à la section "Mon profil", qui leur permet de consulter leurs informations personnelles, de mettre à jour leurs données (à l’exception de l’e-mail et du mot de passe), ou de supprimer leur compte.
-- **Communauté** : À VENIR
+- **Communauté** : Les membres ont accès à la section "Communauté", qui leur permet de créer des posts dans lesquels ils peuvent parler de tout : partager leur expérience, demander de l'aide ou lancer un sondage, par exemple. Ils peuvent modifier et supprimer leurs propres posts. Ils ont également le droit de commenter les posts des autres, ainsi que de modifier et supprimer leurs propres commentaires.
 - **Article** : À VENIR
 
 # Autistic Eye (English/Anglais)
@@ -98,5 +99,5 @@ On Autistic Eye, you can do several things:
 
 - **Sing Up/Login** : Autistic Eye includes a registration and login system that allows users to create an account and sign in.
 - **My Profile** : Members can access the "My Profile" section to view their personal information, update their data (except email and password), or delete their account.
-- **Community** : COMING SOON
+- **Community** : Members have access to the "Community" section, which allows them to create posts where they can talk about anything: share their experiences, ask for help, or even start a poll. They can edit and delete their own posts. They also have the right to comment on other members' posts, as well as edit and delete their own comments.
 - **Articles** : COMING SOON
