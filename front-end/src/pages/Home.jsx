@@ -2,7 +2,7 @@ import './App.css'
 // Access the data of the context you created
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   // Get the user from the context
@@ -22,7 +22,7 @@ function Home() {
     // If the user is logged in, add ?limit=5 to the URL (so 5 posts).
     // Otherwise, add ?limit=1 (only the most recent).
     if (user) {
-      url += '?limit=5';
+      url += '?limit=3';
     } else {
       url += '?limit=1';
     }
@@ -30,7 +30,7 @@ function Home() {
     // Send a request to the API to retrieve all the comments
     fetch(url, {
       // If the user is logged in, the authentication token is added to the header
-      headers: user ? { 
+      headers: (user && token) ? { 
         'Authorization': 'Token ' + token,
       } 
       // If the user is not logged in, nothing is added to the header
@@ -72,7 +72,7 @@ function Home() {
         <div>
         <h3>Bienvenue sur Autistic Eye !!</h3>
         <br />
-        <p>Voici les cinq post les plus récents :</p>
+        <p>Voici les trois post les plus récents :</p>
         <br />
         <br />
         {/* If the posts list is empty, displays a message: No posts to display */}
@@ -82,14 +82,13 @@ function Home() {
           // Creates a <div> element for each post with a unique key
           <div key={post.id}>
             <h4>{post.title}</h4>
-            <h5>{post.subject}</h5>
             <p>{post.content.substring(0, 100)}...</p>
             <br />
           </div>
         ))}
         <br />
         <br />
-        <p>Voici les cinq articles les plus récents :</p>
+        <p>Voici les trois articles les plus récents :</p>
         <br />
         <br />
         <p>ARTICLE LES PLUS RECENTS</p>
@@ -111,7 +110,6 @@ function Home() {
           <div key={post.id}>
             {/* Displays the post information (title, subject and part of the content) */}
             <h4>{post.title}</h4>
-            <h5>{post.subject}</h5>
             <p>{post.content.substring(0, 100)}...</p>
             <br />
           </div>
