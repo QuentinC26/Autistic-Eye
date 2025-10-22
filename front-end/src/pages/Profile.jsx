@@ -23,8 +23,6 @@ function Profile() {
         return;
       }
 
-      console.log("Token utilisé pour fetchProfile :", accessToken);
-
       const fetchProfile = async () => {
         try {
           const response = await fetch("http://localhost:8000/members/profile/", {
