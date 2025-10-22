@@ -49,7 +49,7 @@ function Community() {
             {posts.map(post => (
             <li key={post.id}>
             <Link to={`/community/posts/${post.id}`}>
-            {post.title} — par {post.author}
+            {post.title} — par {post.author.first_name}
             </Link>
           </li>
         ))}
