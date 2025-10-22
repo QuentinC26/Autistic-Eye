@@ -31,7 +31,7 @@ function Navigation() {
     </ul>
     <br></br>
     <div className="logo-container">
-    <a href="index.html" target="_blank" rel="noopener noreferrer">
+    <a href="/" target="_blank" rel="noopener noreferrer">
       <img src={Autistic_Eye} className="logo_of_website" alt="Autistic Eye logo" />
     </a>
     </div>
