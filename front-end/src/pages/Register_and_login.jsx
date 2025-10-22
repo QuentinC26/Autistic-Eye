@@ -144,10 +144,10 @@ export function Login() {
         password: password,
       })
       });
+
       if (response.ok) {
         // Retrieves the JSON response (it contains the token)
         const data = await response.json();
-        console.log("Données reçues du backend :", data);
 
         // Extract the token
         const accessToken = data.key;
