@@ -38,14 +38,23 @@ function Home() {
       },
     })
 
-    // You get the response from the API, convert it to JSON, then put the posts in the state to display them.
-    .then(res => res.json())
+    // Get the response from the API and check if it is correct
+     .then(res => {
+      if (!res.ok) {
+        throw new Error('Erreur ' + res.status);
+      }
+      // Transforms the response into JSON
+      return res.json();
+    })
     .then(data => {
-      setPosts(data);
+      // Check that the data received is indeed an array, otherwise you put an empty array
+      setPosts((Array.isArray(data) ? data : []));
     })
     // If there is an error in the query, you display it in the console
     .catch(err => {
       console.error("Erreur fetch posts", err);
+      // Reset the list of posts to empty to avoid display errors
+      setPosts([]);
     });
   // useEffect restarts if the user changes
   }, [user]);
