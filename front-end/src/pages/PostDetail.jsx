@@ -144,18 +144,18 @@ function PostDetail() {
           'Content-Type': 'application/json'
        }
     });
+    
+    navigate('/community');
     }
 
-    navigate('/community');
-
     // Asynchronous function called when the "Edit" button is clicked
-   const CommentEdit = async () => {
+   const EditComment = async (commentId, commentContent) => {
       // Asks the user to modify items via windows prompt()
-      const newContent = prompt("Nouveau contenu :", post.content);
+      const newContent = prompt("Nouveau contenu :", commentContent);
 
       // Checks that the user has not clicked “Cancel” and left the fields blank.
       if (newContent) {
-        await fetch(`http://localhost:8000/api/community/commentaries/${id}/`, {
+        await fetch(`http://localhost:8000/api/community/commentaries/${commentId}/`, {
           method: 'PUT',
           headers: {
             // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
@@ -169,7 +169,7 @@ function PostDetail() {
         });
 
       // Allows you to retrieve updated data
-      const res = await fetch(`http://localhost:8000/api/community/commentaries/${id}/`, {
+      const res = await fetch(`http://localhost:8000/api/community/commentaries/`, {
         headers: {
           // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
           'Authorization': 'Token ' + localStorage.getItem('accessToken'),
@@ -183,7 +183,7 @@ function PostDetail() {
     };
 
     // Function called when the "Delete" button is clicked
-    const DeleteComment = async () => {
+    const DeleteComment = async (commentId) => {
         // Confirmation window to verify that the user really wants to delete the comment
         const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer ce commentaire ?")
         // If the user clicks "Cancel", the deletion is interrupted
@@ -192,7 +192,7 @@ function PostDetail() {
         } 
 
       // Sends a DELETE request to the API to delete the post in question.
-      await fetch(`http://localhost:8000/api/community/commentaries/${id}/`, {
+      await fetch(`http://localhost:8000/api/community/commentaries/${commentId}/`, {
         method: 'DELETE',
         headers: {
           // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
@@ -200,7 +200,7 @@ function PostDetail() {
           'Content-Type': 'application/json'
        }
     });
-
+   }
 
   // Displays a loading message until the post data is available.
   if (!post) {
@@ -213,44 +213,43 @@ function PostDetail() {
       <h4>{post.subject}</h4>
       <p>{post.content}</p>
       <hr />
-      
-    {/* Show buttons only if the user is the author of the post */}
-    {/* user?.username = "Give me user.username only if user exists" */}
-    {user?.username === post.author && (
-      <>
-        <button onClick={handleEdit}>Modifier</button>
-        <button onClick={handleDelete}>Supprimer</button>
-      </>
-    )}
 
-    <hr />
+      {/* Show buttons only if the user is the author of the post */}
+      {/* user?.id = "Give me user.username only if user exists" */}
+      {user?.id === post.author && (
+        <>
+          <button onClick={handleEdit}>Modifier</button>
+          <button onClick={handleDelete}>Supprimer</button>
+        </>
+      )}
 
-      <h3>Commentaires</h3>
+      <hr />
+
+      <h3>Commentaires</h3> 
       {/* Go through each comment and display it with its author. */}
       {comments.map(comment => (
         <div key={comment.id}>
           <p>{comment.content} — {comment.author}</p>
+          {/* Show buttons only if the user is the author of the post */}
+          {/* user?.username = "Give me user.username only if user exists" */}
+          {user?.id === comment.author && (
+            <>
+              <button onClick={() => EditComment(comment.id, comment.content)}>Modifier</button>
+              <button onClick={() => DeleteComment(comment.id)}>Supprimer</button>
+            </>
+          )}
         </div>
       ))}
       <br />
       <textarea
-        placeholder="Ajouter un commentaire..."
-        value={newComment}
-        onChange={event => setNewComment(event.target.value)}
+      placeholder="Ajouter un commentaire..."
+      value={newComment}
+      onChange={event => setNewComment(event.target.value)}
       />
       <br />
       <button onClick={AddComment}>Commenter</button>
-
-    {/* Show buttons only if the user is the author of the comment*/}
-    {/* user?.username = "Give me user.username only if user exists" */}
-    {user?.username === post.author && (
-      <>
-        <button onClick={CommentEdit}>Modifier</button>
-        <button onClick={DeleteComment}>Supprimer</button>
-      </>
-    )}
     </div>
   );
-}}
+}
 
 export default PostDetail;
