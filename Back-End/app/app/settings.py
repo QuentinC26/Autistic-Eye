@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "anymail",
     "members",
     "community",
+    'articles',
 ]
 
 # django-allauth is a Django library for handling user authentication and registration in a comprehensive and simple way.
