@@ -2,6 +2,7 @@
 import feedparser
 from datetime import datetime
 from .models import Article, Source
+from django.utils.timezone import make_aware
 
 # Store the URL of your custom RSS feed in a variable
 RSS_FEED_URL = "https://rss.app/feeds/HYfL8ByTfnSKjNVY.xml"
@@ -28,8 +29,8 @@ def fetch_and_save_articles():
         # If this article contains a publication date, we try to read it
         if 'published' in entry:
             try:
-                # Allows you to have a real date and time that Django can use to save it in the database.
-                pub_date = datetime(*entry.published_parsed[:6])
+                # Adds the time zone to the date so that Django accepts it
+                pub_date = make_aware(datetime(*entry.published_parsed[:6]))
             except Exception:
                 # If we were unable to read the real date, we enter the current date
                 pub_date = datetime.now()
