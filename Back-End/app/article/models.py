@@ -14,7 +14,7 @@ class Source(models.Model):
 # Defines a Article class that inherits from models.Model
 class Article(models.Model):
     # List of fields of the Article class
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=2000)
     # Description or summary of the article
     description = models.TextField(blank=True)
     link = models.URLField()
