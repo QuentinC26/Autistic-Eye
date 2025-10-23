@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 # Defines a Source class that inherits from models.Model
 class Source(models.Model):
@@ -34,7 +34,7 @@ class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     # The user who posted the comment
     # If the user is deleted, the comment remains (user becomes NULL)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # others fields
     content = models.TextField()
     # auto_now_add=True = Automatically fill created_at with the current date and time
