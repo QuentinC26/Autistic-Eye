@@ -2,7 +2,7 @@ import './App.css'
 // Access the data of the context you created
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 
 
 function Community() {
@@ -12,6 +12,7 @@ function Community() {
     // setPosts is the function for modifying posts.
     // useState([]) means: "I'm starting with an empty list."
     const [posts, setPosts] = useState([]);
+    const location = useLocation()
 
     useEffect(() => {
       // Used to retrieve the authentication token of the logged in user.
@@ -27,7 +28,7 @@ function Community() {
       })
       .then(res => res.json())
       .then(data => setPosts(data));
-    }, []);
+    }, [location]);
 
     if (!Array.isArray(posts)) {
       return <p>Chargement ou erreur, aucun post disponible.</p>;
