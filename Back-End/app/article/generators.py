@@ -7,6 +7,9 @@ from django.utils.timezone import make_aware
 # Store the URL of your custom RSS feed in a variable
 RSS_FEED_URL = "https://rss.app/feeds/HYfL8ByTfnSKjNVY.xml"
 
+# Allows you to define the keywords that must appear in the title or description for the article to be saved
+KEYWORDS = ["autisme", "neurodiversité", "handicap", "inclusion", "trouble du spectre", "accompagnement", "accessibilité"]
+
 # Performs all the recovery and recording work
 def fetch_and_save_articles():
     # Downloads the RSS feed from the provided link, then parses it into an easy-to-manipulate Python object.
@@ -19,7 +22,26 @@ def fetch_and_save_articles():
 
     # Loop through all entry in rss_date.entries
     for entry in rss_data.entries:
+        # # Retrieves and lowercases the article title and description to avoid case.
+        title = entry.title.lower()
+        description = entry.get("summary", "").lower()
         # This check prevents the same article from being added multiple times. 
+
+        # Variable that contains the result of the KEYWOORDS check, before the check it is equal to False.
+        contains_keyword = False
+        # Browse the keywords found in KEYWORD
+        for keyword in KEYWORDS:
+            # If the keyword is found in the title or description.
+            if keyword in title or keyword in description:
+              # contains_keywoord becomes True as it found a keyword from KEYWOORDS
+              contains_keyword = True
+              # No need to check other keywords, we're out of the loop.
+              break
+        
+        # If the article does not contain any interesting keywords, it is not saved and the loop moves on to the next article.
+        if not contains_keyword:
+          continue
+
         if Article.objects.filter(link=entry.link).exists():
             # If an article with this link already exists in the database, we move on to the next one.
             continue
