@@ -5,7 +5,10 @@ from .models import Article, Source
 from django.utils.timezone import make_aware
 
 # Store the URL of your custom RSS feed in a variable
-RSS_FEED_URL = "https://rss.app/feeds/HYfL8ByTfnSKjNVY.xml"
+RSS_FEED_URL = { 
+    "Ministry of Health" : "https://rss.app/feeds/HYfL8ByTfnSKjNVY.xml",
+    "Autism France" : "https://rss.app/feeds/QAeiCiDxsgPoapsI.xml",
+}
 
 # Allows you to define the keywords that must appear in the title or description for the article to be saved
 KEYWORDS = ["autisme", "neurodiversité", "handicap", "inclusion", "trouble du spectre", "accompagnement", "accessibilité"]
