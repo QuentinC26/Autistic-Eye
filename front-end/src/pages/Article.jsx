@@ -17,8 +17,17 @@ const Article = () => {
 
     // Used to make an API call when the component is loaded
     useEffect(() => {
+      // Used to retrieve the authentication token of the logged in user.
+      const token = localStorage.getItem('accessToken');
+      
       // Make an HTTP GET request to your Django API
-      fetch('http://localhost:8000/api/article/')
+      fetch('http://localhost:8000/api/article/', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
       // Processes the response returned by the server after the fetch request
       .then(response => {
         if (!response.ok) {
