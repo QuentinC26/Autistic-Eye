@@ -19,7 +19,7 @@ const Article = () => {
     useEffect(() => {
       // Used to retrieve the authentication token of the logged in user.
       const token = localStorage.getItem('accessToken');
-      
+
       // Make an HTTP GET request to your Django API
       fetch('http://localhost:8000/api/article/', {
         method: 'GET',
@@ -71,11 +71,6 @@ const Article = () => {
             <div key={article.id} style={{ marginBottom: '20px' }}>
             {/* Displays the title of the article */}
             <h2>{article.title}</h2>
-            {/* Displays the description of the article */}
-            <p>{article.description.length > 50
-              // Condition that allows you to cut descriptions that are too long to avoid making the page heavier.
-              ? article.description.slice(0, 50) + "..."
-              : article.description}</p>
             {/* The user can click “Read more” to open the article in another tab. */}
             <a href={article.link} target="_blank" rel="noopener noreferrer">Lire plus</a>
             {/* Displays the title of the article */}
