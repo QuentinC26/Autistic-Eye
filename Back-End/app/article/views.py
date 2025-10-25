@@ -14,5 +14,5 @@ class ArticleListAPIView(generics.ListAPIView):
     queryset = Article.objects.all().order_by('-publication_date')
     # Specifies the serializer used to convert Article objects to JSON
     serializer_class = ArticleSerializer
-    # 
+    # Uses the custom pagination class defined just before
     pagination_class = ArticlePagination
