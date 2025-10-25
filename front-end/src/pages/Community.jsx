@@ -17,7 +17,6 @@ function Community() {
     useEffect(() => {
       // Used to retrieve the authentication token of the logged in user.
       const token = localStorage.getItem('accessToken');
-      console.log("Token:", token);
 
       fetch('http://localhost:8000/api/community/posts/', {
         method: 'GET',
