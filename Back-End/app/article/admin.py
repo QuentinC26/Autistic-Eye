@@ -6,7 +6,7 @@ from .models import Article, Source
 @admin.register(Source)
 class SourceAdmin(admin.ModelAdmin):
     # Columns visible in the source list.
-    list_display = ('name', 'url', 'created_at')
+    list_display = ('name', 'url')
     # Allows you to search for a source by name.
     search_fields = ('name',)
 
