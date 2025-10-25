@@ -27,19 +27,3 @@ class Article(models.Model):
     def __str__(self):
         # Returns a human-readable representation of the object, here the source title
         return self.title
-
-# Defines a Comment class that inherits from models.Model
-class Comment(models.Model):
-    # Foreign key to an article. Each comment is linked to a specific article.
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
-    # The user who posted the comment
-    # If the user is deleted, the comment remains (user becomes NULL)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # others fields
-    content = models.TextField()
-    # auto_now_add=True = Automatically fill created_at with the current date and time
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        # Text representation of the comment, for example: "alice - Article on autism".
-        return f"{self.user.username} - {self.article.title}"
