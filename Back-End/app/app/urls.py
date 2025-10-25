@@ -22,6 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('members/', include('members.urls')),
     path('api/community/', include('community.urls')),
-    # Allows you to avoid having the following URL link: api/articles/api/articles
-    path('', include('articles.urls'))
+    # Allows you to avoid having the following URL link: api/article/api/article
+    path('', include('article.urls'))
 ]
