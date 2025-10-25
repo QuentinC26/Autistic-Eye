@@ -58,12 +58,18 @@ const Article = () => {
           <h3>Articles</h3>
           {/* For each article in articles, we will display a personalized article "card" */}
           {articles.map(article => (
+            // With this line, each article is displayed in a separate <div>
             <div key={article.id} style={{ marginBottom: '20px' }}>
+            {/* Displays the title of the article */}
             <h2>{article.title}</h2>
-            <p>{article.description.length > 100
-            ? article.description.slice(0, 100) + "..."
-            : article.description}</p>
+            {/* Displays the description of the article */}
+            <p>{article.description.length > 50
+              // Condition that allows you to cut descriptions that are too long to avoid making the page heavier.
+              ? article.description.slice(0, 50) + "..."
+              : article.description}</p>
+            {/* The user can click “Read more” to open the article in another tab. */}
             <a href={article.link} target="_blank" rel="noopener noreferrer">Lire plus</a>
+            {/* Displays the title of the article */}
             <p><small>{new Date(article.publication_date).toLocaleDateString()}</small></p>
              </div>
             ))}
