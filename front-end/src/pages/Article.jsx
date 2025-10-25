@@ -18,7 +18,7 @@ const Article = () => {
     // Used to make an API call when the component is loaded
     useEffect(() => {
       // Make an HTTP GET request to your Django API
-      fetch('http://localhost:8000/api/articles/')
+      fetch('http://localhost:8000/api/article/')
       // Processes the response returned by the server after the fetch request
       .then(response => {
         if (!response.ok) {
