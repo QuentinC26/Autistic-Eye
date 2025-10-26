@@ -14,13 +14,17 @@ const Article = () => {
     const [loading, setLoading] = useState(true);
     // Contains an error message if the recovery fails. Initialized to null.
     const [error, setError] = useState(null);
+    // Used to load the URL of the next page
+    const [nextPage, setNextPage] = useState(null);
+    // Used to load the URL of the previous page
+    const [prevPage, setPrevPage] = useState(null);
 
-    // Used to make an API call when the component is loaded
-    useEffect(() => {
-      // Used to retrieve the authentication token of the logged in user.
+    // Function to retrieve articles from a given URL
+    const fetchArticle = (url = "http://localhost:8000/api/article/") => {
+       // Used to retrieve the authentication token of the logged in user.
       const token = localStorage.getItem('accessToken');
 
-      // Make an HTTP GET request to your Django API
+       // Make an HTTP GET request to your Django API 
       fetch('http://localhost:8000/api/article/', {
         method: 'GET',
         headers: {
@@ -37,9 +41,12 @@ const Article = () => {
       })
       // Processes JSON data received from the API
       .then(data => {
-        // Stores the received data (list of items) in the "items" state
-        setArticles(data);
-        // Indicates that loading is complete
+        // Populates the item list with items received from the API
+        setArticles(data.results);
+        // Saves the URL of the next page for pagination
+        setNextPage(data.next);
+        // Saves the URL of the previous page for pagination
+        setPrevPage(data.previous);  
         setLoading(false);
       })
       .catch(err => {
@@ -48,7 +55,12 @@ const Article = () => {
         // Stops the loading state.
         setLoading(false);
       });
+   }
+
     // 
+    useEffect(() => {
+      fetchArticle();
+    //
     }, []);
 
     if (loading) {
@@ -75,9 +87,14 @@ const Article = () => {
             <a href={article.link} target="_blank" rel="noopener noreferrer">Lire plus</a>
             {/* Displays the title of the article */}
             <p><small>{new Date(article.publication_date).toLocaleDateString()}</small></p>
-             </div>
+            </div>
             ))}
-           </div>
+           {/* Pagination buttons */}
+          <div style={{ marginTop: '20px' }}>
+            {prevPage && <button onClick={() => fetchArticle(prevPage)}>Page précédente</button>}
+            {nextPage && <button onClick={() => fetchArticle(nextPage)} style={{ marginLeft: '10px' }}>Page suivante</button>}
+          </div>
+          </div>
           ) : (
             // Redirects the user to the Register/Login page
             <Navigate to="/Register_and_login" />
