@@ -9,7 +9,6 @@ function CreatePost() {
     // Get a navigate function that will be used to change pages in the application
     const navigate = useNavigate(); 
 
-    // 
     const CreatePost = async (CreatePost) => {
         // Prevents page reload on submission 
         CreatePost.preventDefault(); 
