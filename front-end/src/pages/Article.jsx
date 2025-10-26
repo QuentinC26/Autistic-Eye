@@ -57,10 +57,10 @@ const Article = () => {
       });
    }
 
-    // 
+    // Call the API on every page load or URL change
     useEffect(() => {
       fetchArticle();
-    //
+    // Executes this code only once, when the component is first displayed
     }, []);
 
     if (loading) {
