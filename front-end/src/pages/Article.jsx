@@ -21,7 +21,7 @@ const Article = () => {
 
     // Function to retrieve articles from a given URL
     const fetchArticle = (url = "http://localhost:8000/api/article/") => {
-       // Used to retrieve the authentication token of the logged in user.
+      // Used to retrieve the authentication token of the logged in user.
       const token = localStorage.getItem('accessToken');
 
        // Make an HTTP GET request to your Django API 
