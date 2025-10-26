@@ -13,12 +13,22 @@ function Community() {
     // useState([]) means: "I'm starting with an empty list."
     const [posts, setPosts] = useState([]);
     const location = useLocation()
+     // Indicates whether data retrieval is in progress.
+    const [loading, setLoading] = useState(true);
+    // Contains an error message if the recovery fails. Initialized to null.
+    const [error, setError] = useState(null);
+    // Used to load the URL of the next page
+    const [nextPage, setNextPage] = useState(null);
+    // Used to load the URL of the previous page
+    const [prevPage, setPrevPage] = useState(null);
 
-    useEffect(() => {
+    // Function to retrieve articles from a given URL
+    const fetchPosts = (url = 'http://localhost:8000/api/community/posts/') => {
       // Used to retrieve the authentication token of the logged in user.
       const token = localStorage.getItem('accessToken');
 
-      fetch('http://localhost:8000/api/community/posts/', {
+      // Make an HTTP GET request to your Django API 
+      fetch(url, {
         method: 'GET',
         headers: {
           'Authorization': `Token ${token}`,
@@ -26,11 +36,37 @@ function Community() {
         }
       })
       .then(res => res.json())
-      .then(data => setPosts(data));
-    }, [location]);
+      .then(data => {
+        // Populates the item list with items received from the API
+        setPosts(data.results);
+        // Saves the URL of the next page for pagination
+        setNextPage(data.next);
+        // Saves the URL of the previous page for pagination
+        setPrevPage(data.previous);  
+        setLoading(false);
+      })
+      .catch(err => {
+        // Logs the error message in the error state.
+        setError(err.message);
+        // Stops the loading state.
+        setLoading(false);
+      });
+    };
 
+    // Call the API on every page load or URL change
+    useEffect(() => {
+      fetchPosts();
+    }, [location]);
+      
     if (!Array.isArray(posts)) {
       return <p>Chargement ou erreur, aucun post disponible.</p>;
+    }
+
+    if (loading) {
+      return <p>Chargement des articles...</p>;
+    } 
+    if (error) {
+      return <p>Erreur : {error}</p>;
     }
 
     return (
@@ -54,6 +90,11 @@ function Community() {
           </li>
         ))}
             </ul>
+          {/* Pagination button that appears even if there is only one post */}
+          <div style={{ marginTop: '20px' }}>
+            <button onClick={() => fetchPosts(prevPage || '#')} disabled={!prevPage}>Page précédente</button>
+            <button onClick={() => fetchPosts(nextPage || '#')} disabled={!nextPage} style={{ marginLeft: '10px' }}>Page suivante</button>
+          </div>
           </div>
           ) : (
             // Redirects the user to the Register/Login page
