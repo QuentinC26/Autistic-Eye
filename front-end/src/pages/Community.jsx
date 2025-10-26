@@ -62,6 +62,10 @@ function Community() {
       return <p>Chargement ou erreur, aucun post disponible.</p>;
     }
 
+    if (!user) {
+      return <Navigate to="/Register_and_login" />;
+    }
+
     if (loading) {
       return <p>Chargement des articles...</p>;
     } 
@@ -71,9 +75,6 @@ function Community() {
 
     return (
       <>
-      {/* ? = the condition is True */}
-      {/* : = the condition is False */}
-       {user ? (
           <div>
             <h3>Page Community</h3>
             <Link to="/community/new">
@@ -96,10 +97,6 @@ function Community() {
             <button onClick={() => fetchPosts(nextPage || '#')} disabled={!nextPage} style={{ marginLeft: '10px' }}>Page suivante</button>
           </div>
           </div>
-          ) : (
-            // Redirects the user to the Register/Login page
-            <Navigate to="/Register_and_login" />
-        )}
       </>
   )
 }
