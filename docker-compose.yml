@@ -1,0 +1,44 @@
+services:
+  back-end:
+    env_file:
+      - Back-End/.env
+    build:
+      context: ./Back-End
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    # Allows you to run a command to allow MySql to wait.
+    command: ["./wait-for-db.sh", "db", "3306", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+  front-end:
+    env_file:
+      - front-end/.env
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    depends_on:
+      - back-end
+    # The container's port 5173 is linked to your machine's port 5173, allowing you to access the application from your browser.
+    ports: 
+      - "5173:5173"
+    # Force Vite respond on all network interfaces
+    command: ["npm", "run", "dev", "--", "--host"]
+    # Allows you to share your code between the computer and the container, this allows you to automatically update files in the container when they are modified.
+    volumes:
+      - ./front-end:/app
+    # This allows Vite to properly detect file changes, even when you're using Docker
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  db:
+    image: mysql:8.0
+    env_file:
+      - Back-End/.env
+    ports:
+      - "3306:3306" 
+    volumes:
+       - autistic_eye_mysql_data:/var/lib/mysql
+
+# Stores MySQL database files
+volumes:
+  autistic_eye_mysql_data:
