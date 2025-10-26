@@ -9,6 +9,8 @@ function Home() {
   const { user } = useContext(AuthContext);
   // List of posts to display
   const [posts, setPosts] = useState([]);
+  // List of articles to display
+  const [articles, setArticles] = useState([]);
   const navigate = useNavigate();
 
   // You tell React what to do when the page is rendered or when the user logs in or out.
@@ -59,17 +61,67 @@ function Home() {
   // useEffect restarts if the user changes
   }, [user]);
 
+    // You tell React what to do when the page is rendered or when the user logs in or out.
+    useEffect(() => {
+      // Retrieves the token stored in the browser
+      const token = localStorage.getItem('accessToken');
+
+      // Retrieves the token stored in the browser
+      let url = 'http://localhost:8000/api/article/';
+
+      // If the user is logged in, add ?limit=5 to the URL (so 5 articles).
+      // Otherwise, add ?limit=1 (only the most recent).
+      if (user) {
+        url += '?limit=3';
+      } else {
+        url += '?limit=1';
+      }
+
+      // Call the fetch() function to send an HTTP request to the address contained in the url variable
+      fetch(url, {
+        headers: {
+          'Authorization': token ? `Token ${token}` : '',
+          'Content-Type': 'application/json'
+        }
+      })
+      // When the server response arrives, execute this code with that response.
+      .then(res => {
+        if (!res.ok) { 
+          throw new Error('Erreur ' + res.status);
+        } else {
+          // Transforms the response (res) into a JavaScript object via res.json()
+          return res.json();
+        }
+      })
+      // Receives JSON data once it is converted
+      .then(data => {
+        // Checks if data.results exists and if it is an array.
+        if (data.results && Array.isArray(data.results)) {
+          // Updates the React articles state with the first 3 elements of the array (slice(0, 3))
+          setArticles(data.results.slice(0, 3));
+        } else {
+          // Empty the list (items = []).
+          setArticles([]);
+        }
+      })
+      .catch(err => {
+        console.error("Erreur fetch articles", err);
+        setArticles([]);
+      });
+    // Code executes every time the user variable changes
+    }, [user]);
+
   const handleRegister = () => {
     // To put the user on the home page
     navigate('/Register_and_login');
   };
 
   return (
-    <>
+  <>
     {/* ? = the condition is True */}
     {/* : = the condition is False */}
-     {user ? (
-        <div>
+    {user ? (
+      <div>
         <h3>Bienvenue sur Autistic Eye !!</h3>
         <br />
         <p>Voici les trois post les plus récents :</p>
@@ -91,11 +143,20 @@ function Home() {
         <p>Voici les trois articles les plus récents :</p>
         <br />
         <br />
-        <p>ARTICLE LES PLUS RECENTS</p>
+        {/* If the posts articles is empty, displays a message: No articles to display */}
+        {articles.length === 0 && <p>Aucun article à afficher</p>}
+        {/* Loops through the articles list to process each article */}
+        {articles.map(articles => (
+          // Creates a <div> element for each article with a unique key
+          <div key={articles.id}>
+            <h4>{articles.title}</h4>
+            <br />
+          </div>
+        ))}
         <br />
-        </div>
-        ) : (
-        <div>
+      </div>
+    ) : (
+      <div>
         <h3>Bienvenue sur Autistic Eye !!</h3>
         <br />
         <p>Autistic Eye est un réseau social communautaire qui réunit les personnes autistes et leurs proches. Son but est de combattre l'isolement des personnes autistes et de leur permettre de partager leurs expériences.</p>
@@ -114,18 +175,27 @@ function Home() {
             <br />
           </div>
         ))}
-         <br />
-         <p>L'autre partie de l'application est la section Article. Dans cette section, les membres d'Autistic Eye ont accès à toutes les ressources externes qui les concernent, comme les démarches administratives, les associations, et bien plus encore.</p>
-         <br />
-         <p>ARTICLE LE PLUS RECENT</p>
-         <br />
-         <p>Viens nous rejoindre en cliquant sur le boutton ci-dessous :</p>
-         <br />
-         <button onClick={handleRegister}>Inscription</button>
-        </div>
-      )}
-    </>
-  )
-}
+        <br />
+        <p>L'autre partie de l'application est la section Article. Dans cette section, les membres d'Autistic Eye ont accès à toutes les ressources externes qui les concernent, comme les démarches administratives, les associations, et bien plus encore.</p>
+        <br />
+        {/* If the articles list is empty, displays a message: No articles to display */}
+        {articles.length === 0 && <p>Aucun post à afficher</p>}
+        {/* Loops through the articles list to process each article */}
+        {articles.map(articles => (
+          // Creates a <div> element for each article with a unique key
+          <div key={articles.id}>
+            {/* Displays the article information (title, subject and part of the content) */}
+            <h4>{articles.title}</h4>
+            <br />
+          </div>
+        ))}
+        <br />
+        <p>Viens nous rejoindre en cliquant sur le boutton ci-dessous :</p>
+        <br />
+        <button onClick={handleRegister}>Inscription</button>
+      </div>
+    )}
+  </>
+)}
 
 export default Home
