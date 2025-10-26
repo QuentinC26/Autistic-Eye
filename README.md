@@ -59,9 +59,9 @@ Ce projet est licencié sous la licence MIT - voir le fichier [LICENSE](LICENSE)
 
 Le projet a été créé par **Quentin Zuzlewski** (QuentinC26). Il est le développeur full stack principal de ce projet.  
 Pour toute question sur le projet, vous pouvez le contacter à l'adresse email suivante : **q.zuzlewski@gmail.com**
-
+<br></br>
 <a href="https://github.com/QuentinC26">
-  <img src="https://github.com/QuentinC26.png" alt="QuentinC26" width="20" height="20"/>
+  <img src="https://github.com/QuentinC26.png" alt="QuentinC26" width="30" height="30"/>
 </a>
 <br></br>
 Pour la liste complète des contributeurs et leurs rôles, consultez le fichier [CONTRIBUTORS.md](CONTRIBUTORS.md).
@@ -127,9 +127,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contributors
 
 The project was created by **Quentin Zuzlewski** (QuentinC26). He is the main full stack developer of this project. For any questions regarding the project, you can contact him at: **q.zuzlewski@gmail.com**
-
+<br></br>
 <a href="https://github.com/QuentinC26">
-  <img src="https://github.com/QuentinC26.png" alt="QuentinC26" width="20" height="20"/>
+  <img src="https://github.com/QuentinC26.png" alt="QuentinC26" width="30" height="30"/>
 </a>
 <br></br>
 For the complete list of contributors and their roles, see the [CONTRIBUTORS.md](CONTRIBUTORS.md) file.
