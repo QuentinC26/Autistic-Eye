@@ -9,6 +9,13 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from .models import Post
 from .serializers import PostSerializer
+from rest_framework.pagination import PageNumberPagination
+
+
+class ArticlePagination(PageNumberPagination):
+  # Each page will contain a maximum of 10 articles
+  page_size = 10
+
 
 # Viewsets uses ModelViewSet, which automatically manages CRUD views
 class PostViewSet(viewsets.ModelViewSet):
@@ -16,6 +23,8 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all() 
     # Uses PostSerializer to convert objects to JSON and validate the received data
     serializer_class = PostSerializer
+    # Uses the custom pagination class defined just before
+    pagination_class = ArticlePagination
     
     # Manages the visibility of posts on the home page based on login or logout
     def get_permissions(self):
@@ -78,12 +87,14 @@ class PostListView(ListAPIView):
   serializer_class = PostSerializer
   # Gives permission to anyone (even if they are not logged in) to call this function
   permission_classes = [AllowAny]
+  # To avoid pagination on the home page
+  pagination_class = None
 
-  # Declares a recent_posts function that takes the received HTTP request as a parameter
-  def recent_posts(request):
+  # Returns the list of posts to display on the home page
+  def get_queryset(self):
     # Retrieves the logged in user if authenticated, otherwise sets user to None
-    if request.user.is_authenticated:
-      user = request.user
+    if self.request.user.is_authenticated:
+      user = self.request.user
     else:
        user = None
     # If a user is logged in, they will see the 5 most recent posts
@@ -92,8 +103,4 @@ class PostListView(ListAPIView):
     # If a user is logged out, they will see the most recent posts
     else:
         posts = Post.objects.all().order_by('-created_at')[:1]
-    # Transforms the list of retrieved posts into JSON via the serializer, many=True means it is a list of objects
-    serializer = PostSerializer(posts, many=True)
-    # Returns the HTTP response containing the serialized posts in JSON format
-    return Response(serializer.data)
-  
+    return posts
