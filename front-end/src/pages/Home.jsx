@@ -17,7 +17,7 @@ function Home() {
     const token = localStorage.getItem('accessToken');
 
     // Basic Url to Retrieves the posts
-    let url = 'http://localhost:8000/api/community/posts/';
+    let url = 'http://localhost:8000/api/community/recent_posts/';
 
     // If the user is logged in, add ?limit=5 to the URL (so 5 posts).
     // Otherwise, add ?limit=1 (only the most recent).
