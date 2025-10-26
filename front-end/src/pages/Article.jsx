@@ -24,7 +24,7 @@ const Article = () => {
       // Used to retrieve the authentication token of the logged in user.
       const token = localStorage.getItem('accessToken');
 
-       // Make an HTTP GET request to your Django API 
+      // Make an HTTP GET request to your Django API 
       fetch(url, {
         method: 'GET',
         headers: {
