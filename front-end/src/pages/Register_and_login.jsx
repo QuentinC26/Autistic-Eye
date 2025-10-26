@@ -39,7 +39,7 @@ export function Register() {
       })
       });
       if (response.ok) {
-      setMessage('You are registered !!');
+      setMessage('Vous êtes inscrit !!');
     } else {
       const errorData = await response.json();
       setMessage(`Error: ${JSON.stringify(errorData)}`);
@@ -156,7 +156,7 @@ export function Login() {
 
         // Connects the user: remembers their token + email (for now)
         loginUser(userInfo, accessToken);
-        setMessage(`You are Logined in !!`);
+        setMessage(`Vous êtes connecté`);
         navigate('/');   
       } else {
       const errorData = await response.json();
