@@ -63,6 +63,10 @@ const Article = () => {
     // Executes this code only once, when the component is first displayed
     }, []);
 
+    if (!user) {
+      return <Navigate to="/Register_and_login" />;
+    }
+
     if (loading) {
       return <p>Chargement des articles...</p>;
     } 
@@ -72,9 +76,6 @@ const Article = () => {
 
     return (
       <>
-      {/* ? = the condition is True */}
-      {/* : = the condition is False */}
-       {user ? (
           <div>
           <h3>Articles</h3>
           {/* For each article in articles, we will display a personalized article "card" */}
@@ -95,10 +96,6 @@ const Article = () => {
             <button onClick={() => fetchArticle(nextPage || '#')} disabled={!nextPage} style={{ marginLeft: '10px' }}>Page suivante</button>
           </div>
           </div>
-          ) : (
-            // Redirects the user to the Register/Login page
-            <Navigate to="/Register_and_login" />
-        )}
       </>
   )
 }
