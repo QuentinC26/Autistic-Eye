@@ -89,10 +89,10 @@ const Article = () => {
             <p><small>{new Date(article.publication_date).toLocaleDateString()}</small></p>
             </div>
             ))}
-           {/* Pagination buttons */}
+           {/* Pagination button that appears even if there is only one post */}
           <div style={{ marginTop: '20px' }}>
-            {prevPage && <button onClick={() => fetchArticle(prevPage)}>Page précédente</button>}
-            {nextPage && <button onClick={() => fetchArticle(nextPage)} style={{ marginLeft: '10px' }}>Page suivante</button>}
+            <button onClick={() => fetchArticle(prevPage || '#')} disabled={!prevPage}>Page précédente</button>
+            <button onClick={() => fetchArticle(nextPage || '#')} disabled={!nextPage} style={{ marginLeft: '10px' }}>Page suivante</button>
           </div>
           </div>
           ) : (
