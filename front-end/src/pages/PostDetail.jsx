@@ -46,10 +46,14 @@ function PostDetail() {
     })
       // This line transforms the raw response into usable data.
       .then(res => res.json())
-      // Process the list of comments
+      // Displays existing comments when the component loads
       .then(data => {
-        // Keep only comments associated with the displayed post
-        const filtered = data.filter(comment => comment.post === Number(id));
+        // data.results is for data that has been paginated
+        const filtered = data.results
+          // Keep only comments that belong to the displayed post
+          ? data.results.filter(comment => comment.post === Number(id)) 
+          // Does the same as the line above but for the case where the page is not paginated
+          : data.filter(comment => comment.post === Number(id));
         // Saves filtered comments for display
         setComments(filtered);
       });
@@ -82,9 +86,15 @@ function PostDetail() {
     })
       // This line transforms the raw response into usable data.
       .then(res => res.json())
-      // Show only comments on the current post, including the new one just added.
+      // Refreshes the display with new data from the API after adding or editing a comment
       .then(data => {
-        const filtered = data.filter(comment => comment.post === Number(id));
+        // data.results is for data that has been paginated
+        const filtered = data.results
+          // Keep only comments that belong to the displayed post
+          ? data.results.filter(comment => comment.post === Number(id)) 
+          //
+          : data.filter(comment => comment.post === Number(id));
+        // Saves filtered comments for display
         setComments(filtered);
       });
   };
@@ -178,8 +188,11 @@ function PostDetail() {
       });
       // Updates the displayed post without reloading the page
       const updatedCommentPost = await res.json();
+      const commentsArray = Array.isArray(updatedCommentPost.results)
+        ? updatedCommentPost.results
+        : updatedCommentPost;
       // Keep only comments that belong to the current post
-      const filteredComments = updatedCommentPost.filter(comment => comment.post === Number(id));
+      const filteredComments = commentsArray.filter(comment => comment.post === Number(id));
       // Updates the list of displayed comments with those filtered from the current post
       setComments(filteredComments);
       }
@@ -237,7 +250,7 @@ function PostDetail() {
           <p>{comment.content} —  {comment.author.first_name} {comment.author.last_name}</p>
           {/* Show buttons only if the user is the author of the post */}
           {/* setUser?.username = "Give me user.username only if user exists" */}
-          {user?.email === post.author.email && (
+          {user?.email === comment.author.email && (
             <>
               <button onClick={() => EditComment(comment.id, comment.content)}>Modifier</button>
               <button onClick={() => DeleteComment(comment.id)}>Supprimer</button>
