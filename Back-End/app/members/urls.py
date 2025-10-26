@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf.urls import include
 from dj_rest_auth.views import PasswordResetConfirmView
 from .views import CustomRegisterView
-from .views import VerifyEmailView
+# from .views import VerifyEmailView
 from .views import CustomLoginView
 from .views import UserProfileView 
 from .views import UpdateProfileView
@@ -14,7 +14,7 @@ urlpatterns = [
     # for use the custom register 
     path('auth/registration/', CustomRegisterView.as_view(), name='custom_register'),
     # To have user verification by email
-    path('auth/verify-email/', VerifyEmailView.as_view(), name='verify-email'),
+    # path('auth/verify-email/', VerifyEmailView.as_view(), name='verify-email'),
     # Route to confirm password reset (used in email link)
     path('auth/password/reset/confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     # road login/logout/missing password
