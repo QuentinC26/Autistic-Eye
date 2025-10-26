@@ -47,12 +47,14 @@ function Profile() {
           });
 
           // Prepare the data that will be editable, then send it.
-          setFormData({
-            first_name: data.first_name || '',
-            last_name: data.last_name || '',
-            age: data.age || '',
-            location: data.location || ''
-          });
+          if (!isEditing) {
+            setFormData({
+              first_name: data.first_name || '',
+              last_name: data.last_name || '',
+              age: data.age || '',
+              location: data.location || ''
+            });
+          }
         } catch (err) {
           console.error("Erreur de récupération du profil :", err);
           setError("Impossible de charger les infos du profil.");
@@ -62,7 +64,7 @@ function Profile() {
       // Call the fetchProfile function
       fetchProfile();
       // Restart fetchProfile every time 'user' or 'accessToken' changes
-    }, [user, accessToken, setUser]);
+    }, [user, accessToken, setUser, isEditing]);
 
     // Prevents components from running too early
     if (loading) {
