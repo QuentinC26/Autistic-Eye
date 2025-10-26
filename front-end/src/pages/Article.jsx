@@ -25,7 +25,7 @@ const Article = () => {
       const token = localStorage.getItem('accessToken');
 
        // Make an HTTP GET request to your Django API 
-      fetch('http://localhost:8000/api/article/', {
+      fetch(url, {
         method: 'GET',
         headers: {
           'Authorization': `Token ${token}`,
