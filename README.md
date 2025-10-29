@@ -4,10 +4,10 @@ Autistic Eye est un réseau social communautaire dédié aux personnes autistes 
 
 ## Table des matières
 
-- [Technologies utilisées](#technologiesutilisés)
+- [Technologies utilisées](#technologiesutiliséés)
 - [Installation](#installation)
-- [Fonctionnalités de l'application](#fonctionnalitéapplication)
-- [Licence](#license)
+- [Fonctionnalités de l'application](#fonctionnalitésdel'application)
+- [Licence](#licence)
 - [Contributeurs](#contributeurs)
 
 ## Technologies utilisées
@@ -73,7 +73,7 @@ Autistic Eye is a community-based social network dedicated to autistic individua
 - [Technologies Used](#technologiesused)
 - [Installation](#installation.)
 - [Application Features](#applicationfeatures)
-- [License](#license.)
+- [License](#license)
 - [Contributors](#contributors)
 
 ## Technologies Used
