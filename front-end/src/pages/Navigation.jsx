@@ -8,6 +8,18 @@ function Navigation() {
   const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const handleHome = () => {
+    navigate('/');
+  };
+
+  const handleProfile = () => {
+    navigate('/Profile');
+  };
+
+  const handleRegisterandlogin = () => {
+    navigate('/Register_and_login');
+  };
+
   const handleLogout = () => {
     // for logout the user
     logoutUser();
@@ -15,16 +27,24 @@ function Navigation() {
     navigate('/');
   };
 
+  const handleArticle = () => {
+    navigate('/Article');
+  };
+
+  const handleCommunity = () => {
+    navigate('/Community');
+  };
+
   return (
     <nav> 
       <ul className="ul_list">
-      <li><Link to="/">Accueil</Link></li>
+      <li><button onClick={handleHome}>Accueil</button></li>
       {/* Only a logged in user can view the My Profile page */}
       {user && (
-        <li><Link to="/Profile">Mon profil</Link></li>
+        <li><button onClick={handleProfile}>Mon Profil</button></li>
       )}
       {!user ? (
-        <li><Link to="/Register_and_login">Inscription/Connexion</Link></li>
+        <li><button onClick={handleRegisterandlogin}>Inscription/Connexion</button></li>
       ) : (
         <li><button onClick={handleLogout}>Déconnexion</button></li>
       )}
@@ -37,8 +57,8 @@ function Navigation() {
     </div>
     <br></br>
     <ul className="ul_list_2">
-    <li><Link to="/Article">Article</Link></li>
-    <li><Link to="/Community">Communauté</Link></li>
+    <li><button onClick={handleArticle}>Article</button></li>
+    <li><button onClick={handleCommunity}>Communauté</button></li>
     </ul>
     </nav>
   );
