@@ -6,11 +6,11 @@ class Post(models.Model):
     # The user can choose a category for their post based on its content...
     # ...If the post is about their own experience, it will be categorized as "Sharing Experiences."
     SUBJECT_OF_POSTS = [
-        ('experience', 'Partage d’expérience'),
-        ('question', 'Demande d’aide'),
-        ('poll', 'Sondage'),
-        ('proposal', 'Proposition'),
-        ('other', 'Autre'),
+        ('Partage d’expérience', 'Partage d’expérience'),
+        ('Demande d’aide', 'Demande d’aide'),
+        ('Sondage', 'Sondage'),
+        ('Proposition', 'Proposition'),
+        ('Autre', 'Autre'),
     ]
    
     # ForeignKey(User): Links each post to a user
