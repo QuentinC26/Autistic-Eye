@@ -167,6 +167,10 @@ export function Login() {
   };
   }; 
 
+   const handleMissingPassword = () => {
+    navigate('/forgot-password');
+  };
+
   return (
     <>
         {/* <form> is an HTML element used to create a form, i.e. a space where the user can fill in information (such as their name, age, etc.). */}
@@ -187,9 +191,7 @@ export function Login() {
           />
           <br></br>
           <p>
-          <a href="/forgot-password">
-           Mot de passe oublié ?
-          </a>
+          <button onClick={handleMissingPassword}>Mot de passe oublié ?</button>
           </p>
           <br></br>
           {/* read the message if there is one */}
