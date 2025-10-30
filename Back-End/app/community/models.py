@@ -20,7 +20,7 @@ class Post(models.Model):
     # related_name='posts': Allows you to run user.posts.all() to view their posts
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='posts')
     title = models.CharField(max_length=70)
-    subject = models.CharField(max_length=20, choices=SUBJECT_OF_POSTS, default='other')
+    subject = models.CharField(max_length=20, choices=SUBJECT_OF_POSTS, default='Autre')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
