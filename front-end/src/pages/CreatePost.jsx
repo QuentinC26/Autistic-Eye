@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function CreatePost() { 
     // Values ​​that the user enters in the form to create their post.
     const [title, setTitle] = useState('');
-    const [subject, setSubject] = useState('');
+    const [subject, setSubject] = useState('Partage d’expérience');
     const [content, setContent] = useState(''); 
     // Get a navigate function that will be used to change pages in the application
     const navigate = useNavigate(); 
@@ -36,11 +36,11 @@ function CreatePost() {
       <br></br>
       <br></br>
       <select value={subject} onChange={e => setSubject(e.target.value)}>
-      <option value="experience">Partage d’expérience</option>
-      <option value="question">Demande d’aide</option>
-      <option value="poll">Sondage</option>
-      <option value="proposal">Proposition</option>
-      <option value="other">Autre</option>
+      <option value="Partage d’expérience">Partage d’expérience</option>
+      <option value="Demande d’aide">Demande d’aide</option>
+      <option value="Sondage">Sondage</option>
+      <option value="Proposition">Proposition</option>
+      <option value="Autre">Autre</option>
       </select>
       <br></br>
       <br></br>
