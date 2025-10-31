@@ -44,7 +44,7 @@ nav {
   justify-content: center;
   /* Align elements vertically inside a flexbox container */
   align-items: center;
-  gap: 180px;
+  gap: 50px;
   /* Removes the bullet points or numbers that the browser displays by default for lists */
   list-style: none;
   padding: 0;
@@ -55,4 +55,8 @@ nav {
   /* Removes the bullet points or numbers that the browser displays by default for lists */
   list-style: none;
   padding: 0;
+}
+
+button {
+  background-color: #FFF48D;
 }
