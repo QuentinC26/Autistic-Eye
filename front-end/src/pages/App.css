@@ -110,3 +110,23 @@ button {
   height: 70px;
   width: 170px;
 }
+
+/* Aligns the cards neatly side by side, and centers them automatically */
+.cards_profile-grid {
+  justify-content: center;
+}
+
+/* Visual appearance of a single card */
+.card_profile {
+  background-color: #FFF48D;
+  /* A thin, discreet border to delimit the map */
+  border: 1px solid #0c0c0c;
+  border-radius: 8px;
+  padding: 15px;
+  /* The map takes up the entire available width */
+  width: 100%; 
+  /* Do not exceed 300px */
+  max-width: 300px;
+  /* Automatically adjusts the size of the “internal content” */
+  box-sizing: border-box;
+}
