@@ -33,7 +33,6 @@ function Navigation() {
           <button onClick={handleLogout}>Déconnexion</button>
         )}
       </div>
-    <br></br>
      {/* Container in the center of the navbar */}
      <div className="navbar-center">
         <img
@@ -46,7 +45,6 @@ function Navigation() {
           style={{ cursor: 'pointer' }}
         />
       </div>
-    <br></br>
     {/* Container in the right of the navbar */}
     <div className="navbar-right">
       <button onClick={() => handleNavigate('/Article')}>Article</button>
