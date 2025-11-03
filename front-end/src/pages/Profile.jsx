@@ -155,15 +155,16 @@ function Profile() {
       <div>
         <h3>Mon Profil :</h3>
         <br />
-        <p>Voici vos informations personnelles :</p>
+        <p className="sizetext">Voici vos informations personnelles :</p>
+        <div className="cards_profile-grid">
         {/* Display in reading mode (not editing) */}
         {!isEditing ? (
           <>
-            <h4>Prénom : {profile.first_name}</h4>
-            <h4>Nom : {profile.last_name}</h4>
-            <h4>Âge : {profile.age}</h4>
-            <h4>Ville : {profile.location}</h4>
-            <h4>Email : {profile.email}</h4>
+            <h4 className="card_profile">Prénom : {profile.first_name}</h4>
+            <h4 className="card_profile">Nom : {profile.last_name}</h4>
+            <h4 className="card_profile">Âge : {profile.age}</h4>
+            <h4 className="card_profile">Ville : {profile.location}</h4>
+            <h4 className="card_profile">Email : {profile.email}</h4>
             <button onClick={() => setIsEditing(true)}>Modifier le profil</button>
           </>
         ) : (
@@ -218,6 +219,7 @@ function Profile() {
         <br />
         {/* Button for delete the account */}
         <button type="button" onClick={DeleteAccount}>Supprimer le profil</button>
+      </div>
       </div>
     ) : (
       // If the user is not logged in, we redirect in Register_and_login page
