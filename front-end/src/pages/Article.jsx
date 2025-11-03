@@ -78,6 +78,10 @@ const Article = () => {
       <>
           <div>
           <h3>Articles</h3>
+          <br />
+          <p className="sizetext"> Retrouvez ici la liste de tous les articles liés à l’autisme provenant de différentes sources.</p>
+          <br />
+          <br />
           <div className="cards-grid">
           {/* For each article in articles, we will display a personalized article "card" */}
           {articles.map(article => (
