@@ -124,75 +124,83 @@ function Home() {
       <div>
         <h3>Bienvenue sur Autistic Eye !!</h3>
         <br />
-        <p>Voici les trois post les plus récents :</p>
+        <p className="sizetext"> Voici les trois post les plus récents :</p>
         <br />
         <br />
+        <div className="cards-grid">
         {/* If the posts list is empty, displays a message: No posts to display */}
         {posts.length === 0 && <p>Aucun post à afficher</p>}
         {/* Loops through the posts list to process each post */}
         {posts.map(post => (
           // Creates a <div> element for each post with a unique key
-          <div key={post.id}>
-            <h4>{post.title}</h4>
-            <p>{post.content.substring(0, 100)}...</p>
-            <br />
+          <div key={post.id} className="card">
+          <div className="card-header"><h4>{post.title}</h4></div>
+          <div className="card-content">{post.content.substring(0, 80)}...</div>
           </div>
         ))}
+        </div>
         <br />
         <br />
-        <p>Voici les trois articles les plus récents :</p>
+        <p className="sizetext">Voici les trois articles les plus récents :</p>
         <br />
         <br />
+        <div className="cards-grid">
         {/* If the posts articles is empty, displays a message: No articles to display */}
         {articles.length === 0 && <p>Aucun article à afficher</p>}
         {/* Loops through the articles list to process each article */}
         {articles.map(articles => (
           // Creates a <div> element for each article with a unique key
-          <div key={articles.id}>
-            <h4>{articles.title}</h4>
+          <div key={articles.id} className="card">
+            <div className="card-header"><h4>{articles.title.substring(0, 80)}...</h4></div>
+            <small>{new Date(articles.publication_date).toLocaleDateString()}</small>
             <br />
           </div>
         ))}
+        </div>
         <br />
       </div>
     ) : (
       <div>
         <h3>Bienvenue sur Autistic Eye !!</h3>
         <br />
-        <p>Autistic Eye est un réseau social communautaire qui réunit les personnes autistes et leurs proches. Son but est de combattre l'isolement des personnes autistes et de leur permettre de partager leurs expériences.</p>
+        <p className="sizetext">Autistic Eye est un réseau social communautaire qui réunit les personnes autistes et leurs proches. Son but est de combattre l'isolement des personnes autistes et de leur permettre de partager leurs expériences. Les membres d'Autistic Eye ont un accès illimité à la partie Communauté, qui leur permet de partager leurs expériences, d'échanger entre eux et d'obtenir de l'aide. Pour vous donner un aperçu de cette section, voici le post le plus récent ci-dessous :</p>
         <br />
-        <p>Les membres d'Autistic Eye ont un accès illimité à la partie Communauté, qui leur permet de partager leurs expériences, d'échanger entre eux et d'obtenir de l'aide. Pour vous donner un aperçu de cette section, voici le post le plus récent ci-dessous :</p>
-        <br />
+        <div className="cards-grid">
         {/* If the posts list is empty, displays a message: No posts to display */}
         {posts.length === 0 && <p>Aucun post à afficher</p>}
         {/* Loops through the posts list to process each post */}
         {posts.map(post => (
           // Creates a <div> element for each post with a unique key
-          <div key={post.id}>
+          <div key={post.id} className="card">
             {/* Displays the post information (title, subject and part of the content) */}
-            <h4>{post.title}</h4>
-            <p>{post.content.substring(0, 100)}...</p>
-            <br />
+            <div className="card-header"><h4>{post.title}</h4></div>
+            <div className="card-content"><p>{post.content.substring(0, 100)}...</p></div>
           </div>
         ))}
+        </div>
         <br />
-        <p>L'autre partie de l'application est la section Article. Dans cette section, les membres d'Autistic Eye ont accès à toutes les ressources externes qui les concernent, comme les démarches administratives, les associations, et bien plus encore.</p>
+        <p className="sizetext">L'autre partie de l'application est la section Article. Dans cette section, les membres d'Autistic Eye ont accès à toutes les ressources externes qui les concernent, comme les démarches administratives, les associations, et bien plus encore.</p>
         <br />
+        <div className="cards-grid">
         {/* If the articles list is empty, displays a message: No articles to display */}
         {articles.length === 0 && <p>Aucun post à afficher</p>}
         {/* Loops through the articles list to process each article */}
         {articles.map(articles => (
           // Creates a <div> element for each article with a unique key
-          <div key={articles.id}>
+          <div key={articles.id} className="card">
             {/* Displays the article information (title, subject and part of the content) */}
-            <h4>{articles.title}</h4>
+             <div className="card-header"><h4>{articles.title}</h4></div>
+            <small>{new Date(articles.publication_date).toLocaleDateString()}</small>
             <br />
           </div>
         ))}
+        </div>
         <br />
-        <p>Viens nous rejoindre en cliquant sur le boutton ci-dessous :</p>
+        <p className="sizetext"> Viens nous rejoindre en cliquant sur le boutton ci-dessous :</p>
         <br />
-        <button onClick={handleRegister}>Inscription</button>
+        <button onClick={handleRegister} className="buttonforregister">Inscription</button>
+        <br />
+        <br />
       </div>
     )}
   </>
