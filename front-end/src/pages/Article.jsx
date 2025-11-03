@@ -78,18 +78,20 @@ const Article = () => {
       <>
           <div>
           <h3>Articles</h3>
+          <div className="cards-grid">
           {/* For each article in articles, we will display a personalized article "card" */}
           {articles.map(article => (
             // With this line, each article is displayed in a separate <div>
-            <div key={article.id} style={{ marginBottom: '20px' }}>
+            <div key={article.id} style={{ marginBottom: '20px' }} className="card">
             {/* Displays the title of the article */}
-            <h2>{article.title}</h2>
+            <h2 className="card-header">{article.title.substring(0, 50)}...</h2>
             {/* The user can click “Read more” to open the article in another tab. */}
-            <a href={article.link} target="_blank" rel="noopener noreferrer">Lire plus</a>
+            <a href={article.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
             {/* Displays the title of the article */}
             <p><small>{new Date(article.publication_date).toLocaleDateString()}</small></p>
             </div>
             ))}
+            </div>
            {/* Pagination button that appears even if there is only one post */}
           <div style={{ marginTop: '20px' }}>
             <button onClick={() => fetchArticle(prevPage || '#')} disabled={!prevPage}>Page précédente</button>
