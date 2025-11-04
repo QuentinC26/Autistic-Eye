@@ -53,7 +53,8 @@ function CreatePost() {
     };
  
     return (
-      // Submit the form with field validation.
+      <div className="card">
+      {/* Submit the form with field validation. */}
       <form onSubmit={handleSubmit(handleCreatePost)}
       // The style centers the form and limits its width.
       style={{ maxWidth: "600px", margin: "0 auto", padding: "1rem" }}>
@@ -114,6 +115,7 @@ function CreatePost() {
       </button>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </form>
+    </div>
     )} 
 
 export default CreatePost;
