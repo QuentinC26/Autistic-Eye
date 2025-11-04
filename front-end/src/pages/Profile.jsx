@@ -171,8 +171,8 @@ function Profile() {
           // Profile Edit Form
           <form onSubmit={UpdateChange}>
             <label>
-              Prénom :
-              <input
+              <h4 className="card_profile">Prénom :</h4>
+              <input className="card_profile"
                 type="text"
                 name="first_name"
                 value={formData.first_name}
@@ -181,8 +181,8 @@ function Profile() {
             </label>
             <br />
             <label>
-              Nom :
-              <input
+              <h4 className="card_profile">Nom :</h4>
+              <input className="card_profile"
                 type="text"
                 name="last_name"
                 value={formData.last_name}
@@ -191,8 +191,8 @@ function Profile() {
             </label>
             <br />
             <label>
-              Âge :
-              <input
+              <h4 className="card_profile">Âge :</h4>
+              <input className="card_profile"
                 type="number"
                 name="age"
                 value={formData.age}
@@ -201,8 +201,8 @@ function Profile() {
             </label>
             <br />
             <label>
-              Ville :
-              <input
+              <h4 className="card_profile">Ville :</h4>
+              <input className="card_profile"
                 type="text"
                 name="location"
                 value={formData.location}
