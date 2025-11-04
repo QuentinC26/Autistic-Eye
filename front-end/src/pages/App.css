@@ -98,8 +98,8 @@ button {
 
 /* Body of the text inside the map */
 .card-content {
-  font-size: 0.9rem;
   color: #333;
+  font-size: 18px;
 }
 
 .sizetext {
