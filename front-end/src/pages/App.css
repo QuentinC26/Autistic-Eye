@@ -102,6 +102,20 @@ button {
   font-size: 18px;
 }
 
+/* Card element */
+.card input,
+.card select,
+.card textarea,
+.card button {
+  background-color: #FFF48D; 
+  border: 1px solid black;
+  font-size: 16px;
+  border-radius: 2px;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .sizetext {
   font-size: 18px;
 }
