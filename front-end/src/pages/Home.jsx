@@ -2,7 +2,7 @@ import './App.css'
 // Access the data of the context you created
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Home() {
   // Get the user from the context
@@ -136,6 +136,8 @@ function Home() {
           <div key={post.id} className="card">
           <div className="card-header"><h4>{post.title}</h4></div>
           <div className="card-content">{post.content.substring(0, 80)}...</div>
+          <br />
+          <Link to={`/community/posts/${post.id}`} className="card-content">Lire plus</Link>
           </div>
         ))}
         </div>
@@ -155,7 +157,7 @@ function Home() {
             <a href={articles.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
             <br />
             <br />
-            <medium>{new Date(articles.publication_date).toLocaleDateString()}</medium>
+            <span className="medium-text">{new Date(articles.publication_date).toLocaleDateString()}</span>
             <br />
           </div>
         ))}
@@ -178,6 +180,7 @@ function Home() {
             {/* Displays the post information (title, subject and part of the content) */}
             <div className="card-header"><h4>{post.title}</h4></div>
             <div className="card-content"><p>{post.content.substring(0, 100)}...</p></div>
+            <Link to="/Register_and_login" className="card-content">Lire plus</Link>
           </div>
         ))}
         </div>
@@ -196,7 +199,7 @@ function Home() {
              <a href={articles.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
              <br />
              <br />
-             <medium>{new Date(articles.publication_date).toLocaleDateString()}</medium>
+             <span className="medium-text">{new Date(articles.publication_date).toLocaleDateString()}</span>
             <br />
           </div>
         ))}
