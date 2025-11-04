@@ -92,7 +92,7 @@ const Article = () => {
             {/* The user can click “Read more” to open the article in another tab. */}
             <a href={article.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
             {/* Displays the title of the article */}
-            <p><small>{new Date(article.publication_date).toLocaleDateString()}</small></p>
+            <p><medium>{new Date(article.publication_date).toLocaleDateString()}</medium></p>
             </div>
             ))}
             </div>
