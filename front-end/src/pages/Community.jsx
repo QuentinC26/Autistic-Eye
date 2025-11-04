@@ -76,21 +76,26 @@ function Community() {
     return (
       <>
           <div>
-            <h3>Page Community</h3>
+            <h3>Communauté</h3>
+             <br />
+             <p className="sizetext">  Sur cette page, vous avez la possibilité de créer votre post, de consulter la liste de tous les posts existants et de lire ceux qui vous intéressent.</p>
+            <br />
+            <br />
             <Link to="/community/new">
             <button>Créer un post</button>
             </Link>
-
-            <ul>
+            <br />
+            <br />
+            <div className="cards_community-grid">
             {/* Loop through all post objects in the array */}
             {posts.map(post => (
-            <li key={post.id}>
+            <div key={post.id} className="card_community">
             <Link to={`/community/posts/${post.id}`}>
             {post.title} — par {post.author.first_name} {post.author.last_name}
             </Link>
-          </li>
+          </div>
         ))}
-            </ul>
+        </div>
           {/* Pagination button that appears even if there is only one post */}
           <div style={{ marginTop: '20px' }}>
             <button onClick={() => fetchPosts(prevPage || '#')} disabled={!prevPage}>Page précédente</button>
