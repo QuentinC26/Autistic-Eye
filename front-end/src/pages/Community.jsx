@@ -78,7 +78,7 @@ function Community() {
           <div>
             <h3>Communauté</h3>
              <br />
-             <p className="sizetext">  Sur cette page, vous avez la possibilité de créer votre post, de consulter la liste de tous les posts existants et de lire ceux qui vous intéressent.</p>
+             <p className="sizetext"> Sur cette page, vous avez la possibilité de créer votre post, de consulter la liste de tous les posts existants et de lire ceux qui vous intéressent.</p>
             <br />
             <br />
             <Link to="/community/new">
