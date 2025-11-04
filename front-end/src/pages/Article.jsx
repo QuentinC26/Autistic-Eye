@@ -91,8 +91,10 @@ const Article = () => {
             <h2 className="card-header">{article.title.substring(0, 50)}...</h2>
             {/* The user can click “Read more” to open the article in another tab. */}
             <a href={article.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
+            <br />
+            <br />
             {/* Displays the title of the article */}
-            <p><medium>{new Date(article.publication_date).toLocaleDateString()}</medium></p>
+            <span className="medium-text">{new Date(article.publication_date).toLocaleDateString()}</span>
             </div>
             ))}
             </div>
