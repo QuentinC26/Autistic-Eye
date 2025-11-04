@@ -129,6 +129,7 @@ button {
   max-width: 300px;
   /* Automatically adjusts the size of the “internal content” */
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 /* Aligns the cards neatly side by side, and centers them automatically */
@@ -205,4 +206,8 @@ button {
   /* Automatically adjusts the size of the “internal content” */
   box-sizing: border-box;
   font-size: 18px;
+}
+
+.medium-text {
+  font-size: 16px;
 }
