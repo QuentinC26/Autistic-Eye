@@ -152,7 +152,10 @@ function Home() {
           // Creates a <div> element for each article with a unique key
           <div key={articles.id} className="card">
             <div className="card-header"><h4>{articles.title.substring(0, 80)}...</h4></div>
-            <small>{new Date(articles.publication_date).toLocaleDateString()}</small>
+            <a href={articles.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
+            <br />
+            <br />
+            <medium>{new Date(articles.publication_date).toLocaleDateString()}</medium>
             <br />
           </div>
         ))}
@@ -190,7 +193,10 @@ function Home() {
           <div key={articles.id} className="card">
             {/* Displays the article information (title, subject and part of the content) */}
              <div className="card-header"><h4>{articles.title}</h4></div>
-            <small>{new Date(articles.publication_date).toLocaleDateString()}</small>
+             <a href={articles.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
+             <br />
+             <br />
+             <medium>{new Date(articles.publication_date).toLocaleDateString()}</medium>
             <br />
           </div>
         ))}
