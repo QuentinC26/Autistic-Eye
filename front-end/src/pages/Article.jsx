@@ -182,7 +182,7 @@ return (
           // The button is disabled if you are already on the first page to prevent going below 1
           disabled={currentPage === 1}
         >
-          Précédente
+        Page précédente
         </button>
 
         {/* Call the function renderPageNumbers() */}
@@ -195,7 +195,7 @@ return (
           disabled={currentPage === totalPages}
           style={{ marginLeft: "10px" }}
         >
-          Suivante
+        Page suivante
         </button>
       </div>
     </div>
