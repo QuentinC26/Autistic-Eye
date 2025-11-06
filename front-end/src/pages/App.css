@@ -220,6 +220,13 @@ button {
   /* Automatically adjusts the size of the “internal content” */
   box-sizing: border-box;
   font-size: 18px;
+  /* Keeping world-wrap and overflow-wrap ensures that your text displays correctly on all browsers. /*
+  /* Allows you to break a word that is too long so that it wraps to the next line if necessary */
+  word-wrap: break-word; 
+  /* Same effect as word-wrap (more modern and standardized version) */
+  overflow-wrap: break-word;
+  /* Ensures that even a URL without any spaces will not overflow */
+  word-break: break-word;
 }
 
 .medium-text {
