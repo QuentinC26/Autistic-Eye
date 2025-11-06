@@ -271,8 +271,9 @@ function PostDetail() {
           <h3>{post.title}</h3>
           <h5>{post.subject}</h5>
           <p>{post.content}</p>
-
-          {user?.email === post.author.email && (
+          
+          {/* If the logged-in user is indeed the author of the post, then display what is in parentheses, otherwise display nothing. */}
+          {user?.email === post?.author?.email && (
             <>
               <button onClick={() => setIsEditingPost(true)}>Modifier</button>
               <button onClick={handleDelete}>Supprimer</button>
@@ -322,7 +323,8 @@ function PostDetail() {
           ) : (
             <>
               <p>{comment.content} — {comment.author.first_name} {comment.author.last_name}</p>
-              {user?.email === comment.author.email && (
+              {/* If the logged-in user is indeed the author of the comment, then display what is in parentheses, otherwise display nothing. */}
+              {user?.email === comment?.author?.email && (
                 <>
                   <button onClick={() => { setEditingCommentId(comment.id); setNewContent(comment.content); }}>Modifier</button>
                   <button onClick={() => DeleteComment(comment.id)}>Supprimer</button>
