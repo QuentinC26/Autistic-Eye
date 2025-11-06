@@ -1,44 +1,55 @@
 import { useState } from 'react';
-// Library for making HTTP requests
-import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
 function ForgotPassword() {
-  // Creating non-fixed values
-  const [email, setEmail] = useState('');
+  const { register, handleSubmit, reset } = useForm();
   const [message, setMessage] = useState('');
 
-  const handleSubmit = async (MissingPassword) => {
-    // Prevents page reloading on form submission.
-    MissingPassword.preventDefault();
+  const MissingPasswordSubmit = async (data) => {
     try {
-      // Sends a POST request to the Django API to trigger a password reset email.
-      await axios.post('http://localhost:8000/members/auth/password/reset/', {
-        email: email,
+      const response = await fetch('http://localhost:8000/members/auth/password/reset/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: data.email }),
       });
-      setMessage("Un email de réinitialisation a été envoyé !");
+
+      if (response.ok) {
+        setMessage("Un email de réinitialisation a été envoyé !");
+        // Resets the form after submission
+        reset();
+      } else {
+        const errorData = await response.json();
+        setMessage(errorData.detail || "Erreur lors de l'envoi.");
+      }
     } catch (error) {
       setMessage("Erreur lors de l'envoi.");
+      console.error(error);
     }
   };
 
   return (
-    <div>
-      <h2>Mot de passe oublié</h2>
+    <div><h2 className="form-title">Mot de passe oublié</h2>
+    <div className="form-container">
       <br />
-      <form onSubmit={handleSubmit}>
-        <input
+      <br />
+      <form onSubmit={handleSubmit(MissingPasswordSubmit)}>
+        <div className="form-group">
+        <label htmlFor="email" className="form-label">Email :</label>
+        <br />
+        <input className="form-input"
           type="email"
           placeholder="Votre email"
-          value={email}
-          // updates email status with every keystroke
-          onChange={(email) => setEmail(email.target.value)}
-          required
+          {...register('email', { required: true }) }
         />
+        </div>
         <br />
         <br />
-        <button type="submit">Envoyer l'email</button>
+        <button type="submit" className="form-button">Envoyer l'email</button>
       </form>
-      <p>{message}</p>
+      {message && <p className="form-message">{message}</p>}
+    </div>
     </div>
   );
 }
