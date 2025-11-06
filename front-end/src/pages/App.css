@@ -1,67 +1,331 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  /* Prevents the content from being hidden behind the navbar */
+  padding-top: 60px; 
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.navbar {
+  /* Divides the bar into 3 fixed zones */
+  display: grid;
+  /* 3 columns: left zone (1 column), centered logo (automatic), right zone (1 column) */
+  grid-template-columns: 1fr auto 1fr;
+  /* Centers all elements of the navbar vertically */
+  align-items: center;
+  /* Prevents elements from being stuck to the edge of the window */
+  padding: 0 20px;
+  /* Allows you to fix the navbar so that it remains visible while scrolling the page */
+  position: fixed;
+  /* The bar is glued to the top of the window */
+  top: 0;
+  /* Starts on the left side of the screen */
+  left: 0;
+  /* The navbar takes up the entire width of the window */
+  width: 100%; 
+  /* Prevent other elements from passing over the navbar */
+  z-index: 1000;
+  background-color: #56739A;
+  min-height: 60px;
 }
 
-.card {
-  padding: 2em;
+.navbar-left,
+.navbar-right {
+  display: flex;
+  gap: 15px; 
+}
+
+.navbar-left {
+  /* Allows you to remove the space between the left buttons and the logo */
+   justify-content: right;
+}
+
+.navbar-right {
+  /* Allows you to remove the space between the right buttons and the logo */
+   justify-content: left;
+}
+
+.navbar-center {
+  display: flex;
+  justify-content: center;
+}
+
+.logo_of_website {
+  /* Allows the use of margin auto */
+  display: block;
+  margin : 0 auto;
+  max-width: 120px;
+  height: auto;     
 }
 
 .read-the-docs {
   color: #888;
 }
 
-.ul_list {
-  display: flex;
-  gap: 50px;
-  list-style: none;
-  padding: 0;
+button {
+  background-color: #FFF48D;
 }
 
-.ul_list_2 {
+/* Aligns the cards neatly side by side, and centers them automatically */
+.cards-grid {
   display: flex;
-  gap: 180px;
-  list-style: none;
-  padding: 0;
+  /* If the screen becomes too small, the cards automatically advance to the next line. */
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
 }
 
-.ul_list_picture {
-  display: flex;
-  list-style: none;
-  padding: 0;
+/* Visual appearance of a single card */
+.card {
+  background-color: #FFF48D;
+  /* A thin, discreet border to delimit the map */
+  border: 1px solid #0c0c0c;
+  border-radius: 8px;
+  padding: 15px;
+  /* The map takes up the entire available width */
+  width: 100%; 
+  /* Do not exceed 300px */
+  max-width: 300px;
+  /* Automatically adjusts the size of the “internal content” */
+  box-sizing: border-box;
 }
 
-.logo_of_website {
-  max-width: 120px;
-  height: auto;     
+/* Top part of the map (title of the post or article) */
+.card-header {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Body of the text inside the map */
+.card-content {
+  color: #333;
+  font-size: 18px;
+}
+
+/* Card element */
+.card input,
+.card select,
+.card textarea,
+.card button {
+  background-color: #FFF48D; 
+  border: 1px solid black;
+  font-size: 16px;
+  border-radius: 2px;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sizetext {
+  font-size: 18px;
+}
+
+.buttonforregister{
+  height: 70px;
+  width: 170px;
+}
+
+/* Aligns the cards neatly side by side, and centers them automatically */
+.cards_profile-grid {
+  justify-content: center;
+}
+
+/* Visual appearance of a single card */
+.card_profile {
+  background-color: #FFF48D;
+  /* A thin, discreet border to delimit the map */
+  border: 1px solid #0c0c0c;
+  border-radius: 8px;
+  padding: 15px;
+  /* The map takes up the entire available width */
+  width: 100%; 
+  /* Do not exceed 300px */
+  max-width: 300px;
+  /* Automatically adjusts the size of the “internal content” */
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+/* Aligns the cards neatly side by side, and centers them automatically */
+.cards_article-grid {
+  display: flex;
+  /* If the screen becomes too small, the cards automatically advance to the next line. */
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Visual appearance of a single card */
+.card_article {
+  background-color: #FFF48D;
+  /* A thin, discreet border to delimit the map */
+  border: 1px solid #0c0c0c;
+  border-radius: 8px;
+  padding: 15px;
+  /* The map takes up the entire available width */
+  width: 100%; 
+  /* Do not exceed 300px */
+  max-width: 300px;
+  /* Automatically adjusts the size of the “internal content” */
+  box-sizing: border-box;
+}
+
+/* Top part of the map (title of the article) */
+.card_article-header {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Body of the text inside the map */
+.card_article-content {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Aligns the cards neatly side by side, and centers them automatically */
+.cards_community-grid {
+  display: flex;
+  /* If the screen becomes too small, the cards automatically advance to the next line. */
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Visual appearance of a single card */
+.card_community {
+  background-color: #FFF48D;
+  /* A thin, discreet border to delimit the map */
+  border: 1px solid #0c0c0c;
+  border-radius: 8px;
+  padding: 15px;
+  /* The map takes up the entire available width */
+  width: 100%; 
+  /* Do not exceed 300px */
+  max-width: 300px;
+  /* Automatically adjusts the size of the “internal content” */
+  box-sizing: border-box;
+}
+
+/* Visual appearance of a single card */
+.card_postdetails {
+  background-color: #FFF48D;
+  /* A thin, discreet border to delimit the map */
+  border: 1px solid #0c0c0c;
+  border-radius: 8px;
+  padding: 15px;
+  /* The map takes up the entire available width */
+  width: 100%; 
+  /* Do not exceed 300px */
+  max-width: 600px;
+  /* Automatically adjusts the size of the “internal content” */
+  box-sizing: border-box;
+  font-size: 18px;
+  /* Keeping world-wrap and overflow-wrap ensures that your text displays correctly on all browsers. /*
+  /* Allows you to break a word that is too long so that it wraps to the next line if necessary */
+  word-wrap: break-word; 
+  /* Same effect as word-wrap (more modern and standardized version) */
+  overflow-wrap: break-word;
+  /* Ensures that even a URL without any spaces will not overflow */
+  word-break: break-word;
+}
+
+.medium-text {
+  font-size: 16px;
+}
+
+/* Main container of the form. */
+.form-container {
+  background-color: #FFF48D;
+  /* Rounds the corners for a more modern and soft look. */
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 25px;
+  max-width: 400px;
+  margin: 0px auto;
+  text-align: left;
+  /* Adds a sense of depth and a "cartoon/retro" style */ 
+  box-shadow: 3px 3px 0 #000;
+}
+
+/* Title of the form */
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: #000;
+}
+
+/* Container of a field (label + input) */
+.form-group {
+  margin-bottom: 15px;
+  background-color: #FFF48D;
+}
+
+/* Descriptive text for a field (for example : "Email:") */
+.form-label {
+  font-weight: bold;
+  color: #000;
+}
+
+/* Input fields. */
+.form-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: #FFF48D;
+  font-size: 1rem;
+}
+
+/* Submit buttons */
+.form-button {
+  background-color: #FFF48D;;
+  color: #0c0c0c;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  padding: 10px;
+  /* Changes the appearance of the mouse cursor when you hover over it. */
+  cursor: pointer;
+  /* Makes style changes gradual and fluid instead of instantaneous. */ 
+  transition: 0.3s;
+}
+
+/* Links like "Forgot your password?" */
+.form-link {
+  display: block;
+  margin: 10px auto;
+  background: none;
+  border: none;
+  color: #56739A;
+  cursor: pointer;
+  text-decoration: underline;
+  text-align: center;
+}
+
+/* Error text for validation */
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+}
+
+/* Information or confirmation message after action */
+.form-message {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Container for the toggle buttons between Login and Register */
+.switch-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.forgotpasswordbutton {
+  text-align: center;
+  margin: 15px auto;
 }

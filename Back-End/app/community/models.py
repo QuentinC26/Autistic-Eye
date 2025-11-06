@@ -6,11 +6,11 @@ class Post(models.Model):
     # The user can choose a category for their post based on its content...
     # ...If the post is about their own experience, it will be categorized as "Sharing Experiences."
     SUBJECT_OF_POSTS = [
-        ('experience', 'Partage d’expérience'),
-        ('question', 'Demande d’aide'),
-        ('poll', 'Sondage'),
-        ('proposal', 'Proposition'),
-        ('other', 'Autre'),
+        ('Partage d’expérience', 'Partage d’expérience'),
+        ('Demande d’aide', 'Demande d’aide'),
+        ('Sondage', 'Sondage'),
+        ('Proposition', 'Proposition'),
+        ('Autre', 'Autre'),
     ]
    
     # ForeignKey(User): Links each post to a user
@@ -20,7 +20,7 @@ class Post(models.Model):
     # related_name='posts': Allows you to run user.posts.all() to view their posts
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='posts')
     title = models.CharField(max_length=70)
-    subject = models.CharField(max_length=20, choices=SUBJECT_OF_POSTS, default='other')
+    subject = models.CharField(max_length=20, choices=SUBJECT_OF_POSTS, default='Autre')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):

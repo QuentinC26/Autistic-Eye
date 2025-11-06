@@ -1,6 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../context/AuthContext";
 
 function PostDetail() {
@@ -16,6 +15,13 @@ function PostDetail() {
   const { user } = useContext(AuthContext);
   // Get a navigate function that will be used to change pages in the application
   const navigate = useNavigate();
+  // It is used to determine if the post is being edited.
+  const [isEditingPost, setIsEditingPost] = useState(false);
+  // Remembers the ID of the comment being edited (or null if none).
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  // Temporary states for editing
+  const [newTitle, setNewTitle] = useState('');
+  const [newContent, setNewContent] = useState('');
 
   // This code runs at the start, and every time you change posts
   useEffect(() => {
@@ -34,6 +40,8 @@ function PostDetail() {
       // This line stores the post information in the state so that it can be displayed.
       .then(data => {
         setPost(data);
+        setNewTitle(data.title);
+        setNewContent(data.content);
       });
 
     // Request all comments
@@ -77,197 +85,280 @@ function PostDetail() {
     setNewComment('');
 
     // Refresh the comments list after adding the new one.
+    const token = localStorage.getItem('accessToken');
     fetch('http://localhost:8000/api/community/commentaries/', {
       headers: {
         // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
-        'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+        'Authorization': 'Token ' + token,
         'Content-Type': 'application/json',
       },
     })
-      // This line transforms the raw response into usable data.
       .then(res => res.json())
-      // Refreshes the display with new data from the API after adding or editing a comment
       .then(data => {
-        // data.results is for data that has been paginated
         const filtered = data.results
-          // Keep only comments that belong to the displayed post
           ? data.results.filter(comment => comment.post === Number(id)) 
-          //
           : data.filter(comment => comment.post === Number(id));
-        // Saves filtered comments for display
         setComments(filtered);
       });
   };
-   
-   // Asynchronous function called when the "Edit" button is clicked
-   const handleEdit = async () => {
-      // Asks the user to modify items via windows prompt()
-      const newTitle = prompt("Nouveau titre :", post.title);
-      const newContent = prompt("Nouveau contenu :", post.content);
 
-      // Checks that the user has not clicked “Cancel” and left the fields blank.
-      if (newTitle && newContent) {
-        await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
-          method: 'PUT',
-          headers: {
-            // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
-            'Authorization': 'Token ' + localStorage.getItem('accessToken'),
-            'Content-Type': 'application/json'
-          },
-          // Returns the data (even unchanged) to update the post in the database
-          body: JSON.stringify({
-            title: newTitle,
-            content: newContent,
-            subject: post.subject
-          })
-        });
+  // Asynchronous function called when the "Edit" button is clicked
+  const handleEdit = async (event) => {
+    // Prevents the page from reloading
+    event.preventDefault();
 
-      // Allows you to retrieve updated data
-      const res = await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
+    // Checks that the user has not clicked “Cancel” and left the fields blank.
+    if (newTitle && newContent) {
+      await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
+        method: 'PUT',
         headers: {
           // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
           'Authorization': 'Token ' + localStorage.getItem('accessToken'),
           'Content-Type': 'application/json'
-        }
+        },
+        // Returns the data (even unchanged) to update the post in the database
+        body: JSON.stringify({
+          title: newTitle,
+          content: newContent,
+          subject: post.subject
+        })
       });
-      // Updates the displayed post without reloading the page
-      const updatedPost = await res.json();
-      setPost(updatedPost);
-      }
+      // Resets the isEditingPost state to false, which exits edit mode and returns the post to its normal display.
+      setIsEditingPost(false);
     };
 
-    // Function called when the "Delete" button is clicked
-    const handleDelete = async () => {
-        // Confirmation window to verify that the user really wants to delete the post
-        const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer ce post ?")
-        // If the user clicks "Cancel", the deletion is interrupted
-        if (!confirmDelete) {
-          return;
-        } 
+    // Allows you to retrieve updated data
+    const res = await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
+      headers: {
+        // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
+        'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+        'Content-Type': 'application/json'
+      }
+    });
+    // Updates the displayed post without reloading the page
+    const updatedPost = await res.json();
+    setPost(updatedPost);
+  };
 
-      // Sends a DELETE request to the API to delete the post in question.
-      await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
-        method: 'DELETE',
+  // Function called when the "Delete" button is clicked
+  const handleDelete = async () => {
+    // Confirmation window to verify that the user really wants to delete the post
+    const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer ce post ?");
+    // If the user clicks "Cancel", the deletion is interrupted
+    if (!confirmDelete) return;
+
+    // Sends a DELETE request to the API to delete the post in question.
+    await fetch(`http://localhost:8000/api/community/posts/${id}/`, {
+      method: 'DELETE',
+      headers: {
+        // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
+        'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+        'Content-Type': 'application/json'
+      }
+    });
+
+    navigate('/community');
+  };
+
+  // Asynchronous function called when the "Edit" button is clicked
+  const EditComment = async (event, commentId) => {
+    event.preventDefault();
+
+    // Checks that the user has not clicked “Cancel” and left the fields blank.
+    if (newContent) {
+      await fetch(`http://localhost:8000/api/community/commentaries/${commentId}/`, {
+        method: 'PUT',
         headers: {
           // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
           'Authorization': 'Token ' + localStorage.getItem('accessToken'),
           'Content-Type': 'application/json'
-       }
-    });
-    
-    navigate('/community');
+        },
+        // Returns the data (even unchanged) to update the comments of the post in the database
+        body: JSON.stringify({ content: newContent })
+      });
+      // Used to exit comment editing mode, indicating that no comments are currently being edited.
+      setEditingCommentId(null);
     }
 
-    // Asynchronous function called when the "Edit" button is clicked
-   const EditComment = async (commentId, commentContent) => {
-      // Asks the user to modify items via windows prompt()
-      const newContent = prompt("Nouveau contenu :", commentContent);
-
-      // Checks that the user has not clicked “Cancel” and left the fields blank.
-      if (newContent) {
-        await fetch(`http://localhost:8000/api/community/commentaries/${commentId}/`, {
-          method: 'PUT',
-          headers: {
-            // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
-            'Authorization': 'Token ' + localStorage.getItem('accessToken'),
-            'Content-Type': 'application/json'
-          },
-          // Returns the data (even unchanged) to update the comments of the post in the database
-          body: JSON.stringify({
-            content: newContent,
-          })
-        });
-
-      // Allows you to retrieve updated data
-      const res = await fetch(`http://localhost:8000/api/community/commentaries/`, {
-        headers: {
-          // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
-          'Authorization': 'Token ' + localStorage.getItem('accessToken'),
-          'Content-Type': 'application/json'
-        }
-      });
-      // Updates the displayed post without reloading the page
-      const updatedCommentPost = await res.json();
-      const commentsArray = Array.isArray(updatedCommentPost.results)
-        ? updatedCommentPost.results
-        : updatedCommentPost;
-      // Keep only comments that belong to the current post
-      const filteredComments = commentsArray.filter(comment => comment.post === Number(id));
-      // Updates the list of displayed comments with those filtered from the current post
-      setComments(filteredComments);
+    // Allows you to retrieve updated data
+    const res = await fetch(`http://localhost:8000/api/community/commentaries/`, {
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+        'Content-Type': 'application/json'
       }
-    };
-
-    // Function called when the "Delete" button is clicked
-    const DeleteComment = async (commentId) => {
-        // Confirmation window to verify that the user really wants to delete the comment
-        const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer ce commentaire ?")
-        // If the user clicks "Cancel", the deletion is interrupted
-        if (!confirmDelete) {
-          return;
-        } 
-
-      // Sends a DELETE request to the API to delete the post in question.
-      await fetch(`http://localhost:8000/api/community/commentaries/${commentId}/`, {
-        method: 'DELETE',
-        headers: {
-          // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
-          'Authorization': 'Token ' + localStorage.getItem('accessToken'),
-          'Content-Type': 'application/json'
-       }
     });
-    // Used to remove a specific comment from the displayed list, without making another call to the server
+    const updatedCommentPost = await res.json();
+    const commentsArray = Array.isArray(updatedCommentPost.results)
+      ? updatedCommentPost.results
+      : updatedCommentPost;
+    const filteredComments = commentsArray.filter(comment => comment.post === Number(id));
+    setComments(filteredComments);
+  };
+
+  // Function called when the "Delete" button is clicked
+  const DeleteComment = async (commentId) => {
+    const confirmDelete = window.confirm("Es-tu sûr de vouloir supprimer ce commentaire ?");
+    if (!confirmDelete) return;
+
+    await fetch(`http://localhost:8000/api/community/commentaries/${commentId}/`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Token ' + localStorage.getItem('accessToken'),
+        'Content-Type': 'application/json'
+      }
+    });
+
     setComments(comments.filter(comment => comment.id !== commentId));
-   }
+  };
+
+  // Allows the field to grow naturally over time
+  const autoResize = (event) => {
+    // Allows you to reset the height to 0
+    event.target.style.height = "auto";
+    // Allows the textarea to resize according to what the user writes
+    event.target.style.height = event.target.scrollHeight + "px";
+  };
 
   // Displays a loading message until the post data is available.
-  if (!post) {
-    return <p>Chargement...</p>;
-  }
+  if (!post) return <p>Chargement...</p>;
 
   return (
-    <div>
-      <h2>{post.title}</h2>
-      <h4>{post.subject}</h4>
-      <p>{post.content}</p>
-      <hr />
-
-      {/* Show buttons only if the user is the author of the post */}
-      {/* setUser?.id = "Give me user.username only if user exists" */}
-      {user?.email === post.author.email && (
+  <div><h3>Post sélectionné :</h3>
+    <div className="card_postdetails">
+      {/* Displaying or editing the post */}
+      {isEditingPost ? (
+        <form onSubmit={handleEdit}>
+          <input
+            type="text"
+            value={newTitle}
+            onChange={(event) => setNewTitle(event.target.value)}
+            style={{ 
+              width: '100%', 
+              backgroundColor: '#FFF48D',
+              marginBottom: '10px',
+              fontSize: '16px',
+              // black border
+              border: '1px solid black',
+              borderRadius: '2px'}}
+          />
+          <textarea
+            value={newContent}
+            onChange={(event) => {
+              setNewContent(event.target.value); 
+              // Activates self-adjustment
+              autoResize(event); 
+            }}
+            // Defines the minimum height
+            rows={3}
+            style={{
+              width: '100%',
+              minHeight: '100px',
+              // Prevents manual resizing
+              resize: 'none',
+              boxSizing: 'border-box',
+              backgroundColor: '#FFF48D', 
+              fontSize: '16px',
+              // black border
+              border: '1px solid black',
+              borderRadius: '2px'
+            }}
+          />
+          <button type="submit">Enregistrer</button>
+          <button type="button" onClick={() => setIsEditingPost(false)}>Annuler</button>
+        </form>
+      ) : (
         <>
-          <button onClick={handleEdit}>Modifier</button>
-          <button onClick={handleDelete}>Supprimer</button>
+          <h3>{post.title}</h3>
+          <h5>{post.subject}</h5>
+          <p>{post.content}</p>
+          
+          {/* If the logged-in user is indeed the author of the post, then display what is in parentheses, otherwise display nothing. */}
+          {user?.email === post?.author?.email && (
+            <>
+              <button onClick={() => setIsEditingPost(true)}>Modifier</button>
+              <button onClick={handleDelete}>Supprimer</button>
+            </>
+          )}
         </>
       )}
+    </div>
 
-      <hr />
+    <hr />
 
-      <h3>Commentaires</h3> 
-      {/* Go through each comment and display it with its author. */}
+    <h3>Commentaires</h3>
+    <div className="cards-grid">
       {comments.map(comment => (
-        <div key={comment.id}>
-          <p>{comment.content} —  {comment.author.first_name} {comment.author.last_name}</p>
-          {/* Show buttons only if the user is the author of the post */}
-          {/* setUser?.username = "Give me user.username only if user exists" */}
-          {user?.email === comment.author.email && (
+        <div key={comment.id} className="card_postdetails">
+          {editingCommentId === comment.id ? (
+            <form onSubmit={(event) => EditComment(event, comment.id)}>
+              <textarea
+                value={comment.content}
+                onChange={(event) => {
+                  const updated = comments.map(c =>
+                    c.id === comment.id ? { ...c, content: event.target.value } : c
+                  );
+                  setComments(updated);
+                  setNewContent(event.target.value);
+                  // Activates self-adjustment
+                  autoResize(event); 
+            }}
+            // Defines the minimum height
+            rows={3}
+            style={{
+              width: '100%',
+              minHeight: '100px',
+              // Prevents manual resizing
+              resize: 'none',
+              boxSizing: 'border-box',
+              backgroundColor: '#FFF48D', 
+              fontSize: '16px',
+              // black border
+              border: '1px solid black',
+              borderRadius: '2px'
+            }}
+          />
+              <button type="submit">Enregistrer</button>
+              <button type="button" onClick={() => setEditingCommentId(null)}>Annuler</button>
+            </form>
+          ) : (
             <>
-              <button onClick={() => EditComment(comment.id, comment.content)}>Modifier</button>
-              <button onClick={() => DeleteComment(comment.id)}>Supprimer</button>
+              <p>{comment.content} — {comment.author.first_name} {comment.author.last_name}</p>
+              {/* If the logged-in user is indeed the author of the comment, then display what is in parentheses, otherwise display nothing. */}
+              {user?.email === comment?.author?.email && (
+                <>
+                  <button onClick={() => { setEditingCommentId(comment.id); setNewContent(comment.content); }}>Modifier</button>
+                  <button onClick={() => DeleteComment(comment.id)}>Supprimer</button>
+                </>
+              )}
             </>
           )}
         </div>
       ))}
-      <br />
-      <textarea
+    </div>
+
+    <br /><br />
+    <textarea
       placeholder="Ajouter un commentaire..."
       value={newComment}
-      onChange={event => setNewComment(event.target.value)}
-      />
-      <br />
-      <button onClick={AddComment}>Commenter</button>
-    </div>
-  );
+      onChange={event => { setNewComment(event.target.value)
+        // Activates self-adjustment
+        autoResize(event); 
+      }}
+      // Defines the minimum height
+      rows={3}
+      style={{
+        width: '100%',
+        minHeight: '100px',
+        // Prevents manual resizing
+        resize: 'none',
+        boxSizing: 'border-box',
+        backgroundColor: '#FFF48D', 
+      }}
+    />
+    <br />
+    <button onClick={AddComment}>Commenter</button>
+  </div>
+);
 }
 
 export default PostDetail;

@@ -11,6 +11,25 @@ services:
       - "8000:8000"
     # Allows you to run a command to allow MySql to wait.
     command: ["./wait-for-db.sh", "db", "3306", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+  # Runs a script that retrieves articles daily
+  fetcher:
+    # Uses the same code and database as the backend
+    env_file:
+      - Back-End/.env
+    # Builds a container that has the same code and Dockerfile as the backend
+    build:
+      context: ./Back-End
+      dockerfile: Dockerfile
+    # Indicates that fetcher should not start until the database is ready
+    depends_on:
+      - db
+    # Shares the back-end code with the container
+    volumes:
+      - ./Back-End:/app
+    # Launches the entrypoint.sh script which retrieves articles continuously
+    command: ["./wait-for-db.sh", "db", "3306", "bash", "/app/entrypoint.sh"]
+
   front-end:
     env_file:
       - front-end/.env
@@ -30,6 +49,7 @@ services:
     # This allows Vite to properly detect file changes, even when you're using Docker
     environment:
       - CHOKIDAR_USEPOLLING=true
+
   db:
     image: mysql:8.0
     env_file:
