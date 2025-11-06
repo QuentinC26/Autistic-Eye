@@ -14,7 +14,7 @@ function ResetPassword() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
   // Function called upon form submission
-  const MissingPasswordSubmit = async (data) => {
+  const ResetPasswordSubmit = async (data) => {
     try {
       setMessage('En cours de chargement...');
       // Sends a POST request to the Django REST Auth endpoint (/auth/password/reset/confirm/) with the required data
@@ -54,7 +54,7 @@ function ResetPassword() {
   const new_password1 = watch("new_password1");
 
   return (
-     <form onSubmit={handleSubmit(MissingPasswordSubmit)} className="form-container">
+     <form onSubmit={handleSubmit(ResetPasswordSubmit)} className="form-container">
       <h2 className="form-title">Définir un nouveau mot de passe</h2>
 
       <div className="form-group">
