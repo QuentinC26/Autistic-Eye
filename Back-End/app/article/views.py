@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny
 
 class ArticlePagination(PageNumberPagination):
   # Each page will contain a maximum of 10 articles
-  page_size = 10
+  page_size = 12
 
 
 class ArticleListAPIView(generics.ListAPIView):

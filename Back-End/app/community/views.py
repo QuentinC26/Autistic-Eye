@@ -14,7 +14,7 @@ from rest_framework.pagination import PageNumberPagination
 
 class ArticlePagination(PageNumberPagination):
   # Each page will contain a maximum of 10 articles
-  page_size = 10
+  page_size = 12
 
 
 # Viewsets uses ModelViewSet, which automatically manages CRUD views
