@@ -225,3 +225,100 @@ button {
 .medium-text {
   font-size: 16px;
 }
+
+/* Main container of the form. */
+.form-container {
+  background-color: #FFF48D;
+  /* Rounds the corners for a more modern and soft look. */
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 25px;
+  max-width: 400px;
+  margin: 0px auto;
+  text-align: left;
+  /* Adds a sense of depth and a "cartoon/retro" style */ 
+  box-shadow: 3px 3px 0 #000;
+}
+
+/* Title of the form */
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: #000;
+}
+
+/* Container of a field (label + input) */
+.form-group {
+  margin-bottom: 15px;
+  background-color: #FFF48D;
+}
+
+/* Descriptive text for a field (for example : "Email:") */
+.form-label {
+  font-weight: bold;
+  color: #000;
+}
+
+/* Input fields. */
+.form-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background-color: #FFF48D;
+  font-size: 1rem;
+}
+
+/* Submit buttons */
+.form-button {
+  background-color: #FFF48D;;
+  color: #0c0c0c;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  padding: 10px;
+  /* Changes the appearance of the mouse cursor when you hover over it. */
+  cursor: pointer;
+  /* Makes style changes gradual and fluid instead of instantaneous. */ 
+  transition: 0.3s;
+}
+
+/* Links like "Forgot your password?" */
+.form-link {
+  display: block;
+  margin: 10px auto;
+  background: none;
+  border: none;
+  color: #56739A;
+  cursor: pointer;
+  text-decoration: underline;
+  text-align: center;
+}
+
+/* Error text for validation */
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+}
+
+/* Information or confirmation message after action */
+.form-message {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Container for the toggle buttons between Login and Register */
+.switch-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.forgotpasswordbutton {
+  text-align: center;
+  margin: 15px auto;
+}
