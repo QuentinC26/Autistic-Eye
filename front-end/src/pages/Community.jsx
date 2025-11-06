@@ -173,7 +173,8 @@ function Community() {
             {posts.map(post => (
             <div key={post.id} className="card_community">
             <Link to={`/community/posts/${post.id}`}>
-            {post.title} — par {post.author.first_name} {post.author.last_name}
+            {/* Displays the title and author's name, without ever crashing, using default values ​​("Anonymous User") if the data is missing */}
+            {post.title} — par {post?.author?.first_name || "Utilisateur"} {post?.author?.last_name || "Anonyme"}
             </Link>
           </div>
         ))}
