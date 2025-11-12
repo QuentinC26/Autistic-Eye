@@ -7,4 +7,4 @@ class ArticleSerializer(serializers.ModelSerializer):
         # Tells the serializer that the associated model is Article
         model = Article
         # Specifies the model fields that you want to include in the serialization
-        fields = ['id', 'title', 'description', 'link', 'publication_date']
+        fields = ['id', 'title', 'description', 'link', 'image_url', 'publication_date']

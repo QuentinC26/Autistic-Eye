@@ -2,7 +2,8 @@ import './App.css'
 // Access the data of the context you created
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate} from "react-router-dom";
+import puzzle from '../assets/puzzle.png';
 
 // Component used to display the list of items
 const Article = () => {
@@ -164,6 +165,16 @@ return (
       <div key={article.id} style={{ marginBottom: '20px' }} className="card">
       {/* Displays the title of the article */}
       <h2 className="card-header">{article.title.substring(0, 50)}...</h2>
+      <br />
+      <br />
+      {/* The picture if she exists */}
+      <img
+      src={article.image_url || puzzle}
+      alt={article.title}
+      style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '10px' }}
+      />
+      <br />
+      <br />
       {/* The user can click “Read more” to open the article in another tab. */}
       <a href={article.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
       <br />

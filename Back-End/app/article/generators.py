@@ -3,11 +3,13 @@ import feedparser
 from datetime import datetime
 from .models import Article, Source
 from django.utils.timezone import make_aware
+# Used to analyze HTML to extract tags (here, the <img> images).
+from bs4 import BeautifulSoup
 
 # Store the URL of your custom RSS feed in a variable
 RSS_FEED_URL = { 
-    "Ministry of Health" : "https://rss.app/feeds/HYfL8ByTfnSKjNVY.xml",
-    "Autism France" : "https://rss.app/feeds/QAeiCiDxsgPoapsI.xml",
+    "Autism France" : "https://rss.app/feeds/w3Fh1Jko3e5lPNit.xml",
+    "Autisme Home": "https://rss.app/feeds/V3SJH3WmM5hVVK7U.xml"
 }
 
 # Allows you to define the keywords that must appear in the title or description for the article to be saved
@@ -48,6 +50,27 @@ def fetch_and_save_articles():
           if Article.objects.filter(link=entry.link).exists():
             # If an article with this link already exists in the database, we move on to the next one.
             continue
+          
+          # Initializes the variable image_url (default is no image)
+          image_url = None
+
+          # If no image has been found yet, we look in entry.links
+          if 'media_content' in entry:
+            image_url = entry.media_content[0].get('url', None)
+
+          # If the summary contains HTML, we "parse" it with BeautifulSoup and look for an <img> tag
+          if not image_url and 'links' in entry:
+            for link in entry.links:
+                if link.get('rel') == 'enclosure' and 'image' in link.get('type', ''):
+                    image_url = link.get('href')
+                    break
+
+          # Last resort: look for an <img> tag in the HTML summary
+          if not image_url and entry.get('summary'):
+            soup = BeautifulSoup(entry.summary, 'html.parser')
+            img_tag = soup.find('img')
+            if img_tag and img_tag.get('src'):
+                image_url = img_tag['src']
 
           # Allows you to have a default value before filling it in
           pub_date = None
@@ -68,6 +91,7 @@ def fetch_and_save_articles():
               title=entry.title,
               description=entry.get('summary', ''),
               link=entry.link,
+              image_url=image_url,
               publication_date=pub_date,
               source=source
           )

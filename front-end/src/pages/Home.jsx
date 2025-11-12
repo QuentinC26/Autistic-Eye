@@ -3,6 +3,7 @@ import './App.css'
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from 'react-router-dom';
+import puzzle from '../assets/puzzle.png';
 
 function Home() {
   // Get the user from the context
@@ -154,6 +155,16 @@ function Home() {
           // Creates a <div> element for each article with a unique key
           <div key={articles.id} className="card">
             <div className="card-header"><h4>{articles.title.substring(0, 80)}...</h4></div>
+            <br />
+            <br />
+            {/* The picture if she exists */}
+            <img
+            src={articles.image_url || puzzle}
+            alt={articles.title}
+            style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '10px' }}
+            />
+            <br />
+            <br />
             <a href={articles.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
             <br />
             <br />
@@ -189,13 +200,23 @@ function Home() {
         <br />
         <div className="cards-grid">
         {/* If the articles list is empty, displays a message: No articles to display */}
-        {articles.length === 0 && <p>Aucun post à afficher</p>}
+        {articles.length === 0 && <p>Aucun article à afficher</p>}
         {/* Loops through the articles list to process each article */}
         {articles.map(articles => (
           // Creates a <div> element for each article with a unique key
           <div key={articles.id} className="card">
             {/* Displays the article information (title, subject and part of the content) */}
              <div className="card-header"><h4>{articles.title}</h4></div>
+             <br />
+             <br />
+             {/* The picture if she exists */}
+             <img
+             src={articles.image_url || puzzle}
+             alt={articles.title}
+             style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '10px' }}
+             />
+             <br />
+             <br />
              <a href={articles.link} target="_blank" rel="noopener noreferrer" className="card-content">Lire plus</a>
              <br />
              <br />
