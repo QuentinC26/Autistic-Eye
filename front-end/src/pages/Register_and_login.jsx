@@ -73,7 +73,7 @@ export function Register() {
       {errors.last_name && <span className="error-text">Champ requis</span>}
       </div>
       <div className="form-group">
-      <label className="form-label">Âge :*</label>
+      <label className="form-label">*Âge :</label>
       <input type="number" {...register("age", { required: true })} className="form-input" />
       {errors.age && <span className="error-text">Champ requis</span>}
       </div>
