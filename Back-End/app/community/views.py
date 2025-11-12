@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, parsers, permissions
 from .models import Post
 from .models import CommentaryPost
 from .serializers import PostSerializer
@@ -25,6 +25,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     # Uses the custom pagination class defined just before
     pagination_class = ArticlePagination
+
+    # These two parsers allow DRF to handle files sent from React
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
     
     # Manages the visibility of posts on the home page based on login or logout
     def get_permissions(self):
