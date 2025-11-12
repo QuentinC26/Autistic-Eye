@@ -32,7 +32,6 @@ function PostDetail() {
       headers: {
         // Allows you to identify the connected user with their token
         'Authorization': 'Token ' + token,
-        'Content-Type': 'application/json',
       },
     })
       // This line transforms the raw response into usable data.
@@ -219,6 +218,17 @@ function PostDetail() {
     event.target.style.height = event.target.scrollHeight + "px";
   };
 
+  // Ensures that the browser always receives a complete URL
+  const getFullImageUrl = (imagePath) => {
+    if (!imagePath) {
+      return null;
+    }
+    return imagePath.startsWith("http")
+      ? imagePath
+      : `http://localhost:8000${imagePath}`;
+  };
+
+
   // Displays a loading message until the post data is available.
   if (!post) return <p>Chargement...</p>;
 
@@ -270,6 +280,18 @@ function PostDetail() {
         <>
           <h3>{post.title}</h3>
           <h5>{post.subject}</h5>
+          {/* Avoid making a mistake if the post doesn't have an image. */}
+          {post.image && (
+        <img
+          src={getFullImageUrl(post.image)}
+          alt="Image du post"
+          style={{
+            maxWidth: "100%",
+            borderRadius: "8px",
+            marginTop: "10px",
+          }}
+          />
+          )}
           <p>{post.content}</p>
           
           {/* If the logged-in user is indeed the author of the post, then display what is in parentheses, otherwise display nothing. */}
