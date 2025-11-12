@@ -16,3 +16,5 @@ djangorestframework-simplejwt==5.3.1
 django-cors-headers==4.4.0
 # Install django-anymail + dependencies for Mailgun
 django-anymail[mailgun]==10.2
+# Allows Django to manipulate images
+Pillow>=10.0.0,<11.0.0
