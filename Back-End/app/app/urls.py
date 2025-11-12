@@ -17,6 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+# Allows reading MEDIA_URL and MEDIA_ROOT from your settings.py file
+from django.conf import settings
+# A function that creates temporary URLs to serve static files or media during development.
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,3 +29,9 @@ urlpatterns = [
     # Allows you to avoid having the following URL link: api/article/api/article
     path('', include('article.urls'))
 ]
+
+# We only serve media files during development.
+# In production, a real web server (Nginx, Apache, etc.) should handle that.
+if settings.DEBUG:
+    # Add these new routes to the existing list in your urls.py file.
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
