@@ -14,21 +14,33 @@ function CreatePost() {
     const [errorMessage, setErrorMessage] = useState(null);
     // Get a navigate function that will be used to change pages in the application
     const navigate = useNavigate(); 
+    // Stores the selected image
+    const [image, setImage] = useState(null);
 
     const handleCreatePost = async (data) => {
         // setErrorMessage(null) resets errorMessage to indicate that there are no errors at the moment.
         setErrorMessage(null);
+
+        // Prepare the data to send to your backend.
+        const formData = new FormData();
+        // Adds the data to the FormData “bag”
+        formData.append("title", data.title);
+        formData.append("subject", data.subject);
+        formData.append("content", data.content);
+        // Adds the image to the Formdata bag if the user includes an image.
+        if (image) {
+          formData.append("image", image);
+        }
+
         try {
           // Sends an HTTP POST request to the API at the given URL
           const response = await fetch('http://localhost:8000/api/community/posts/', 
             { method: 'POST', 
                 headers: { 
-                    'Content-Type': 'application/json', 
                     // Adds the authentication token stored in localStorage (used to prove that the user is logged in)
                     'Authorization': 'Token ' + localStorage.getItem('accessToken') 
                 }, 
-                // Allows you to transform the data into a JSON string.
-                body: JSON.stringify(data) 
+                body: formData,
             }); 
 
             // Handles the case where there is an error when retrieving the response
@@ -85,6 +97,16 @@ function CreatePost() {
         <option value="Proposition">Proposition</option>
         <option value="Autre">Autre</option>
       </select>
+      <br></br>
+      <br></br>
+      {/* Image */}
+        <label htmlFor="image">Ajouter une image :</label>
+        <input
+          // Tells HTML that it's a file selector
+          type="file"
+          id="image"
+          onChange={(event) => setImage(event.target.files[0])}
+        />
       <br></br>
       <br></br>
         {/* Content Field */}
