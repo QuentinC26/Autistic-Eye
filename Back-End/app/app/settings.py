@@ -214,3 +214,8 @@ ANYMAIL = {
 }
 
 ACCOUNT_EMAIL_TEMPLATE_PATH = 'account/email'
+
+# URL to access files from the front end
+MEDIA_URL = '/media/'
+# Physical folder on the server where the files will be stored
+MEDIA_ROOT = BASE_DIR / 'media' 
