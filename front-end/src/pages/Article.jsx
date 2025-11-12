@@ -2,6 +2,7 @@ import './App.css'
 // Access the data of the context you created
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { Navigate} from "react-router-dom";
 import puzzle from '../assets/puzzle.png';
 
 // Component used to display the list of items
