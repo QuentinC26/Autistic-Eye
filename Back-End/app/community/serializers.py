@@ -13,6 +13,7 @@ class PostSerializer(serializers.ModelSerializer):
         # Serialize all model fields
         fields = '__all__'
 
+   # Returns the full URL of a post's image so that the front-end can display it correctly.
     def get_image(self, obj):
         request = self.context.get('request')
         if obj.image:
