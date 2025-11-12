@@ -21,6 +21,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='posts')
     title = models.CharField(max_length=70)
     subject = models.CharField(max_length=20, choices=SUBJECT_OF_POSTS, default='Autre')
+    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
