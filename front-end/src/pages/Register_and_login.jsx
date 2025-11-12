@@ -63,32 +63,32 @@ export function Register() {
   return (
       <form onSubmit={handleSubmit(RegisterSubmit)} className="form-container">
       <div className="form-group">
-      <label className="form-label">Prénom :*</label>
+      <label className="form-label">Prénom :</label>
       <input {...register("first_name", { required: true })} className="form-input"/>
       {errors.first_name && <span className="error-text">Champ requis</span>}
       </div>
       <div className="form-group">
-      <label className="form-label">Nom :*</label>
+      <label className="form-label">Nom :</label>
       <input {...register("last_name", { required: true })} className="form-input" />
       {errors.last_name && <span className="error-text">Champ requis</span>}
       </div>
       <div className="form-group">
-      <label className="form-label">Âge :*</label>
+      <label className="form-label">Âge :</label>
       <input type="number" {...register("age", { required: true })} className="form-input" />
       {errors.age && <span className="error-text">Champ requis</span>}
       </div>
       <div className="form-group">
-      <label className="form-label">Ville :*</label>
+      <label className="form-label">Ville :</label>
       <input {...register("location", { required: true })} className="form-input" />
       {errors.location && <span className="error-text">Champ requis</span>}
       </div>
       <div className="form-group">
-      <label className="form-label">Email :*</label>
+      <label className="form-label">Email :</label>
       <input type="email" {...register("email", { required: true })} className="form-input" />
       {errors.email && <span className="error-text">Champ requis</span>}
       </div>
       <div className="form-group">
-      <label className="form-label">Mot de passe :*</label>
+      <label className="form-label">Mot de passe :</label>
       <input type="password" {...register("password", { required: true })} className="form-input" />
       {errors.password && <span className="error-text">Champ requis</span>}
       </div>
