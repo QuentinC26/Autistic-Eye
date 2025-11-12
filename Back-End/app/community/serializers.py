@@ -4,11 +4,20 @@ from members.serializers import UserSerializer
 class PostSerializer(serializers.ModelSerializer):
     # authors is equal to the data in UserSerializers
     author = UserSerializer(read_only=True)
+    # A field calculated via a method to return, for example, the URL of the image.
+    image = serializers.SerializerMethodField()
+
     # Used to configure the serializer
     class Meta:
         model = Post
         # Serialize all model fields
         fields = '__all__'
+
+    def get_image(self, obj):
+        request = self.context.get('request')
+        if obj.image:
+            return request.build_absolute_uri(obj.image.url)
+        return None
 
 class CommentaryPostSerializer(serializers.ModelSerializer):
     # authors is equal to the data in UserSerializers
