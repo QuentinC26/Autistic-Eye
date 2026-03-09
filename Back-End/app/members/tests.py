@@ -1,5 +1,6 @@
 import pytest
 from members.models import User
+from rest_framework.test import APIClient
 
 @pytest.mark.django_db
 # test for verify the model is works well
@@ -25,11 +26,12 @@ def test_member_login(client):
     assert response.status_code == 200
 
 @pytest.mark.django_db
-# test for verify the model is works well
-def test_delete_user(client):
+# test for delete account is works well
+def test_delete_user():
+    client = APIClient()
     member = User.objects.create(first_name="Albert", last_name="Dixon", age="36", location="Lille", email="albertdixon@gmail.com")
     member.set_password("bulbizarredu89")
     member.save()
-    client.force_login(member)
-    response = client.post("/members/profile/delete/")
-    assert response.status_code == 200
+    client.force_authenticate(user=member)
+    response = client.delete("/members/profile/delete/")
+    assert response.status_code == 204
