@@ -8,7 +8,7 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    birth_date = models.DateField()
+    birth_date = models.DateField(default="2000-01-01")
     location = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True)
     
