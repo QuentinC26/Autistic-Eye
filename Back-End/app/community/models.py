@@ -32,7 +32,7 @@ class Post(models.Model):
 
 # The basic template for any post
 class CommentaryPost(models.Model):
-    id = models.UUIDField
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # related_name='commentaries': Allows you to run user.commentary.all() to view their posts
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='commentaries')
     post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, related_name='comments')
