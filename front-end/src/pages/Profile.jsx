@@ -16,6 +16,26 @@ function Profile() {
   // Stores form fields (editable)
   const [formData, setFormData] = useState({});
 
+  const calculateAge = (birthDate) => {
+    if (!birthDate) return "";
+
+    const today = new Date();
+    const birth = new Date(birthDate);
+
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+
+    // If the birthday hasn’t passed yet this year
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birth.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
+
   // This code runs after the component is initially rendered.
     useEffect(() => {
       // It does nothing if the user or token is not yet available
@@ -51,7 +71,6 @@ function Profile() {
             setFormData({
               first_name: data.first_name || '',
               last_name: data.last_name || '',
-              age: data.age || '',
               location: data.location || ''
             });
           }
@@ -162,7 +181,7 @@ function Profile() {
           <>
             <h4 className="card_profile">Prénom : {profile.first_name}</h4>
             <h4 className="card_profile">Nom : {profile.last_name}</h4>
-            <h4 className="card_profile">Âge : {profile.age}</h4>
+            <h4 className="card_profile">Âge : {calculateAge(profile.birth_date)}</h4>
             <h4 className="card_profile">Ville : {profile.location}</h4>
             <h4 className="card_profile">Email : {profile.email}</h4>
             <button onClick={() => setIsEditing(true)}>Modifier le profil</button>
@@ -190,15 +209,6 @@ function Profile() {
               />
             </label>
             <br />
-            <label>
-              <h4 className="card_profile">Âge :</h4>
-              <input className="card_profile"
-                type="number"
-                name="age"
-                value={formData.age}
-                onChange={ModidyData}
-              />
-            </label>
             <br />
             <label>
               <h4 className="card_profile">Ville :</h4>
