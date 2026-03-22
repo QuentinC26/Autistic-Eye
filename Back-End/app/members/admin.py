@@ -9,15 +9,15 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     # for modify the user information by an admin
     fieldsets = (
-        (('Basics Informations'), {'fields': ('first_name', 'last_name', 'age', 'location')}),
+        (('Basics Informations'), {'fields': ('first_name', 'last_name', 'birth_date', 'location')}),
         (('Connexion'), {'fields': ('email', 'password')}),
         (('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         (('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     # Defines the columns that appear in the user list in the admin interface
-    list_display = ['first_name', 'last_name', 'age', 'location', 'email', 'is_staff']
+    list_display = ['first_name', 'last_name', 'birth_date', 'location', 'email', 'is_staff']
     # search for a user by typing a value in the search bar of the admin panel
-    search_fields = ('first_name', 'last_name', 'age', 'location', 'email')
+    search_fields = ('first_name', 'last_name', 'birth_date', 'location', 'email')
     # Defines in what order users are listed in the admin.
     ordering = ('first_name', )
 
