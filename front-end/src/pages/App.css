@@ -94,11 +94,12 @@ button {
 .card-header {
   font-weight: bold;
   margin-bottom: 8px;
+  color: #0c0c0c;
 }
 
 /* Body of the text inside the map */
 .card-content {
-  color: #333;
+  color: #0c0c0c;
   font-size: 18px;
 }
 
@@ -144,6 +145,7 @@ button {
   /* Automatically adjusts the size of the “internal content” */
   box-sizing: border-box;
   font-size: 16px;
+  color: #0c0c0c;
 }
 
 /* Aligns the cards neatly side by side, and centers them automatically */
@@ -168,18 +170,20 @@ button {
   max-width: 300px;
   /* Automatically adjusts the size of the “internal content” */
   box-sizing: border-box;
+  color: #0c0c0c;
 }
 
 /* Top part of the map (title of the article) */
 .card_article-header {
   font-weight: bold;
   margin-bottom: 8px;
+   color: #0c0c0c;
 }
 
 /* Body of the text inside the map */
 .card_article-content {
   font-size: 0.9rem;
-  color: #333;
+  color: #0c0c0c;;
 }
 
 /* Aligns the cards neatly side by side, and centers them automatically */
@@ -204,6 +208,7 @@ button {
   max-width: 300px;
   /* Automatically adjusts the size of the “internal content” */
   box-sizing: border-box;
+  color: #0c0c0c;
 }
 
 /* Visual appearance of a single card */
@@ -227,6 +232,7 @@ button {
   overflow-wrap: break-word;
   /* Ensures that even a URL without any spaces will not overflow */
   word-break: break-word;
+  color: #0c0c0c;
 }
 
 .medium-text {
@@ -259,6 +265,11 @@ button {
 .form-group {
   margin-bottom: 15px;
   background-color: #FFF48D;
+  color: #0c0c0c;
+}
+
+label{
+  color: #0c0c0c;
 }
 
 /* Descriptive text for a field (for example : "Email:") */
