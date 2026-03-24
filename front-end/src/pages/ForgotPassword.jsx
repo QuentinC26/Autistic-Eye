@@ -30,6 +30,7 @@ function ForgotPassword() {
   };
 
   return (
+    <main>
     <div><h2 className="form-title">Mot de passe oublié</h2>
     <div className="form-container">
       <br />
@@ -51,6 +52,7 @@ function ForgotPassword() {
       {message && <p className="form-message">{message}</p>}
     </div>
     </div>
+    </main>
   );
 }
 
