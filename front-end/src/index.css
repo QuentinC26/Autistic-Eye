@@ -27,13 +27,21 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  color: #000000;
+  color: #ffffff;
   background-color: #56739A;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h2 {
+  color:#000000;
+}
+
+h3 {
+  color:#000000;
 }
 
 button {
