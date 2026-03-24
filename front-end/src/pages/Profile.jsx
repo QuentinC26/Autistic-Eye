@@ -170,6 +170,7 @@ function Profile() {
  
   return (
   <>
+  <main>
     {user ? (
       <div>
         <h3>Mon Profil :</h3>
@@ -235,6 +236,7 @@ function Profile() {
       // If the user is not logged in, we redirect in Register_and_login page
       <Navigate to="/Register_and_login" />
     )}
+    </main>
   </>
 );
 }
