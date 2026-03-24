@@ -204,6 +204,7 @@ export default function Register_and_login() {
   }
 
   return (
+    <main>
     <div className="page-container">
         <h3>Attention !!</h3> 
         <p className="sizetext">
@@ -221,5 +222,6 @@ export default function Register_and_login() {
       <br></br>
       <br></br>
     </div>
+     </main>
  );
 }
