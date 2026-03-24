@@ -223,6 +223,7 @@ function PostDetail() {
   if (!post) return <p>Chargement...</p>;
 
   return (
+  <main>
   <div><h3>Post sélectionné :</h3>
     <div className="card_postdetails">
       {/* Displaying or editing the post */}
@@ -358,6 +359,7 @@ function PostDetail() {
     <br />
     <button onClick={AddComment}>Commenter</button>
   </div>
+  </main>
 );
 }
 
