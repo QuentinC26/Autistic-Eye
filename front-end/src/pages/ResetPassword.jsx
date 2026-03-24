@@ -54,6 +54,7 @@ function ResetPassword() {
   const new_password1 = watch("new_password1");
 
   return (
+    <main>
      <form onSubmit={handleSubmit(ResetPasswordSubmit)} className="form-container">
       <h2 className="form-title">Définir un nouveau mot de passe</h2>
 
@@ -93,6 +94,7 @@ function ResetPassword() {
 
       {message && <p className="form-message">{message}</p>}
     </form>
+    </main>
   );
 }
 
