@@ -152,6 +152,7 @@ if (error) {
 
 return (
   <>
+  <main>
     <div>
       <h3>Articles</h3>
       <br />
@@ -210,6 +211,7 @@ return (
         </button>
       </div>
     </div>
+    </main>
     </>
   );
 };
