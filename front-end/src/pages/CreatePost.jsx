@@ -53,6 +53,7 @@ function CreatePost() {
     };
  
     return (
+      <main>
       <div className="card">
       {/* Submit the form with field validation. */}
       <form onSubmit={handleSubmit(handleCreatePost)}
@@ -116,6 +117,7 @@ function CreatePost() {
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </form>
     </div>
+    </main>
     )} 
 
 export default CreatePost;
