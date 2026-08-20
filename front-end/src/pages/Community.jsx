@@ -157,6 +157,7 @@ function Community() {
 
     return (
       <>
+      <main>
           <div>
             <h3>Communauté</h3>
              <br />
@@ -205,6 +206,7 @@ function Community() {
         </button>
       </div>
     </div>
+    </main>
     </>
   );
 };

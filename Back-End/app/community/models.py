@@ -1,8 +1,10 @@
 from django.db import models
 from members.models import User
+import uuid
 
 # The basic template for any post
 class Post(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # The user can choose a category for their post based on its content...
     # ...If the post is about their own experience, it will be categorized as "Sharing Experiences."
     SUBJECT_OF_POSTS = [
@@ -23,17 +25,22 @@ class Post(models.Model):
     subject = models.CharField(max_length=20, choices=SUBJECT_OF_POSTS, default='Autre')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
       return self.title
 
 # The basic template for any post
 class CommentaryPost(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # related_name='commentaries': Allows you to run user.commentary.all() to view their posts
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='commentaries')
     post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, related_name='comments')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
       if self.author:
-        return f"Commentaire de {self.author.username}"
+        return f"Commentaire de {self.author.email}"
       return "Commentaire d’un utilisateur supprimé"

@@ -16,3 +16,7 @@ djangorestframework-simplejwt==5.3.1
 django-cors-headers==4.4.0
 # Install django-anymail + dependencies for Mailgun
 django-anymail[mailgun]==10.2
+# for the tests
+pytest>=9.0
+pytest-django>=4.11.1
+pytest-cov>=7.0.0

@@ -29,10 +29,12 @@ function VerifyEmail() {
   }, [token]);
 
   return (
+    <main>
     <div>
       <h2>Vérification de l'adresse email</h2>
       <p>{message}</p>
     </div>
+    </main>
   );
 }
 

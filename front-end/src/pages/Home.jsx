@@ -119,6 +119,7 @@ function Home() {
 
   return (
   <>
+  <main>
     {/* ? = the condition is True */}
     {/* : = the condition is False */}
     {user ? (
@@ -233,6 +234,7 @@ function Home() {
         <br />
       </div>
     )}
+    </main>
   </>
 )}
 

@@ -34,7 +34,7 @@ export function Register() {
           password2: data.password,
           first_name: data.first_name,
           last_name: data.last_name,
-          age: data.age,
+          birth_date: data.birth_date,
           location: data.location
       })
       });
@@ -73,9 +73,9 @@ export function Register() {
       {errors.last_name && <span className="error-text">Champ requis</span>}
       </div>
       <div className="form-group">
-      <label className="form-label">*Âge :</label>
-      <input type="number" {...register("age", { required: true })} className="form-input" />
-      {errors.age && <span className="error-text">Champ requis</span>}
+      <label className="form-label">*Date de Naissance :</label>
+      <input type="date" {...register("birth_date", { required: true })} className="form-input" />
+      {errors.birth_date && <span className="error-text">Champ requis</span>}
       </div>
       <div className="form-group">
       <label className="form-label">*Ville :</label>
@@ -204,6 +204,7 @@ export default function Register_and_login() {
   }
 
   return (
+    <main>
     <div className="page-container">
         <h3>Attention !!</h3> 
         <p className="sizetext">
@@ -221,5 +222,6 @@ export default function Register_and_login() {
       <br></br>
       <br></br>
     </div>
+     </main>
  );
 }
