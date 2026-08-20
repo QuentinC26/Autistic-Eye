@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Autistic_Eye from '../assets/Autistic_Eye.png';
 
@@ -8,9 +8,15 @@ function Navigation() {
   const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // Menu hamburger
+  const [menuOpen, setMenuOpen] = useState(false);
+
   // Allows navigation to another page (for example, the Community page)...
   // ...this makes the code cleaner by avoiding the need for a navigation function for each page
-  const handleNavigate = (path) => navigate(path);
+  const handleNavigate = (path) => {
+    navigate(path);
+    setMenuOpen(false);
+  };
 
   const handleLogout = () => {
     // for logout the user
@@ -21,6 +27,8 @@ function Navigation() {
 
   return (
    <nav className="navbar">
+    {/* Navigation desktop */}
+    <div className="desktop-navigation">
     {/* Container in the left of the navbar */}
     <div className="navbar-left">
         <button onClick={() => handleNavigate('/')}>Accueil</button>
@@ -50,6 +58,59 @@ function Navigation() {
       <button onClick={() => handleNavigate('/Article')}>Article</button>
       <button onClick={() => handleNavigate('/Community')}>Communauté</button>
     </div>
+    </div>
+
+    {/* MOBILE */}
+      <div className="mobile-navigation">
+
+        <button
+          className="hamburger-button"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
+
+        <img
+          src={Autistic_Eye}
+          className="logo_of_website"
+          alt="Autistic Eye logo"
+          onClick={() => handleNavigate('/')}
+        />
+
+        {menuOpen && (
+          <div className="hamburger-menu">
+
+            <button onClick={() => handleNavigate('/')}>
+              Accueil
+            </button>
+
+            <button onClick={() => handleNavigate('/Article')}>
+              Article
+            </button>
+
+            <button onClick={() => handleNavigate('/Community')}>
+              Communauté
+            </button>
+
+            {user && (
+              <button onClick={() => handleNavigate('/Profile')}>
+                Mon Profil
+              </button>
+            )}
+
+            {!user ? (
+              <button onClick={() => handleNavigate('/Register_and_login')}>
+                Inscription / Connexion
+              </button>
+            ) : (
+              <button onClick={handleLogout}>
+                Déconnexion
+              </button>
+            )}
+
+          </div>
+        )}
+      </div>
    </nav>
   );
 }
