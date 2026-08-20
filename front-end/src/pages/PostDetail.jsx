@@ -59,9 +59,9 @@ function PostDetail() {
         // data.results is for data that has been paginated
         const filtered = data.results
           // Keep only comments that belong to the displayed post
-          ? data.results.filter(comment => comment.post === Number(id)) 
+          ? data.results.filter(comment => String(comment.post) === String(id)) 
           // Does the same as the line above but for the case where the page is not paginated
-          : data.filter(comment => comment.post === Number(id));
+          : data.filter(comment => String(comment.post) === String(id));
         // Saves filtered comments for display
         setComments(filtered);
       });
@@ -96,8 +96,8 @@ function PostDetail() {
       .then(res => res.json())
       .then(data => {
         const filtered = data.results
-          ? data.results.filter(comment => comment.post === Number(id)) 
-          : data.filter(comment => comment.post === Number(id));
+          ? data.results.filter(comment => String(comment.post) === String(id)) 
+          : data.filter(comment => String(comment.post) === String(id));
         setComments(filtered);
       });
   };
@@ -191,7 +191,7 @@ function PostDetail() {
     const commentsArray = Array.isArray(updatedCommentPost.results)
       ? updatedCommentPost.results
       : updatedCommentPost;
-    const filteredComments = commentsArray.filter(comment => comment.post === Number(id));
+    const filteredComments = commentsArray.filter(comment => String(comment.post) === String(id));
     setComments(filteredComments);
   };
 
