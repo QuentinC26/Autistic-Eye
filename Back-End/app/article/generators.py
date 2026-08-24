@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 
 # Store the URL of your custom RSS feed in a variable
 RSS_FEED_URL = { 
-    "Autism France" : "https://rss.app/feeds/w3Fh1Jko3e5lPNit.xml",
-    "Autisme Home": "https://rss.app/feeds/V3SJH3WmM5hVVK7U.xml"
+    "Autism France" : "https://www.anyrss.app/api/feed?u=2419128847042090&f=hjdju69n",
+    "Autism Home" : "https://www.anyrss.app/api/feed?u=2419128847042090&f=s4eorrn3"
 }
 
 # Allows you to define the keywords that must appear in the title or description for the article to be saved
