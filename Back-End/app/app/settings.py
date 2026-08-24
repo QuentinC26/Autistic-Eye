@@ -137,6 +137,7 @@ DATABASES = {
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
+# Avoid using Allauth's email verification; use the custom email verification system instead.
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # Password validation

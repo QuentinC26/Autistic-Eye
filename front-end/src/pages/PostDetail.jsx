@@ -271,7 +271,7 @@ function PostDetail() {
         <>
           <h3>{post.title}</h3>
           <h5>{post.subject}</h5>
-          <p>{post.content}</p>
+          <p style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>{post.content}</p>
           
           {/* If the logged-in user is indeed the author of the post, then display what is in parentheses, otherwise display nothing. */}
           {user?.email === post?.author?.email && (
@@ -323,7 +323,7 @@ function PostDetail() {
             </form>
           ) : (
             <>
-              <p>{comment.content} — {comment.author.first_name} {comment.author.last_name}</p>
+              <p  style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>{comment.content} <br /> <b> —————— </b> <br /> {comment.author.first_name} {comment.author.last_name}</p>
               {/* If the logged-in user is indeed the author of the comment, then display what is in parentheses, otherwise display nothing. */}
               {user?.email === comment?.author?.email && (
                 <>
