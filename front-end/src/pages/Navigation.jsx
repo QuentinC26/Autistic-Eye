@@ -84,6 +84,12 @@ function Navigation() {
               Accueil
             </button>
 
+             {user && (
+              <button onClick={() => handleNavigate('/Profile')}>
+                Mon Profil
+              </button>
+            )}
+
             <button onClick={() => handleNavigate('/Article')}>
               Article
             </button>
@@ -91,12 +97,6 @@ function Navigation() {
             <button onClick={() => handleNavigate('/Community')}>
               Communauté
             </button>
-
-            {user && (
-              <button onClick={() => handleNavigate('/Profile')}>
-                Mon Profil
-              </button>
-            )}
 
             {!user ? (
               <button onClick={() => handleNavigate('/Register_and_login')}>
